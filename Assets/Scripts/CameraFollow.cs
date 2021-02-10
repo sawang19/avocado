@@ -5,8 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     private Transform playerTransform;
-    private float oneKeySize = 2.5f;
-    private float twoKeySize = 4f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,15 +19,6 @@ public class CameraFollow : MonoBehaviour
         temp.x = playerTransform.position.x;
         temp.y = playerTransform.position.y;
 
-        if(Player.keys == 1)
-        {
-            Camera.main.orthographicSize = oneKeySize;
-        }
-        if (Player.keys == 2)
-        {
-            Camera.main.orthographicSize = twoKeySize;
-        }
-        
         transform.position = temp;
     }
 }
