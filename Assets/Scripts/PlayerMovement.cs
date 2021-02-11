@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         {
             keys++;
             keyAmount.text = "Keys: " + keys;
+            FindObjectOfType<AudioManager>().Play("coin");
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.tag == "Enemies")
