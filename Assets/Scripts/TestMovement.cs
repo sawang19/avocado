@@ -18,28 +18,7 @@ public class TestMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        //if(flag == 0)
-        //{
-        //    movement.x = 1;
-        //    movement.y = 0;
-        //}
-        //if(flag == 1)
-        //{
-        //    movement.x = 0;
-        //    movement.y = 1;
-        //}
-        //if(flag == 2)
-        //{
-        //    movement.x = 0;
-        //    movement.y = -1;
-        //}
-        //if(flag == 3)
-        //{
-        //    movement.x = -1;
-        //    movement.y = 0;
-        //}
-        
+    {    
         if (flag == 0)
         {
             movement.x = 1;
@@ -60,14 +39,20 @@ public class TestMovement : MonoBehaviour
             movement.x = 0;
             movement.y = -1;
         }
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
+        UpdateAnimationAndMove();
      
 
     }
 
-    void FixedUpdate()
+    void UpdateAnimationAndMove()
+    {
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.sqrMagnitude);
+        MoveCharacter();
+    }
+
+    void MoveCharacter()
     {
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
     }

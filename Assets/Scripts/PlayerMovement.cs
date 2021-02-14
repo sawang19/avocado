@@ -4,8 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public enum PlayerState
+{
+    Walking,
+    Attacking
+}
+
 public class PlayerMovement : MonoBehaviour
 {
+    public PlayerState currentState;
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     Vector2 movement;
@@ -14,24 +21,43 @@ public class PlayerMovement : MonoBehaviour
     public Text keyAmount;
     public Text youwin;
 
+    private void Start()
+    {
+        currentState = PlayerState.Walking;
+    }
     // Update is called once per frame
     void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        if(Input.GetButtonDown("Jump") && currentState != PlayerState.Attacking)
+        {
+            animator.SetBool("Attacking", true);
+        } else
+        {
+            UpdateAnimationAndMove();
+        }
+    }
+
+    void UpdateAnimationAndMove()
+    {
         if (movement != Vector2.zero)
         {
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
         }
         animator.SetFloat("Speed", movement.sqrMagnitude);
+        animator.SetBool("Attacking", false);
+        MoveCharacter();
     }
 
-    void FixedUpdate()
+    void MoveCharacter()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
+
+    
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -53,24 +79,5 @@ public class PlayerMovement : MonoBehaviour
             youwin.text = "YOU WIN!";
         }
 
-        if (collision.gameObject.tag == "Walls")
-        {
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
-            }
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                transform.Translate(0, -moveSpeed * Time.deltaTime, 0);
-            }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                transform.Translate(0, moveSpeed * Time.deltaTime, 0);
-            }
-        }
     }
 }
