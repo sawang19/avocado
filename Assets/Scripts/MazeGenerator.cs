@@ -149,7 +149,52 @@ public class MazeGenerator {
 				}
 			}
 		}
+
+		mazeGrid = expandArray(mazeGrid);
 	}
+
+	private int[,] expandArray(int[,] arr) {
+        int[,] newArr = new int[arr.GetLength(0) * 2 - 1, arr.GetLength(1) * 2 - 1];
+            
+        for (int i = 0; i < arr.GetLength(0); i++) {
+            for (int j = 0; j < arr.GetLength(1); j++) {
+                newArr[2 * i, 2 * j] = arr[i, j];
+            }
+        }
+        //printArray(newArr);
+        
+        for (int i = 0; i < newArr.GetLength(0) - 2; i++) {
+            for (int j = 0; j < newArr.GetLength(1) - 2; j++) {
+                if (newArr[i, j] == 1) {
+                    if (newArr[i + 2, j] == 1) {
+                        newArr[i + 1, j] = 2;
+                    }
+                    if (newArr[i, j + 2] == 1) {
+                        newArr[i, j + 1] = 2;
+                    }
+                }
+            }
+        }
+        
+        for (int i = 0; i < newArr.GetLength(1); i++) {
+            newArr[newArr.GetLength(0) - 1, i] = 1;
+        }
+        
+        for (int i = 0; i < newArr.GetLength(0); i++) {
+            newArr[i, newArr.GetLength(1) - 1] = 1;
+        }
+        
+        for (int i = 0; i < newArr.GetLength(0); i++) {
+            for (int j = 0; j < newArr.GetLength(1); j++) {
+                if (newArr[i, j] == 2) {
+                    newArr[i, j] = 1;
+                }
+            }
+        }
+        
+        return newArr;
+    }
+        
 
 	public void printMaze() {
 		Console.WriteLine("Maze binary format:");

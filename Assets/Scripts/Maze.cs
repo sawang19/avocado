@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Maze : MonoBehaviour
-{
+public class Maze : MonoBehaviour {
+	public static int[,] mazeMap;
+	int mazeWidth = 10;
+	int mazeHeight = 10;
+	string level = "HARD";
+
+
 	public GameObject wall_v;
 	public GameObject wall_h;
 
@@ -25,265 +30,229 @@ public class Maze : MonoBehaviour
 	public GameObject wall_b;
 	public GameObject wall_l;
 
-
-	public static int[,] mazeMap;
-	int mazeWidth = 10;
-	int mazeHeight = 10;
-	string level = "EASY";
+	public GameObject wall_o;
 
     // Start is called before the first frame update
-	void Start()
-	{
+	void Start() {
 		DrawMaze(mazeWidth, mazeHeight, level);
+
+		// Test empty space
+		if (false) {
+			for (int x = 0; x < mazeMap.GetLength(0); x++) {
+				for (int y = 0; y < mazeMap.GetLength(1); y++) {
+					if (mazeMap[x, y] == 0) {
+						Vector3 position = new Vector3 (x, y, 0f);
+						Instantiate(wall_urbl, position, Quaternion.identity);
+					}
+				}
+			}
+		}
 	}
 
     // Update is called once per frame
-	void Update()
-	{
-	}
+	void Update() {
 
-	string getTileType(int i, int j) {
-		if (mazeMap[i, j - 1] == 0 && mazeMap[i + 1, j] == 1 && mazeMap[i, j + 1] == 0 && mazeMap[i - 1, j] == 1) {
-			return "h";
-		}
-
-		if (mazeMap[i, j - 1] == 1 && mazeMap[i + 1, j] == 0 && mazeMap[i, j + 1] == 1 && mazeMap[i - 1, j] == 0) {
-			return "v";
-		}
-
-		if (mazeMap[i, j - 1] == 0 && mazeMap[i + 1, j] == 1 && mazeMap[i, j + 1] == 1 && mazeMap[i - 1, j] == 0) {
-			return "ul";
-		}
-
-		if (mazeMap[i, j - 1] == 0 && mazeMap[i + 1, j] == 0 && mazeMap[i, j + 1] == 1 && mazeMap[i - 1, j] == 1) {
-			return "ur";
-		}
-
-		if (mazeMap[i, j - 1] == 1 && mazeMap[i + 1, j] == 1 && mazeMap[i, j + 1] == 0 && mazeMap[i - 1, j] == 0) {
-			return "bl";
-		}
-
-		if (mazeMap[i, j - 1] == 1 && mazeMap[i + 1, j] == 0 && mazeMap[i, j + 1] == 0 && mazeMap[i - 1, j] == 1) {
-			return "br";
-		}
-
-		if (mazeMap[i, j - 1] == 1 && mazeMap[i + 1, j] == 1 && mazeMap[i, j + 1] == 0 && mazeMap[i - 1, j] == 1) {
-			return "lur";
-		}
-
-		if (mazeMap[i, j - 1] == 1 && mazeMap[i + 1, j] == 1 && mazeMap[i, j + 1] == 1 && mazeMap[i - 1, j] == 0) {
-			return "urb";
-		}
-
-		if (mazeMap[i, j - 1] == 0 && mazeMap[i + 1, j] == 1 && mazeMap[i, j + 1] == 1 && mazeMap[i - 1, j] == 1) {
-			return "rbl";
-		}
-
-		if (mazeMap[i, j - 1] == 1 && mazeMap[i + 1, j] == 0 && mazeMap[i, j + 1] == 1 && mazeMap[i - 1, j] == 1) {
-			return "blu";
-		}
-
-		if (mazeMap[i, j - 1] == 1 && mazeMap[i + 1, j] == 1 && mazeMap[i, j + 1] == 1 && mazeMap[i - 1, j] == 1) {
-			return "urbl";
-		}
-
-		if (mazeMap[i, j - 1] == 0 && mazeMap[i + 1, j] == 0 && mazeMap[i, j + 1] == 1 && mazeMap[i - 1, j] == 0) {
-			return "u";
-		}
-
-		if (mazeMap[i, j - 1] == 0 && mazeMap[i + 1, j] == 0 && mazeMap[i, j + 1] == 0 && mazeMap[i - 1, j] == 1) {
-			return "r";
-		}
-
-		if (mazeMap[i, j - 1] == 1 && mazeMap[i + 1, j] == 0 && mazeMap[i, j + 1] == 0 && mazeMap[i - 1, j] == 0) {
-			return "b";
-		}
-
-		if (mazeMap[i, j - 1] == 0 && mazeMap[i + 1, j] == 1 && mazeMap[i, j + 1] == 0 && mazeMap[i - 1, j] == 0) {
-			return "l";
-		}
-
-		return "";
 	}
 
 	void DrawMaze(int mazeWidth, int mazeHeight, string level) {
 		MazeGenerator maze = new MazeGenerator(mazeWidth, mazeHeight, level);
 		maze.generate();
 		mazeMap = maze.mazeGrid;
+		
+		int[,] mazeMapTrf = mazeTransfer(mazeMap);
+		int mazeMapX = mazeMapTrf.GetLength(0);//2 * mazeWidth + 1;
+		int mazeMapY = mazeMapTrf.GetLength(1);//2 * mazeHeight + 1;
 
-		int mazeMapWidth = 2 * mazeWidth + 1;
-		int mazeMapHeight = 2 * mazeHeight + 1;
+		int offsetY = mazeMapY - 1;
 
 		Vector3 position;
 
-		position = new Vector3 (-mazeWidth, mazeHeight, 0f);
+		// Draw 4 corners
+		position = new Vector3 (0, 0 + offsetY, 0f);
 		Instantiate(wall_ul, position, Quaternion.identity);
 
-		position = new Vector3 (-mazeWidth, -mazeHeight, 0f);
+		position = new Vector3 (0, -mazeMapY + 1 + offsetY, 0f);
 		Instantiate(wall_bl, position, Quaternion.identity);
 
-		position = new Vector3 (mazeWidth, mazeHeight, 0f);
+		position = new Vector3 (mazeMapX - 1, 0 + offsetY, 0f);
 		Instantiate(wall_ur, position, Quaternion.identity);
 
-		position = new Vector3 (mazeWidth, -mazeHeight, 0f);
+		position = new Vector3 (mazeMapX - 1, -mazeMapY + 1 + offsetY, 0f);
 		Instantiate(wall_br, position, Quaternion.identity);
 
-
-		for (int i = 1; i < mazeMapWidth - 1; i++) {
-			if (mazeMap[i, 1] == 1) {
-				position = new Vector3 (i - mazeWidth, mazeHeight, 0f);
+		// Draw 2 horizontal borders
+		for (int i = 1; i < mazeMapX - 1; i++) {
+			position = new Vector3 (i, 0 + offsetY, 0f);
+			if (mazeMapTrf[i, 1] == 1) {
 				Instantiate(wall_rbl, position, Quaternion.identity);
 			}
 			else {
-				position = new Vector3 (i - mazeWidth, mazeHeight, 0f);
 				Instantiate(wall_h, position, Quaternion.identity);
 			}
 
-			if (mazeMap[i, mazeMapHeight - 2] == 1) {
-				position = new Vector3 (i - mazeWidth, -mazeHeight, 0f);
+			position = new Vector3 (i, -mazeMapY + 1 + offsetY, 0f);
+			if (mazeMapTrf[i, mazeMapY - 2] == 1) {
 				Instantiate(wall_lur, position, Quaternion.identity);
 			}
 			else {
-				position = new Vector3 (i - mazeWidth, -mazeHeight, 0f);
 				Instantiate(wall_h, position, Quaternion.identity);
 			}
 		}
 
-		for (int j = 1; j < mazeMapHeight - 1; j++) {
-			if (mazeMap[1, j] == 1) {
-				position = new Vector3 (-mazeWidth, mazeHeight - j, 0f);
+		// Draw 2 vertical borders
+		for (int j = 1; j < mazeMapY - 1; j++) {
+			position = new Vector3 (0, -j + offsetY, 0f);
+			if (mazeMapTrf[1, j] == 1) {
 				Instantiate(wall_urb, position, Quaternion.identity);
 			}
 			else {
-				position = new Vector3 (-mazeWidth, mazeHeight - j, 0f);
 				Instantiate(wall_v, position, Quaternion.identity);
 			}
 
-			if (mazeMap[mazeMapWidth - 2, j] == 1) {
-				position = new Vector3 (mazeWidth, mazeHeight - j, 0f);
+			position = new Vector3 (mazeMapX - 1, -j + offsetY, 0f);
+			if (mazeMapTrf[mazeMapX - 2, j] == 1) {
 				Instantiate(wall_blu, position, Quaternion.identity);
 			}
 			else {
-				position = new Vector3 (mazeWidth, mazeHeight - j, 0f);
 				Instantiate(wall_v, position, Quaternion.identity);
 			}
 		}
 
-		for (int i = 1; i < mazeMapWidth - 1; i++) {
-			for (int j = 1; j < mazeMapHeight - 1; j++) {
-				if (mazeMap[i, j] == 1) {
-					position = new Vector3 (i - mazeWidth, mazeHeight - j, 0f);
+		// Draw inner
+		for (int i = 1; i < mazeMapX - 1; i++) {
+			for (int j = 1; j < mazeMapY - 1; j++) {
+				if (mazeMapTrf[i, j] == 1) {
+					position = new Vector3 (i, -j + offsetY, 0f);
 
-					if (getTileType(i, j).Equals("h")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("h")) {
 						Instantiate(wall_h, position, Quaternion.identity);
 					}
-					if (getTileType(i, j).Equals("v")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("v")) {
 						Instantiate(wall_v, position, Quaternion.identity);
 					}
-					if (getTileType(i, j).Equals("ul")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("ul")) {
 						Instantiate(wall_ul, position, Quaternion.identity);
 					}
-					if (getTileType(i, j).Equals("ur")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("ur")) {
 						Instantiate(wall_ur, position, Quaternion.identity);
 					}
-					if (getTileType(i, j).Equals("bl")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("bl")) {
 						Instantiate(wall_bl, position, Quaternion.identity);
 					}
-					if (getTileType(i, j).Equals("br")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("br")) {
 						Instantiate(wall_br, position, Quaternion.identity);
 					}
-					
-					if (getTileType(i, j).Equals("lur")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("lur")) {
 						Instantiate(wall_lur, position, Quaternion.identity);
 					}
-
-					if (getTileType(i, j).Equals("urb")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("urb")) {
 						Instantiate(wall_urb, position, Quaternion.identity);
 					}
-
-					if (getTileType(i, j).Equals("rbl")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("rbl")) {
 						Instantiate(wall_rbl, position, Quaternion.identity);
 					}
-
-					if (getTileType(i, j).Equals("blu")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("blu")) {
 						Instantiate(wall_blu, position, Quaternion.identity);
 					}
-
-					if (getTileType(i, j).Equals("urbl")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("urbl")) {
 						Instantiate(wall_urbl, position, Quaternion.identity);
 					}
-
-					if (getTileType(i, j).Equals("u")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("u")) {
 						Instantiate(wall_u, position, Quaternion.identity);
 					}
-
-					if (getTileType(i, j).Equals("r")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("r")) {
 						Instantiate(wall_r, position, Quaternion.identity);
 					}
-
-					if (getTileType(i, j).Equals("b")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("b")) {
 						Instantiate(wall_b, position, Quaternion.identity);
 					}
-
-					if (getTileType(i, j).Equals("l")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("l")) {
 						Instantiate(wall_l, position, Quaternion.identity);
 					}
-				}
-			}
-		}
-
-		/*
-		for (int i = 0; i < mazeMapWidth - 1; i++) {
-			position = new Vector3 (i - mazeMapWidth, 0, 0f);
-			Instantiate(wall_h, position, Quaternion.identity);
-		}
-
-		for (int j = 0; j < mazeMapHeight - 1; j++) {
-			position = new Vector3 (0, j - mazeMapHeight, 0f);
-			Instantiate(wall_v, position, Quaternion.identity);
-		}
-		*/
-		/*
-		for (int i = 0; i < mazeMapWidth; i++) {
-			for (int j = 0; j < mazeMapHeight; j++) {
-				if (mazeMap[i, j] == 1) {
-					position = new Vector3 (i - mazeWidth, j - mazeHeight, 0f);
-					//Instantiate(wall_v, position, Quaternion.identity);
-
-					if (i != 0 && i != (mazeMapWidth - 1) && mazeMap[i - 1, j] == 1 && mazeMap[i + 1, j] == 1) {
-						Instantiate(wall_h, position, Quaternion.identity);
-					}
-
-					if (j != 0 && j != (mazeMapHeight - 1) && mazeMap[i, j - 1] == 1 && mazeMap[i, j + 1] == 1) {
-						Instantiate(wall_v, position, Quaternion.identity);
-					}
-
-					if (i < (mazeMapWidth - 1) && j < (mazeMapHeight - 1) && mazeMap[i + 1, j] == 1 && mazeMap[i, j + 1] == 1) {
-						Instantiate(wall_ul, position, Quaternion.identity);
+					if (getTileType(mazeMapTrf, i, j).Equals("o")) {
+						Instantiate(wall_o, position, Quaternion.identity);
 					}
 				}
 			}
 		}
-		*/
-		/*
-		//Vector3 position;
-		for (int i = 0; i < mazeMapWidth; i++) {
-			for (int j = 0; j < mazeMapHeight; j++) {
-				if (mazeMap[i, j] == 1) {
-					position = new Vector3 (i - mazeWidth, j - mazeHeight, 0f);
-					Instantiate(wall_v, position, Quaternion.identity);
-					if ((i + 1) < mazeMapWidth && mazeMap[i + 1, j] != 0) {
-						position = new Vector3 ((float)i - mazeWidth + 0.5f, j - mazeHeight, 0f);
-						Instantiate(wall_v, position, Quaternion.identity);
-					}
+	}
 
-					if ((j + 1) < mazeMapHeight && mazeMap[i, j + 1] != 0) {
-						position = new Vector3 (i - mazeWidth, (float)j - mazeHeight + 0.5f, 0f);
-						Instantiate(wall_v, position, Quaternion.identity);
-					}
-				}
+	int[,] mazeTransfer(int[,] mazeOld) {
+		int mazeMapX = mazeOld.GetLength(0);
+		int mazeMapY = mazeOld.GetLength(1);
+
+		int[,] mazeNew = new int[mazeMapX, mazeMapY];
+
+		for (int i = 0; i < mazeMapX; i++) {
+			for (int j = 0; j < mazeMapY; j++) {
+				mazeNew[i, mazeMapY - j - 1] = mazeOld[i, j];
 			}
 		}
-		*/
+
+		return mazeNew;
+	}
+
+	string getTileType(int[,] localMaze, int i, int j) {
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1) {
+			return "h";
+		}
+
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0) {
+			return "v";
+		}
+
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0) {
+			return "ul";
+		}
+
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1) {
+			return "ur";
+		}
+
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 0) {
+			return "bl";
+		}
+
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1) {
+			return "br";
+		}
+
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1) {
+			return "lur";
+		}
+
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0) {
+			return "urb";
+		}
+
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1) {
+			return "rbl";
+		}
+
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1) {
+			return "blu";
+		}
+
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1) {
+			return "urbl";
+		}
+
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0) {
+			return "u";
+		}
+
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1) {
+			return "r";
+		}
+
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 0) {
+			return "b";
+		}
+
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 0) {
+			return "l";
+		}
+
+		return "o";
 	}
 }
