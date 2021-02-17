@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     public static int keys = 0;
     public Text keyAmount;
     public Text youwin;
+    public bool endgame = false;
+    public GameOver GameOver;
+    public GameWin GameWin;
 
     private void Start()
     {
@@ -28,15 +31,19 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        if(!endgame)
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetButtonDown("Jump") && currentState != PlayerState.Attacking)
-        {
-            animator.SetBool("Attacking", true);
-        } else
-        {
-            UpdateAnimationAndMove();
+            if (Input.GetButtonDown("Jump") && currentState != PlayerState.Attacking)
+            {
+                animator.SetBool("Attacking", true);
+            }
+            else
+            {
+                UpdateAnimationAndMove();
+            }
         }
     }
 
@@ -71,13 +78,27 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Enemies")
         {
             keys = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameOverAPI();
         }
 
         if (collision.gameObject.tag == "Door" && keys == 4)
         {
-            youwin.text = "YOU WIN!";
+            GameWinAPI();
         }
 
+    }
+
+    public void GameOverAPI()
+    {
+        GameOver.Setup();
+        endgame = true;
+        FindObjectOfType<AudioManager>().Pause("background");
+    }
+
+    public void GameWinAPI()
+    {
+        GameWin.Setup();
+        endgame = true;
+        FindObjectOfType<AudioManager>().Pause("bacground");
     }
 }
