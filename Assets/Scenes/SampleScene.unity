@@ -511,8 +511,8 @@ MonoBehaviour:
     source: {fileID: 0}
     loop: 0
   - name: background
-    clip: {fileID: 8300000, guid: 3828817ba3fe844e788b248a21f035f5, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: a63a6287134b71f4e8b9295dd0cb8cef, type: 3}
+    volume: 0.3
     pitch: 1
     source: {fileID: 0}
     loop: 0
