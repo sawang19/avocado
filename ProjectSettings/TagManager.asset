@@ -9,6 +9,8 @@ TagManager:
   - Enemies
   - Door
   - breakable
+  - Boots
+  - Coins
   layers:
   - Default
   - TransparentFX

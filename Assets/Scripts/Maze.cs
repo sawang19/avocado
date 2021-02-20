@@ -32,7 +32,11 @@ public class Maze : MonoBehaviour {
 
 	public GameObject wall_o;
 
-    // Start is called before the first frame update
+	public GameObject key; // 2
+	public GameObject coin; // 3
+	public GameObject boot; // 4
+
+	// Start is called before the first frame update
 	void Start() {
 		DrawMaze(mazeWidth, mazeHeight, level);
 
@@ -173,6 +177,33 @@ public class Maze : MonoBehaviour {
 						Instantiate(wall_o, position, Quaternion.identity);
 					}
 				}
+			}
+		}
+
+		putItems(mazeMapTrf, key, 2, 5);
+		putItems(mazeMapTrf, coin, 3, 10);
+		putItems(mazeMapTrf, boot, 4, 5);
+	}
+
+	// randomly put [total] [obj]s on the map, and mark the position with [mark]
+	void putItems(int[,] mazeMapTrf, GameObject obj, int mark, int total)
+	{
+		int mazeMapX = mazeMapTrf.GetLength(0);//2 * mazeWidth + 1;
+		int mazeMapY = mazeMapTrf.GetLength(1);//2 * mazeHeight + 1;
+		int offsetY = mazeMapY - 1;
+
+		int items = 0;
+		while (items < 5)
+		{
+			int i = Random.Range(1, mazeMapX - 1);
+			int j = Random.Range(1, mazeMapY - 1);
+			if (mazeMapTrf[i, j] == 0)
+			{
+				mazeMapTrf[i, j] = mark;
+				mazeMap[i, -j + mazeMapY - 1] = mark;
+				Vector3 position = new Vector3(i, -j + offsetY, 0f);
+				Instantiate(obj, position, Quaternion.identity);
+				items++;
 			}
 		}
 	}

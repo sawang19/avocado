@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     public Animator animator;
     public static int keys = 0;
+    public static int coins = 0;
+    public static int boots = 0;
+
     public Text keyAmount;
     public Text youwin;
     public bool endgame = false;
@@ -75,6 +78,21 @@ public class PlayerMovement : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("coin");
             Destroy(collision.gameObject);
         }
+
+        if (collision.gameObject.tag == "Coins")
+        {
+            coins += 10;
+            FindObjectOfType<AudioManager>().Play("coin");
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "Boots")
+        {
+            moveSpeed = 10f;
+            FindObjectOfType<AudioManager>().Play("coin");
+            Destroy(collision.gameObject);
+        }
+
         if (collision.gameObject.tag == "Enemies")
         {
             keys = 0;
