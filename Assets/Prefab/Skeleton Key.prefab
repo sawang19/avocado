@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4057719988692923923}
   - component: {fileID: 2947993203414723086}
   - component: {fileID: 5625761921254601942}
+  - component: {fileID: 8377246186233986792}
   m_Layer: 0
   m_Name: Skeleton Key
   m_TagString: Keys
@@ -142,3 +143,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &8377246186233986792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218484463065539397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

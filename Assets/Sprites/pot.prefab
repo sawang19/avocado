@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3591587325866508972}
   - component: {fileID: 3591587325866508971}
   - component: {fileID: 3591587325866508974}
-  - component: {fileID: 7416412781737978070}
+  - component: {fileID: -5849278618154240911}
+  - component: {fileID: -8465970356936357981}
   m_Layer: 0
   m_Name: pot
   m_TagString: breakable
@@ -130,7 +131,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7416412781737978070
+--- !u!114 &-5849278618154240911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,4 +143,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccb4e1b0cbe1e492683e6990aa876918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potObj: {fileID: 7170672246316549537, guid: af49049fd155f470eb354f9d83bf263e, type: 3}
+--- !u!114 &-8465970356936357981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3591587325866508970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

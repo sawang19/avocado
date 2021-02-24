@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.AI;
 
 public class mole : Enemy
 {
-    public Transform target;
+    //public Transform target;
     public float chaseRadius;
     public float attackRadius;
     public Transform homePosition;
     public Animator animator;
     private Rigidbody2D rb;
+    [SerializeField] Transform target;
+    public NavMeshAgent agent;
     //public Seeker seeker;
     //public Path path;
     //public int currentWayPoint = 0;
@@ -20,18 +23,25 @@ public class mole : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        
+
         currentState = EnemyState.idle;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        target = GameObject.FindWithTag("Player").transform;
+        //target = GameObject.FindWithTag("Player").transform;
+
         //seeker = GetComponent<Seeker>();
         //seeker.StartPath(rb.position, target.position, OnPathComplete);
         //InvokeRepeating("UpdatePath", 0f, 0.5f);
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         CheckDistance();
         //if(path == null)
         //{
@@ -74,20 +84,29 @@ public class mole : Enemy
 
     void CheckDistance()
     {
-        if(Vector3.Distance(target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius)
-        {
+        //if(Vector3.Distance(target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius)
+        //{
 
-            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
-            {
-                Vector3 temp = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-                ChangeAnim(temp - transform.position);
-                rb.MovePosition(temp);
-                ChangeState(EnemyState.walk);
-                animator.SetBool("Walking", true);
-            }
-        } else
+        //    if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
+        //    {
+        //        Vector3 temp = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        //        ChangeAnim(temp - transform.position);
+        //        rb.MovePosition(temp);
+        //        ChangeState(EnemyState.walk);
+        //        animator.SetBool("Walking", true);
+        //    }
+        //} else
+        //{
+        //    animator.SetBool("Walking", false);
+        //}
+        if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
         {
-            animator.SetBool("Walking", false);
+            Vector3 temp = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+            ChangeAnim(temp - transform.position);
+            //rb.MovePosition(temp);
+            agent.SetDestination(target.position);
+            ChangeState(EnemyState.walk);
+            animator.SetBool("Walking", true);
         }
     }
 
@@ -99,22 +118,22 @@ public class mole : Enemy
 
     private void ChangeAnim(Vector2 direction)
     {
-        if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        if(Mathf.Abs(agent.velocity.x) > Mathf.Abs(agent.velocity.y))
         {
-            if(direction.x < 0)
+            if(agent.velocity.x < 0)
             {
                 SetAnimFloat(Vector2.left);
-            } else if(direction.x > 0)
+            } else if(agent.velocity.x > 0)
             {
                 SetAnimFloat(Vector2.right);
             }
-        } else if(Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+        } else if(Mathf.Abs(agent.velocity.x) < Mathf.Abs(agent.velocity.y))
         {
-            if(direction.y < 0)
+            if(agent.velocity.y < 0)
             {
                 SetAnimFloat(Vector2.down);
             }
-            else if(direction.y > 0)
+            else if(agent.velocity.y > 0)
             {
                 SetAnimFloat(Vector2.up);
             }

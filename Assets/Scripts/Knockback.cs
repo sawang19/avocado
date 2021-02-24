@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Knockback : MonoBehaviour
 {
     public float thrust;
     public float knockTime;
     public float damage;
+
+    [SerializeField]
+    NavMeshSurface2d[] navMeshSurfaces;
 
     // Start is called before the first frame update
     void Start()
@@ -20,11 +24,26 @@ public class Knockback : MonoBehaviour
         
     }
 
+   
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("breakable") && this.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("breakable"))
         {
-            collision.GetComponent<pot>().Smash();
+
+            if (this.gameObject.CompareTag("Player"))
+            {
+                collision.GetComponent<pot>().Smash();
+            }
+            
+            for (int i = 0; i < navMeshSurfaces.Length; i++)
+            {
+
+                Debug.Log("hit");
+                navMeshSurfaces[i].BuildNavMesh();
+                
+            }
         }
 
         if (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("Player"))

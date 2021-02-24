@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 public class Maze : MonoBehaviour {
@@ -9,7 +10,7 @@ public class Maze : MonoBehaviour {
 	int mazeHeight = 10;
 	string level = "HARD";
 
-
+	public GameObject grid;
 	public GameObject wall_v;
 	public GameObject wall_h;
 
@@ -30,11 +31,15 @@ public class Maze : MonoBehaviour {
 	public GameObject wall_b;
 	public GameObject wall_l;
 
-	public GameObject wall_o;
+	//public GameObject wall_o;
 
 	public GameObject key; // 2
 	public GameObject coin; // 3
 	public GameObject boot; // 4
+	public GameObject pot;
+
+	[SerializeField]
+	NavMeshSurface2d[] navMeshSurfaces;
 
 	// Start is called before the first frame update
 	void Start() {
@@ -51,8 +56,8 @@ public class Maze : MonoBehaviour {
 				}
 			}
 		}
-
-		AstarPath.active.Scan();
+		//wall_b.transform.SetParent(grid.transform);
+		//AstarPath.active.Scan();
 	}
 
     // Update is called once per frame
@@ -63,24 +68,26 @@ public class Maze : MonoBehaviour {
 	void DrawMaze(int mazeWidth, int mazeHeight, string level) {
 		MazeGenerator maze = new MazeGenerator(mazeWidth, mazeHeight, level);
 		maze.generate();
-		wall_v.layer = 8;
-		wall_h.layer = 8;
-		wall_ul.layer = 8;
-		wall_ur.layer = 8;
-		wall_bl.layer = 8;
-		wall_br.layer = 8;
-		wall_lur.layer = 8;
-		wall_urb.layer = 8;
-		wall_rbl.layer = 8;
-		wall_blu.layer = 8;
-		wall_urbl.layer = 8;
-		wall_u.layer = 8;
-		wall_r.layer = 8;
-		wall_b.layer = 8;
-		wall_l.layer = 8;
-		wall_o.layer = 8;
+		//wall_v.layer = 8;
+		//wall_h.layer = 8;
+		//wall_ul.layer = 8;
+		//wall_ur.layer = 8;
+		//wall_bl.layer = 8;
+		//wall_br.layer = 8;
+		//wall_lur.layer = 8;
+		//wall_urb.layer = 8;
+		//wall_rbl.layer = 8;
+		//wall_blu.layer = 8;
+		//wall_urbl.layer = 8;
+		//wall_u.layer = 8;
+		//wall_r.layer = 8;
+		//wall_b.layer = 8;
+		//wall_l.layer = 8;
+		//wall_o.layer = 8;
 		mazeMap = maze.mazeGrid;
+
 		
+
 		int[,] mazeMapTrf = mazeTransfer(mazeMap);
 		int mazeMapX = mazeMapTrf.GetLength(0);//2 * mazeWidth + 1;
 		int mazeMapY = mazeMapTrf.GetLength(1);//2 * mazeHeight + 1;
@@ -91,33 +98,41 @@ public class Maze : MonoBehaviour {
 
 		// Draw 4 corners
 		position = new Vector3 (0, 0 + offsetY, 0f);
-		Instantiate(wall_ul, position, Quaternion.identity);
+		GameObject UL_corner = Instantiate(wall_ul, position, Quaternion.identity);
+		UL_corner.transform.SetParent(grid.transform);
 
 		position = new Vector3 (0, -mazeMapY + 1 + offsetY, 0f);
-		Instantiate(wall_bl, position, Quaternion.identity);
+		GameObject BL_corner = Instantiate(wall_bl, position, Quaternion.identity);
+		BL_corner.transform.SetParent(grid.transform);
 
 		position = new Vector3 (mazeMapX - 1, 0 + offsetY, 0f);
-		Instantiate(wall_ur, position, Quaternion.identity);
+		GameObject UR_corner = Instantiate(wall_ur, position, Quaternion.identity);
+		UR_corner.transform.SetParent(grid.transform);
 
 		position = new Vector3 (mazeMapX - 1, -mazeMapY + 1 + offsetY, 0f);
-		Instantiate(wall_br, position, Quaternion.identity);
+		GameObject BR_corner = Instantiate(wall_br, position, Quaternion.identity);
+		BR_corner.transform.SetParent(grid.transform);
 
 		// Draw 2 horizontal borders
 		for (int i = 1; i < mazeMapX - 1; i++) {
 			position = new Vector3 (i, 0 + offsetY, 0f);
 			if (mazeMapTrf[i, 1] == 1) {
-				Instantiate(wall_rbl, position, Quaternion.identity);
+				GameObject RBL_hborder = Instantiate(wall_rbl, position, Quaternion.identity);
+				RBL_hborder.transform.SetParent(grid.transform);
 			}
 			else {
-				Instantiate(wall_h, position, Quaternion.identity);
+				GameObject H_hborder = Instantiate(wall_h, position, Quaternion.identity);
+				H_hborder.transform.SetParent(grid.transform);
 			}
 
 			position = new Vector3 (i, -mazeMapY + 1 + offsetY, 0f);
 			if (mazeMapTrf[i, mazeMapY - 2] == 1) {
-				Instantiate(wall_lur, position, Quaternion.identity);
+				GameObject LUR_hborder = Instantiate(wall_lur, position, Quaternion.identity);
+				LUR_hborder.transform.SetParent(grid.transform);
 			}
 			else {
-				Instantiate(wall_h, position, Quaternion.identity);
+				GameObject H_hborder = Instantiate(wall_h, position, Quaternion.identity);
+				H_hborder.transform.SetParent(grid.transform);
 			}
 		}
 
@@ -125,18 +140,22 @@ public class Maze : MonoBehaviour {
 		for (int j = 1; j < mazeMapY - 1; j++) {
 			position = new Vector3 (0, -j + offsetY, 0f);
 			if (mazeMapTrf[1, j] == 1) {
-				Instantiate(wall_urb, position, Quaternion.identity);
+				GameObject URB_vborder = Instantiate(wall_urb, position, Quaternion.identity);
+				URB_vborder.transform.SetParent(grid.transform);
 			}
 			else {
-				Instantiate(wall_v, position, Quaternion.identity);
+				GameObject V_vborder = Instantiate(wall_v, position, Quaternion.identity);
+				V_vborder.transform.SetParent(grid.transform);
 			}
 
 			position = new Vector3 (mazeMapX - 1, -j + offsetY, 0f);
 			if (mazeMapTrf[mazeMapX - 2, j] == 1) {
-				Instantiate(wall_blu, position, Quaternion.identity);
+				GameObject BLU_vborder = Instantiate(wall_blu, position, Quaternion.identity);
+				BLU_vborder.transform.SetParent(grid.transform);
 			}
 			else {
-				Instantiate(wall_v, position, Quaternion.identity);
+				GameObject V_vborder = Instantiate(wall_v, position, Quaternion.identity);
+				V_vborder.transform.SetParent(grid.transform);
 			}
 		}
 
@@ -147,53 +166,69 @@ public class Maze : MonoBehaviour {
 					position = new Vector3 (i, -j + offsetY, 0f);
 
 					if (getTileType(mazeMapTrf, i, j).Equals("h")) {
-						Instantiate(wall_h, position, Quaternion.identity);
+						GameObject H_inner = Instantiate(wall_h, position, Quaternion.identity);
+						H_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("v")) {
-						Instantiate(wall_v, position, Quaternion.identity);
+						GameObject V_inner = Instantiate(wall_v, position, Quaternion.identity);
+						V_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("ul")) {
-						Instantiate(wall_ul, position, Quaternion.identity);
+						GameObject UL_inner = Instantiate(wall_ul, position, Quaternion.identity);
+						UL_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("ur")) {
-						Instantiate(wall_ur, position, Quaternion.identity);
+						GameObject UR_inner = Instantiate(wall_ur, position, Quaternion.identity);
+						UR_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("bl")) {
-						Instantiate(wall_bl, position, Quaternion.identity);
+						GameObject BL_inner = Instantiate(wall_bl, position, Quaternion.identity);
+						BL_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("br")) {
-						Instantiate(wall_br, position, Quaternion.identity);
+						GameObject BR_inner = Instantiate(wall_br, position, Quaternion.identity);
+						BR_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("lur")) {
-						Instantiate(wall_lur, position, Quaternion.identity);
+						GameObject LUR_inner = Instantiate(wall_lur, position, Quaternion.identity);
+						LUR_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("urb")) {
-						Instantiate(wall_urb, position, Quaternion.identity);
+						GameObject URB_inner = Instantiate(wall_urb, position, Quaternion.identity);
+						URB_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("rbl")) {
-						Instantiate(wall_rbl, position, Quaternion.identity);
+						GameObject RBL_inner = Instantiate(wall_rbl, position, Quaternion.identity);
+						RBL_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("blu")) {
-						Instantiate(wall_blu, position, Quaternion.identity);
+						GameObject BLU_inner = Instantiate(wall_blu, position, Quaternion.identity);
+						BLU_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("urbl")) {
-						Instantiate(wall_urbl, position, Quaternion.identity);
+						GameObject URBL_inner = Instantiate(wall_urbl, position, Quaternion.identity);
+						URBL_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("u")) {
-						Instantiate(wall_u, position, Quaternion.identity);
+						GameObject U_inner = Instantiate(wall_u, position, Quaternion.identity);
+						U_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("r")) {
-						Instantiate(wall_r, position, Quaternion.identity);
+						GameObject R_inner = Instantiate(wall_r, position, Quaternion.identity);
+						R_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("b")) {
-						Instantiate(wall_b, position, Quaternion.identity);
+						GameObject B_inner = Instantiate(wall_b, position, Quaternion.identity);
+						B_inner.transform.SetParent(grid.transform);
 					}
 					if (getTileType(mazeMapTrf, i, j).Equals("l")) {
-						Instantiate(wall_l, position, Quaternion.identity);
+						GameObject L_inner = Instantiate(wall_l, position, Quaternion.identity);
+						L_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("o")) {
-						Instantiate(wall_o, position, Quaternion.identity);
-					}
+					//if (getTileType(mazeMapTrf, i, j).Equals("o")) {
+					//	GameObject O_inner = Instantiate(wall_o, position, Quaternion.identity);
+					//	O_inner.transform.SetParent(grid.transform);
+					//}
 				}
 			}
 		}
@@ -201,6 +236,13 @@ public class Maze : MonoBehaviour {
 		putItems(mazeMapTrf, key, 2, 5);
 		putItems(mazeMapTrf, coin, 3, 10);
 		putItems(mazeMapTrf, boot, 4, 5);
+		putItems(mazeMapTrf, pot, 5, 5);
+
+
+		for (int i = 0; i < navMeshSurfaces.Length; i++)
+		{
+			navMeshSurfaces[i].BuildNavMesh();
+		}
 	}
 
 	// randomly put [total] [obj]s on the map, and mark the position with [mark]
@@ -220,7 +262,8 @@ public class Maze : MonoBehaviour {
 				mazeMapTrf[i, j] = mark;
 				mazeMap[i, -j + mazeMapY - 1] = mark;
 				Vector3 position = new Vector3(i, -j + offsetY, 0f);
-				Instantiate(obj, position, Quaternion.identity);
+				GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
+				OBJ.transform.SetParent(grid.transform);
 				items++;
 			}
 		}
