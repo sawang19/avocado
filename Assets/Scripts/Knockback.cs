@@ -29,21 +29,19 @@ public class Knockback : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("breakable"))
+        if (collision.gameObject.CompareTag("breakable") && this.gameObject.CompareTag("Player"))
         {
 
-            if (this.gameObject.CompareTag("Player"))
-            {
-                collision.GetComponent<pot>().Smash();
-            }
             
-            for (int i = 0; i < navMeshSurfaces.Length; i++)
-            {
+            collision.GetComponent<pot>().Smash();
+            
+            //for (int i = 0; i < navMeshSurfaces.Length; i++)
+            //{
 
-                Debug.Log("hit");
-                navMeshSurfaces[i].BuildNavMesh();
+            //    Debug.Log("hit");
+            //    navMeshSurfaces[i].BuildNavMesh();
                 
-            }
+            //}
         }
 
         if (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("Player"))
