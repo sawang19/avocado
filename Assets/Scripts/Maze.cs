@@ -51,6 +51,8 @@ public class Maze : MonoBehaviour {
 				}
 			}
 		}
+
+		AstarPath.active.Scan();
 	}
 
     // Update is called once per frame
@@ -61,6 +63,22 @@ public class Maze : MonoBehaviour {
 	void DrawMaze(int mazeWidth, int mazeHeight, string level) {
 		MazeGenerator maze = new MazeGenerator(mazeWidth, mazeHeight, level);
 		maze.generate();
+		wall_v.layer = 8;
+		wall_h.layer = 8;
+		wall_ul.layer = 8;
+		wall_ur.layer = 8;
+		wall_bl.layer = 8;
+		wall_br.layer = 8;
+		wall_lur.layer = 8;
+		wall_urb.layer = 8;
+		wall_rbl.layer = 8;
+		wall_blu.layer = 8;
+		wall_urbl.layer = 8;
+		wall_u.layer = 8;
+		wall_r.layer = 8;
+		wall_b.layer = 8;
+		wall_l.layer = 8;
+		wall_o.layer = 8;
 		mazeMap = maze.mazeGrid;
 		
 		int[,] mazeMapTrf = mazeTransfer(mazeMap);
