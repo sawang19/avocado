@@ -8,14 +8,12 @@ public class pot : MonoBehaviour
     private Animator anim;
     System.Random ran = new System.Random();
 
-
     //int numOfPots = 3;
     // Start is called before the first frame update
     void Start()
     {
         
         anim = GetComponent<Animator>();
-
         
     }
 
@@ -42,6 +40,7 @@ public class pot : MonoBehaviour
         StartCoroutine(breakCo());
         
     }
+
 
     IEnumerator breakCo()
     {

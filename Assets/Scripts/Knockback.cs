@@ -24,7 +24,7 @@ public class Knockback : MonoBehaviour
         
     }
 
-   
+    
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,16 +32,10 @@ public class Knockback : MonoBehaviour
         if (collision.gameObject.CompareTag("breakable") && this.gameObject.CompareTag("Player"))
         {
 
-            
+            //int retVal = await DoSomeAsync(collision);
             collision.GetComponent<pot>().Smash();
-            
-            //for (int i = 0; i < navMeshSurfaces.Length; i++)
-            //{
 
-            //    Debug.Log("hit");
-            //    navMeshSurfaces[i].BuildNavMesh();
-                
-            //}
+
         }
 
         if (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("Player"))
@@ -69,6 +63,25 @@ public class Knockback : MonoBehaviour
                 }
                
             }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("breakable") && this.gameObject.CompareTag("Player"))
+        {
+
+            //int retVal = await DoSomeAsync(collision);
+            //collision.GetComponent<pot>().Smash();
+            for (int i = 0; i < navMeshSurfaces.Length; i++)
+            {
+
+                Debug.Log("hit");
+                navMeshSurfaces[i].BuildNavMesh();
+
+            }
+
+
         }
     }
 

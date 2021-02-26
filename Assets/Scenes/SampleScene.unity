@@ -2829,6 +2829,7 @@ MonoBehaviour:
   GameWin: {fileID: 0}
   currentHealth: {fileID: 11400000, guid: 7fe9aad2d9fb34d21ad85b61c5ba3ae5, type: 2}
   playerHealthSignal: {fileID: 11400000, guid: 82bf98b126216464c99f754310ade809, type: 2}
+  navMeshSurface: {fileID: 1077585668}
 --- !u!50 &1899823002
 Rigidbody2D:
   serializedVersion: 4

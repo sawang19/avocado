@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public enum PlayerState
 {
@@ -32,11 +33,15 @@ public class PlayerMovement : MonoBehaviour
     public FloatValue currentHealth;
     public Signal playerHealthSignal;
 
+    [SerializeField]
+    NavMeshSurface2d navMeshSurface;
+
     private void Start()
     {
         currentState = PlayerState.idle;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        InvokeRepeating("BuildMesh", 1.0f, 2.0f);
     }
     // Update is called once per frame
     void Update()
@@ -60,6 +65,13 @@ public class PlayerMovement : MonoBehaviour
             }
             
         }
+    }
+
+    void BuildMesh()
+    {
+        
+        navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
+
     }
 
     private IEnumerator AttackCo()
