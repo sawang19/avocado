@@ -32,7 +32,6 @@ public class Knockback : MonoBehaviour
         if (collision.gameObject.CompareTag("breakable") && this.gameObject.CompareTag("Player"))
         {
 
-            //int retVal = await DoSomeAsync(collision);
             collision.GetComponent<pot>().Smash();
 
 

@@ -99,15 +99,23 @@ public class mole : Enemy
         //{
         //    animator.SetBool("Walking", false);
         //}
-        if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
+        target = GameObject.Find("Player").transform;
+        if (Vector3.Distance(target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius) {
+            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
+            {
+                Vector3 temp = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+                ChangeAnim(temp - transform.position);
+                //rb.MovePosition(temp);
+                agent.SetDestination(target.position);
+                ChangeState(EnemyState.walk);
+                animator.SetBool("Walking", true);
+            }
+        } else
         {
-            Vector3 temp = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-            ChangeAnim(temp - transform.position);
-            //rb.MovePosition(temp);
-            agent.SetDestination(target.position);
-            ChangeState(EnemyState.walk);
-            animator.SetBool("Walking", true);
+            animator.SetBool("Walking", false);
+            agent.velocity = Vector2.zero;
         }
+            
     }
 
     private void SetAnimFloat(Vector2 setVector)

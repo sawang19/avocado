@@ -31,12 +31,13 @@ public class Maze : MonoBehaviour {
 	public GameObject wall_b;
 	public GameObject wall_l;
 
-	//public GameObject wall_o;
+    public GameObject wall_o;
 
-	public GameObject key; // 2
+    public GameObject key; // 2
 	public GameObject coin; // 3
 	public GameObject boot; // 4
 	public GameObject pot;
+	public GameObject mole;
 
 	[SerializeField]
 	NavMeshSurface2d[] navMeshSurfaces;
@@ -225,11 +226,12 @@ public class Maze : MonoBehaviour {
 						GameObject L_inner = Instantiate(wall_l, position, Quaternion.identity);
 						L_inner.transform.SetParent(grid.transform);
 					}
-					//if (getTileType(mazeMapTrf, i, j).Equals("o")) {
-					//	GameObject O_inner = Instantiate(wall_o, position, Quaternion.identity);
-					//	O_inner.transform.SetParent(grid.transform);
-					//}
-				}
+                    if (getTileType(mazeMapTrf, i, j).Equals("o"))
+                    {
+                        GameObject O_inner = Instantiate(wall_o, position, Quaternion.identity);
+                        O_inner.transform.SetParent(grid.transform);
+                    }
+                }
 			}
 		}
 
@@ -237,6 +239,7 @@ public class Maze : MonoBehaviour {
 		putItems(mazeMapTrf, coin, 3, 10);
 		putItems(mazeMapTrf, boot, 4, 5);
 		putItems(mazeMapTrf, pot, 5, 5);
+		putItems(mazeMapTrf, mole, 6, 10);
 
 
 		for (int i = 0; i < navMeshSurfaces.Length; i++)
@@ -253,7 +256,7 @@ public class Maze : MonoBehaviour {
 		int offsetY = mazeMapY - 1;
 
 		int items = 0;
-		while (items < 5)
+		while (items < total)
 		{
 			int i = Random.Range(1, mazeMapX - 1);
 			int j = Random.Range(1, mazeMapY - 1);

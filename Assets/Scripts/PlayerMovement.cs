@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public GameWin GameWin;
 
     public FloatValue currentHealth;
+    public FloatValue enemyHealth;
     public Signal playerHealthSignal;
 
     [SerializeField]
@@ -113,7 +114,12 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(KnockCo(rb, knockTime));
         } else
         {
-            this.gameObject.SetActive(false);
+
+            currentHealth.runtimeValue = currentHealth.initialValue;
+            enemyHealth.runtimeValue = enemyHealth.initialValue;
+            //this.gameObject.SetActive(false);
+            animator.SetBool("moving", false);
+            GameOverAPI();
         }
     }
 
