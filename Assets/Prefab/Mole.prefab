@@ -174,12 +174,13 @@ MonoBehaviour:
   moveSpeed: 3
   deathEffect: {fileID: 17066326864366759, guid: 2d1cc06cb61704faaab7799a22d5c466,
     type: 3}
-  chaseRadius: 10
+  chaseRadius: 50
   attackRadius: 0
   homePosition: {fileID: 0}
   animator: {fileID: 8043012064910383110}
   target: {fileID: 0}
   agent: {fileID: 0}
+  enemyHealth: {fileID: 11400000, guid: d8e8b0a0853d948718076d7e150fc9db, type: 2}
 --- !u!61 &8043012064910383164
 BoxCollider2D:
   m_ObjectHideFlags: 0

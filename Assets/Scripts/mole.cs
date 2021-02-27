@@ -14,6 +14,7 @@ public class mole : Enemy
     private Rigidbody2D rb;
     [SerializeField] Transform target;
     public NavMeshAgent agent;
+    public FloatValue enemyHealth;
     //public Seeker seeker;
     //public Path path;
     //public int currentWayPoint = 0;
@@ -23,8 +24,6 @@ public class mole : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        
-
         currentState = EnemyState.idle;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -36,12 +35,16 @@ public class mole : Enemy
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(this.gameObject.transform.rotation != Quaternion.Euler(0, 0, 0))
+        {
+            this.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
         CheckDistance();
         //if(path == null)
         //{

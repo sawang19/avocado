@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEditor;
 
 
 public class Maze : MonoBehaviour {
@@ -37,6 +38,8 @@ public class Maze : MonoBehaviour {
 	public GameObject coin; // 3
 	public GameObject boot; // 4
 	public GameObject pot;
+
+	[SerializeField]
 	public GameObject mole;
 
 	[SerializeField]
@@ -246,6 +249,7 @@ public class Maze : MonoBehaviour {
 		{
 			navMeshSurfaces[i].BuildNavMesh();
 		}
+		
 	}
 
 	// randomly put [total] [obj]s on the map, and mark the position with [mark]
@@ -254,6 +258,8 @@ public class Maze : MonoBehaviour {
 		int mazeMapX = mazeMapTrf.GetLength(0);//2 * mazeWidth + 1;
 		int mazeMapY = mazeMapTrf.GetLength(1);//2 * mazeHeight + 1;
 		int offsetY = mazeMapY - 1;
+
+		Debug.Log("Item: " + mark);
 
 		int items = 0;
 		while (items < total)
@@ -265,8 +271,25 @@ public class Maze : MonoBehaviour {
 				mazeMapTrf[i, j] = mark;
 				mazeMap[i, -j + mazeMapY - 1] = mark;
 				Vector3 position = new Vector3(i, -j + offsetY, 0f);
-				GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
-				OBJ.transform.SetParent(grid.transform);
+				if(mark != 6)
+                {
+					GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
+					OBJ.transform.SetParent(grid.transform);
+				}else
+                {
+                    //Vector3 position3 = new Vector3(position.x, position.y, 0);
+                    GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
+					
+                    //OBJ.transform.SetParent(Canvas);
+                    //OBJ.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    //GameObject prefab = PrefabUtility.GetPrefabParent(obj);
+                    //GameObject OBJ = (GameObject)PrefabUtility.InstantiatePrefab(obj);
+                    //OBJ.transform.position = position;
+                    //OBJ.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    //OBJ.SetActive(true);
+                    //Selection.activeGameObject = OBJ;
+                }
+				
 				items++;
 			}
 		}
