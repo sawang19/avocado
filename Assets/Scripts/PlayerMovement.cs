@@ -30,6 +30,11 @@ public class PlayerMovement : MonoBehaviour
     public GameOver GameOver;
     public GameWin GameWin;
 
+    public GameObject dialogBox;
+    public Text dialogText;
+    public string dialog;
+    public bool playerInRange;
+
     public FloatValue currentHealth;
     public FloatValue enemyHealth;
     public Signal playerHealthSignal;
@@ -64,8 +69,27 @@ public class PlayerMovement : MonoBehaviour
                     UpdateAnimationAndMove();
                 }
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.Tab) && playerInRange)
+            {
+                if (dialogBox.activeInHierarchy)
+                {
+                    dialogBox.SetActive(false);
+                    Time.timeScale = 1;
+
+                }
+                else
+                {
+                    dialogBox.SetActive(true);
+                    dialogText.text = dialog;
+                    Time.timeScale = 0;
+
+                }
+            }
+
         }
+
+        
     }
 
     void BuildMesh()
@@ -158,15 +182,6 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        //if (collision.gameObject.tag == "Enemies")
-        //{
-        //    keys = 0;
-        //    GameOverAPI();
-
-        //    Knock(rb, 0.2f, 1);
-
-        //}
-
         if (collision.gameObject.tag == "Door" && keys == 4)
         {
             GameWinAPI();
@@ -174,7 +189,27 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("npc"))
+        {
+            playerInRange = true;
+            //Debug.Log("Player in Range");
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("npc"))
+        {
+            playerInRange = false;
+            dialogBox.SetActive(false);
+            //Debug.Log("Player out Range");
+        }
+    }
+
+
 
     public void GameOverAPI()
     {

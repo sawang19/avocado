@@ -11,6 +11,7 @@ TagManager:
   - breakable
   - Boots
   - Coins
+  - npc
   layers:
   - Default
   - TransparentFX

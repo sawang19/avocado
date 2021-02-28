@@ -37,10 +37,11 @@ public class Maze : MonoBehaviour {
     public GameObject key; // 2
 	public GameObject coin; // 3
 	public GameObject boot; // 4
-	public GameObject pot;
+	public GameObject pot; //5
 
-	[SerializeField]
-	public GameObject mole;
+	public GameObject mole;//6
+
+	public GameObject npc;//7
 
 	[SerializeField]
 	NavMeshSurface2d[] navMeshSurfaces;
@@ -242,7 +243,8 @@ public class Maze : MonoBehaviour {
 		putItems(mazeMapTrf, coin, 3, 10);
 		putItems(mazeMapTrf, boot, 4, 5);
 		putItems(mazeMapTrf, pot, 5, 5);
-		putItems(mazeMapTrf, mole, 6, 10);
+		putItems(mazeMapTrf, mole, 6, 2);
+		putItems(mazeMapTrf, npc, 7, 2);
 
 
 		for (int i = 0; i < navMeshSurfaces.Length; i++)
@@ -258,8 +260,6 @@ public class Maze : MonoBehaviour {
 		int mazeMapX = mazeMapTrf.GetLength(0);//2 * mazeWidth + 1;
 		int mazeMapY = mazeMapTrf.GetLength(1);//2 * mazeHeight + 1;
 		int offsetY = mazeMapY - 1;
-
-		Debug.Log("Item: " + mark);
 
 		int items = 0;
 		while (items < total)
