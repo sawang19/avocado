@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         currentState = PlayerState.idle;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        InvokeRepeating("BuildMesh", 1.0f, 2.0f);
+        InvokeRepeating("BuildMesh", 1.0f, 0.5f);
     }
     // Update is called once per frame
     void Update()

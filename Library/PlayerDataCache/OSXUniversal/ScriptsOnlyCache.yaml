@@ -3,12 +3,14 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - AudioManager
     - CameraFollow
+    - DialogBoxScript
     - FloatValue
     - GameOver
     - HeartManager
     - Knockback
     - Maze
     - Menu
+    - PauseMenu
     - PlayerMovement
     - SMask
     - Signal
@@ -43,10 +45,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -84,19 +84,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11686}
     - Class: 114
-      Script: {instanceID: 12400}
+      Script: {instanceID: 12402}
     - Class: 114
-      Script: {instanceID: 13170}
-    - Class: 114
-      Script: {instanceID: 13552}
+      Script: {instanceID: 13172}
     - Class: 114
       Script: {instanceID: 13556}
     - Class: 114
-      Script: {instanceID: 13918}
+      Script: {instanceID: 13560}
     - Class: 114
-      Script: {instanceID: 14044}
+      Script: {instanceID: 13920}
     - Class: 114
-      Script: {instanceID: 14726}
+      Script: {instanceID: 14046}
+    - Class: 114
+      Script: {instanceID: 14728}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -165,35 +165,39 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11966}
     - Class: 114
-      Script: {instanceID: 12104}
+      Script: {instanceID: 12096}
     - Class: 114
-      Script: {instanceID: 12400}
+      Script: {instanceID: 12106}
     - Class: 114
-      Script: {instanceID: 13148}
+      Script: {instanceID: 12402}
     - Class: 114
-      Script: {instanceID: 13170}
+      Script: {instanceID: 13150}
     - Class: 114
-      Script: {instanceID: 13476}
+      Script: {instanceID: 13172}
     - Class: 114
-      Script: {instanceID: 13512}
+      Script: {instanceID: 13310}
     - Class: 114
-      Script: {instanceID: 13540}
+      Script: {instanceID: 13480}
     - Class: 114
-      Script: {instanceID: 13550}
+      Script: {instanceID: 13516}
     - Class: 114
-      Script: {instanceID: 13708}
+      Script: {instanceID: 13544}
     - Class: 114
-      Script: {instanceID: 13916}
+      Script: {instanceID: 13554}
     - Class: 114
-      Script: {instanceID: 13924}
+      Script: {instanceID: 13710}
     - Class: 114
-      Script: {instanceID: 14044}
+      Script: {instanceID: 13918}
     - Class: 114
-      Script: {instanceID: 14538}
+      Script: {instanceID: 13926}
     - Class: 114
-      Script: {instanceID: 14666}
+      Script: {instanceID: 14046}
     - Class: 114
-      Script: {instanceID: 14726}
+      Script: {instanceID: 14540}
+    - Class: 114
+      Script: {instanceID: 14668}
+    - Class: 114
+      Script: {instanceID: 14728}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -254,23 +258,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11302}
     - Class: 114
-      Script: {instanceID: 12400}
+      Script: {instanceID: 12402}
     - Class: 114
-      Script: {instanceID: 12458}
+      Script: {instanceID: 12460}
     - Class: 114
-      Script: {instanceID: 13026}
+      Script: {instanceID: 13028}
     - Class: 114
-      Script: {instanceID: 13556}
+      Script: {instanceID: 13560}
     - Class: 114
-      Script: {instanceID: 13578}
+      Script: {instanceID: 13582}
     - Class: 114
-      Script: {instanceID: 13918}
+      Script: {instanceID: 13920}
     - Class: 114
-      Script: {instanceID: 14044}
+      Script: {instanceID: 14046}
     - Class: 114
-      Script: {instanceID: 14362}
+      Script: {instanceID: 14364}
     - Class: 114
-      Script: {instanceID: 14726}
+      Script: {instanceID: 14728}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -538,7 +542,13 @@ ScriptsOnlyBuild:
     className: PixelPerfectCamera
   - hash:
       serializedVersion: 2
-      Hash: e95e7110a70d7120752e02e61944fc84
+      Hash: ddee554e6906037cb021a00944493851
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DialogBoxScript
+  - hash:
+      serializedVersion: 2
+      Hash: e2ae4112e00a8a109b9e2fbe6d2c824d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerMovement
@@ -742,6 +752,12 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
+      Hash: 6a2e5d69dfff13aefbd4bcc7e4200b03
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PauseMenu
+  - hash:
+      serializedVersion: 2
       Hash: 5ad4aa237d47ac2bab17bacb672edf7a
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -830,12 +846,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ActivationPlayableAsset
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerHit
   - hash:
       serializedVersion: 2
       Hash: c181fc48305e752f3e25e609d7495634
@@ -1000,7 +1010,7 @@ ScriptsOnlyBuild:
     className: AnimationLink
   - hash:
       serializedVersion: 2
-      Hash: 2b92216805d399d388eae7fdfeea531a
+      Hash: 3c2f317a072e76c7a75059be58abd403
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Maze
@@ -1054,7 +1064,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMesh
   - hash:
       serializedVersion: 2
-      Hash: 589b3c5eed45e2279526518b7bca0f5d
+      Hash: c245ac1fc9068cedc05b768991bbba68
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: mole
@@ -1117,4 +1127,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/SplashScence.unity
   - Assets/Scenes/MenuScene.unity
   - Assets/Scenes/SampleScene.unity
-  playerPath: /Users/sa/Desktop/try4.app
+  playerPath: /Users/sa/Desktop/try11.app
