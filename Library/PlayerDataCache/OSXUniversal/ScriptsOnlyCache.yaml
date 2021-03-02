@@ -25,7 +25,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
-    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
@@ -45,8 +44,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -548,7 +549,7 @@ ScriptsOnlyBuild:
     className: DialogBoxScript
   - hash:
       serializedVersion: 2
-      Hash: e2ae4112e00a8a109b9e2fbe6d2c824d
+      Hash: 3de9d337ce2feaf3870ca073b2107686
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerMovement
@@ -1010,7 +1011,7 @@ ScriptsOnlyBuild:
     className: AnimationLink
   - hash:
       serializedVersion: 2
-      Hash: 3c2f317a072e76c7a75059be58abd403
+      Hash: 9ef71dde05784207b908f1448b21a662
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Maze
@@ -1064,7 +1065,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMesh
   - hash:
       serializedVersion: 2
-      Hash: c245ac1fc9068cedc05b768991bbba68
+      Hash: 9f8286080ea5cb4c92bd4c2b7eb07347
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: mole
@@ -1127,4 +1128,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/SplashScence.unity
   - Assets/Scenes/MenuScene.unity
   - Assets/Scenes/SampleScene.unity
-  playerPath: /Users/sa/Desktop/try11.app
+  playerPath: /Users/sa/Desktop/try13.app

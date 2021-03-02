@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
 {
     public PlayerState currentState;
     public float moveSpeed = 5f;
+    public float baseSpeed = 5f;
+    public float speedFactor = 1f;
+    public float changeSpeedUntil = -1f;
+
     public Rigidbody2D rb;
     Vector3 movement;
     public Animator animator;
@@ -85,6 +89,16 @@ public class PlayerMovement : MonoBehaviour
                     Time.timeScale = 0;
 
                 }
+            }
+
+            if (Time.time < changeSpeedUntil)
+            {
+                moveSpeed = baseSpeed * speedFactor;
+            }
+            else
+            {
+                moveSpeed = baseSpeed;
+                speedFactor = 1f;
             }
 
         }
@@ -177,7 +191,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (collision.gameObject.tag == "Boots")
         {
-            moveSpeed = 10f;
+            //moveSpeed = 10f;
+            changeSpeedUntil = Time.time + 5;
+            speedFactor = 1.5f;
             FindObjectOfType<AudioManager>().Play("coin");
             Destroy(collision.gameObject);
         }
@@ -185,6 +201,43 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Door" && keys == 4)
         {
             GameWinAPI();
+        }
+
+        if (collision.gameObject.tag == "hpPotion")
+        {
+            if(currentHealth.runtimeValue != currentHealth.initialValue)
+            {
+                currentHealth.runtimeValue += 1;
+            }
+            
+            playerHealthSignal.Raise();
+            FindObjectOfType<AudioManager>().Play("coin");
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "trap")
+        {
+            Destroy(collision.gameObject);
+            currentHealth.runtimeValue -= 1;
+            playerHealthSignal.Raise();
+
+            if (currentHealth.runtimeValue < 0)
+            {
+
+                currentHealth.runtimeValue = currentHealth.initialValue;
+                enemyHealth.runtimeValue = enemyHealth.initialValue;
+                animator.SetBool("moving", false);
+                GameOverAPI();
+            }
+        }
+
+        if (collision.gameObject.tag == "slowPotion")
+        {
+            changeSpeedUntil = Time.time + 5;
+            speedFactor = 0.6f;
+            //StartCoroutine(speedTime());
+            FindObjectOfType<AudioManager>().Play("coin");
+            Destroy(collision.gameObject);
         }
 
     }

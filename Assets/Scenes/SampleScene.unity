@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 37328720}
   - component: {fileID: 37328721}
   - component: {fileID: 37328722}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: right_hit_box
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -575,6 +575,11 @@ MonoBehaviour:
   pot: {fileID: 3591587325866508970, guid: 7f4661c0540ff49b6a850419dcca4031, type: 3}
   mole: {fileID: 8043012064910383109, guid: ede0743bd8feb44078a1615de2df0574, type: 3}
   npc: {fileID: 2773736206045894141, guid: 620020d754cec4595b5336b0859a2505, type: 3}
+  hpPotion: {fileID: 6781620677973282648, guid: 48a2ea27f0b3d406f8259a8e8625f123,
+    type: 3}
+  slowPotion: {fileID: 5049139858140442372, guid: 00ee78223447f4c59b0da4bb1c593bf7,
+    type: 3}
+  trap: {fileID: 3242146894608368148, guid: 00f295f51ba194f08834c8ed643ae202, type: 3}
   navMeshSurfaces:
   - {fileID: 1077585668}
 --- !u!4 &276668898
@@ -1758,7 +1763,7 @@ GameObject:
   - component: {fileID: 889286104}
   - component: {fileID: 889286105}
   - component: {fileID: 889286106}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: left_hit_box
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2205,7 +2210,7 @@ GameObject:
   - component: {fileID: 1129030809}
   - component: {fileID: 1129030810}
   - component: {fileID: 1129030811}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: down_hit_box
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2984,7 +2989,7 @@ GameObject:
   - component: {fileID: 1766586109}
   - component: {fileID: 1766586110}
   - component: {fileID: 1766586111}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: up_hit_box
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3238,7 +3243,7 @@ GameObject:
   - component: {fileID: 1899823006}
   - component: {fileID: 1899823005}
   - component: {fileID: 1899823007}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3259,6 +3264,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   moveSpeed: 5
+  baseSpeed: 5
+  speedFactor: 1
+  changeSpeedUntil: -1
   rb: {fileID: 1899823002}
   animator: {fileID: 1899823006}
   youwin: {fileID: 740874195}

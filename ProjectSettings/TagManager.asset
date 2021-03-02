@@ -12,6 +12,9 @@ TagManager:
   - Boots
   - Coins
   - npc
+  - hpPotion
+  - slowPotion
+  - trap
   layers:
   - Default
   - TransparentFX
@@ -22,8 +25,8 @@ TagManager:
   - 
   - 
   - Wall
-  - 
-  - 
+  - Enemy
+  - Player
   - 
   - 
   - 

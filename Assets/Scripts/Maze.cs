@@ -42,6 +42,9 @@ public class Maze : MonoBehaviour {
 	public GameObject mole;//6
 
 	public GameObject npc;//7
+	public GameObject hpPotion; //8
+	public GameObject slowPotion; //9
+	public GameObject trap; //10
 
 	[SerializeField]
 	NavMeshSurface2d[] navMeshSurfaces;
@@ -73,23 +76,23 @@ public class Maze : MonoBehaviour {
 	void DrawMaze(int mazeWidth, int mazeHeight, string level) {
 		MazeGenerator maze = new MazeGenerator(mazeWidth, mazeHeight, level);
 		maze.generate();
-		//wall_v.layer = 8;
-		//wall_h.layer = 8;
-		//wall_ul.layer = 8;
-		//wall_ur.layer = 8;
-		//wall_bl.layer = 8;
-		//wall_br.layer = 8;
-		//wall_lur.layer = 8;
-		//wall_urb.layer = 8;
-		//wall_rbl.layer = 8;
-		//wall_blu.layer = 8;
-		//wall_urbl.layer = 8;
-		//wall_u.layer = 8;
-		//wall_r.layer = 8;
-		//wall_b.layer = 8;
-		//wall_l.layer = 8;
-		//wall_o.layer = 8;
-		mazeMap = maze.mazeGrid;
+        wall_v.layer = 8;
+        wall_h.layer = 8;
+        wall_ul.layer = 8;
+        wall_ur.layer = 8;
+        wall_bl.layer = 8;
+        wall_br.layer = 8;
+        wall_lur.layer = 8;
+        wall_urb.layer = 8;
+        wall_rbl.layer = 8;
+        wall_blu.layer = 8;
+        wall_urbl.layer = 8;
+        wall_u.layer = 8;
+        wall_r.layer = 8;
+        wall_b.layer = 8;
+        wall_l.layer = 8;
+        wall_o.layer = 8;
+        mazeMap = maze.mazeGrid;
 
 		
 
@@ -243,8 +246,11 @@ public class Maze : MonoBehaviour {
 		putItems(mazeMapTrf, coin, 3, 10);
 		putItems(mazeMapTrf, boot, 4, 5);
 		putItems(mazeMapTrf, pot, 5, 5);
-		putItems(mazeMapTrf, mole, 6, 2);
+		putItems(mazeMapTrf, mole, 6, 10);
 		putItems(mazeMapTrf, npc, 7, 2);
+		putItems(mazeMapTrf, hpPotion, 8, 5);
+		putItems(mazeMapTrf, slowPotion, 9, 5);
+		putItems(mazeMapTrf, trap, 10, 5);
 
 
 		for (int i = 0; i < navMeshSurfaces.Length; i++)
@@ -261,12 +267,25 @@ public class Maze : MonoBehaviour {
 		int mazeMapY = mazeMapTrf.GetLength(1);//2 * mazeHeight + 1;
 		int offsetY = mazeMapY - 1;
 
+		int[,] directions = new int[4, 2] { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+
 		int items = 0;
 		while (items < total)
 		{
 			int i = Random.Range(1, mazeMapX - 1);
 			int j = Random.Range(1, mazeMapY - 1);
-			if (mazeMapTrf[i, j] == 0)
+			bool hasNeighborWall = false;
+			for (int x = 0; x < directions.GetLength(0); x++)
+			{
+				int i1 = i + directions[x, 0];
+				int j1 = j + directions[x, 1];
+				if (1 <= i1 && i1 < mazeMapX - 1 && 1 <= j1 && j1 < mazeMapY - 1 && mazeMapTrf[i1, j1] == 1)
+				{
+					hasNeighborWall = true;
+				}
+			}
+
+			if (mazeMapTrf[i, j] == 0 && hasNeighborWall)
 			{
 				mazeMapTrf[i, j] = mark;
 				mazeMap[i, -j + mazeMapY - 1] = mark;
@@ -280,14 +299,6 @@ public class Maze : MonoBehaviour {
                     //Vector3 position3 = new Vector3(position.x, position.y, 0);
                     GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
 					
-                    //OBJ.transform.SetParent(Canvas);
-                    //OBJ.transform.rotation = new Quaternion(0, 0, 0, 0);
-                    //GameObject prefab = PrefabUtility.GetPrefabParent(obj);
-                    //GameObject OBJ = (GameObject)PrefabUtility.InstantiatePrefab(obj);
-                    //OBJ.transform.position = position;
-                    //OBJ.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    //OBJ.SetActive(true);
-                    //Selection.activeGameObject = OBJ;
                 }
 				
 				items++;
