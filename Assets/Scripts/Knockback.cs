@@ -84,6 +84,7 @@ public class Knockback : MonoBehaviour
         }
     }
 
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("breakable") && this.gameObject.CompareTag("Player"))
