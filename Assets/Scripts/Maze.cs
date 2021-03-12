@@ -6,6 +6,14 @@ using UnityEditor;
 
 
 public class Maze : MonoBehaviour {
+	const int WALL_V = 0, WALL_H = 1, WALL_UL = 2, WALL_UR = 3, WALL_BL = 4, WALL_BR = 5, WALL_LUR = 6, WALL_URB = 7, WALL_RBL = 8, WALL_BLU = 9, WALL_URBL = 10, WALL_U = 11, WALL_R = 12, WALL_B = 13, WALL_L = 14, WALL_O = 15;
+
+	public GameObject[] steelWalls = new GameObject[16];
+	public GameObject[] brownWalls = new GameObject[16];
+	public GameObject[] weedWalls = new GameObject[16];
+
+	public GameObject maze_bk;
+
 	public static int[,] mazeMap;
 	int mazeWidth = 10;
 	int mazeHeight = 10;
@@ -31,8 +39,7 @@ public class Maze : MonoBehaviour {
 	public GameObject wall_r;
 	public GameObject wall_b;
 	public GameObject wall_l;
-
-    public GameObject wall_o;
+	public GameObject wall_o;
 
     public GameObject key; // 2
 	public GameObject coin; // 3
@@ -45,6 +52,8 @@ public class Maze : MonoBehaviour {
 	public GameObject hpPotion; //8
 	public GameObject slowPotion; //9
 	public GameObject trap; //10
+
+	public GameObject golem; // 11
 
 	[SerializeField]
 	NavMeshSurface2d[] navMeshSurfaces;
@@ -76,7 +85,24 @@ public class Maze : MonoBehaviour {
 	void DrawMaze(int mazeWidth, int mazeHeight, string level) {
 		MazeGenerator maze = new MazeGenerator(mazeWidth, mazeHeight, level);
 		maze.generate();
-        wall_v.layer = 8;
+        
+        mazeMap = maze.mazeGrid;
+
+		
+
+		int[,] mazeMapTrf = mazeTransfer(mazeMap);
+		int mazeMapX = mazeMapTrf.GetLength(0);//2 * mazeWidth + 1;
+		int mazeMapY = mazeMapTrf.GetLength(1);//2 * mazeHeight + 1;
+
+		int offsetY = mazeMapY - 1;
+
+		//Vector3 position;
+
+		// Load wall sprites
+		loadSprites();
+		GameObject[] renderWalls = steelWalls;
+
+		wall_v.layer = 8;
         wall_h.layer = 8;
         wall_ul.layer = 8;
         wall_ur.layer = 8;
@@ -92,20 +118,23 @@ public class Maze : MonoBehaviour {
         wall_b.layer = 8;
         wall_l.layer = 8;
         wall_o.layer = 8;
-        mazeMap = maze.mazeGrid;
 
-		
 
-		int[,] mazeMapTrf = mazeTransfer(mazeMap);
-		int mazeMapX = mazeMapTrf.GetLength(0);//2 * mazeWidth + 1;
-		int mazeMapY = mazeMapTrf.GetLength(1);//2 * mazeHeight + 1;
+        // Draw background
+        maze_bk = Resources.Load("Walls/Steel/bk") as GameObject;
 
-		int offsetY = mazeMapY - 1;
+        Vector3 position;
+        for (int i = 1; i < mazeMapX - 1; i++)
+        {
+            for (int j = 1; j < mazeMapY - 1; j++)
+            {
+                position = new Vector3(i, j, 0.1f);
+                Instantiate(maze_bk, position, Quaternion.identity);
+            }
+        }
 
-		Vector3 position;
-
-		// Draw 4 corners
-		position = new Vector3 (0, 0 + offsetY, 0f);
+        // Draw 4 corners
+        position = new Vector3 (0, 0 + offsetY, 0f);
 		GameObject UL_corner = Instantiate(wall_ul, position, Quaternion.identity);
 		UL_corner.transform.SetParent(grid.transform);
 
@@ -242,21 +271,24 @@ public class Maze : MonoBehaviour {
 			}
 		}
 
-		putItems(mazeMapTrf, key, 2, 5);
-		putItems(mazeMapTrf, coin, 3, 10);
-		putItems(mazeMapTrf, boot, 4, 5);
-		putItems(mazeMapTrf, pot, 5, 5);
-		putItems(mazeMapTrf, mole, 6, 10);
-		putItems(mazeMapTrf, npc, 7, 2);
-		putItems(mazeMapTrf, hpPotion, 8, 5);
-		putItems(mazeMapTrf, slowPotion, 9, 5);
-		putItems(mazeMapTrf, trap, 10, 5);
-
-
 		for (int i = 0; i < navMeshSurfaces.Length; i++)
 		{
 			navMeshSurfaces[i].BuildNavMesh();
 		}
+
+		putItems(mazeMapTrf, key, 2, 5);
+		putItems(mazeMapTrf, coin, 3, 10);
+		putItems(mazeMapTrf, boot, 4, 5);
+		putItems(mazeMapTrf, pot, 5, 5);
+		//putItems(mazeMapTrf, mole, 6, 2);
+		putItems(mazeMapTrf, npc, 7, 2);
+		putItems(mazeMapTrf, hpPotion, 8, 5);
+		putItems(mazeMapTrf, slowPotion, 9, 5);
+		putItems(mazeMapTrf, trap, 10, 5);
+		putItems(mazeMapTrf, golem, 11, 2);
+
+
+		
 		
 	}
 
@@ -290,7 +322,7 @@ public class Maze : MonoBehaviour {
 				mazeMapTrf[i, j] = mark;
 				mazeMap[i, -j + mazeMapY - 1] = mark;
 				Vector3 position = new Vector3(i, -j + offsetY, 0f);
-				if(mark != 6)
+				if(mark != 6 && mark != 11)
                 {
 					GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
 					OBJ.transform.SetParent(grid.transform);
@@ -383,5 +415,98 @@ public class Maze : MonoBehaviour {
 		}
 
 		return "o";
+	}
+
+	void loadSprites()
+	{
+		// Steel
+		steelWalls[WALL_V] = Resources.Load("Walls/Steel/steel_V") as GameObject;
+		steelWalls[WALL_H] = Resources.Load("Walls/Steel/steel_H") as GameObject;
+
+		steelWalls[WALL_UL] = Resources.Load("Walls/Steel/steel_UL") as GameObject;
+		steelWalls[WALL_UR] = Resources.Load("Walls/Steel/steel_UR") as GameObject;
+		steelWalls[WALL_BL] = Resources.Load("Walls/Steel/steel_BL") as GameObject;
+		steelWalls[WALL_BR] = Resources.Load("Walls/Steel/steel_BR") as GameObject;
+
+		steelWalls[WALL_LUR] = Resources.Load("Walls/Steel/steel_LUR") as GameObject;
+		steelWalls[WALL_URB] = Resources.Load("Walls/Steel/steel_URB") as GameObject;
+		steelWalls[WALL_RBL] = Resources.Load("Walls/Steel/steel_RBL") as GameObject;
+		steelWalls[WALL_BLU] = Resources.Load("Walls/Steel/steel_BLU") as GameObject;
+
+		steelWalls[WALL_URBL] = Resources.Load("Walls/Steel/steel_URBL") as GameObject;
+
+		steelWalls[WALL_U] = Resources.Load("Walls/Steel/steel_U") as GameObject;
+		steelWalls[WALL_R] = Resources.Load("Walls/Steel/steel_R") as GameObject;
+		steelWalls[WALL_B] = Resources.Load("Walls/Steel/steel_B") as GameObject;
+		steelWalls[WALL_L] = Resources.Load("Walls/Steel/steel_L") as GameObject;
+
+		steelWalls[WALL_O] = Resources.Load("Walls/Steel/steel_O") as GameObject;
+
+		// Brown
+		brownWalls[WALL_V] = Resources.Load("Walls/Brown/brown_V") as GameObject;
+		brownWalls[WALL_H] = Resources.Load("Walls/Brown/brown_H") as GameObject;
+
+		brownWalls[WALL_UL] = Resources.Load("Walls/Brown/brown_UL") as GameObject;
+		brownWalls[WALL_UR] = Resources.Load("Walls/Brown/brown_UR") as GameObject;
+		brownWalls[WALL_BL] = Resources.Load("Walls/Brown/brown_BL") as GameObject;
+		brownWalls[WALL_BR] = Resources.Load("Walls/Brown/brown_BR") as GameObject;
+
+		brownWalls[WALL_LUR] = Resources.Load("Walls/Brown/brown_LUR") as GameObject;
+		brownWalls[WALL_URB] = Resources.Load("Walls/Brown/brown_URB") as GameObject;
+		brownWalls[WALL_RBL] = Resources.Load("Walls/Brown/brown_RBL") as GameObject;
+		brownWalls[WALL_BLU] = Resources.Load("Walls/Brown/brown_BLU") as GameObject;
+
+		brownWalls[WALL_URBL] = Resources.Load("Walls/Brown/brown_URBL") as GameObject;
+
+		brownWalls[WALL_U] = Resources.Load("Walls/Brown/brown_U") as GameObject;
+		brownWalls[WALL_R] = Resources.Load("Walls/Brown/brown_R") as GameObject;
+		brownWalls[WALL_B] = Resources.Load("Walls/Brown/brown_B") as GameObject;
+		brownWalls[WALL_L] = Resources.Load("Walls/Brown/brown_L") as GameObject;
+
+		brownWalls[WALL_O] = Resources.Load("Walls/Brown/brown_O") as GameObject;
+
+		// Weed
+		weedWalls[WALL_V] = Resources.Load("Walls/Weed/weed_V") as GameObject;
+		weedWalls[WALL_H] = Resources.Load("Walls/Weed/weed_H") as GameObject;
+
+		weedWalls[WALL_UL] = Resources.Load("Walls/Weed/weed_UL") as GameObject;
+		weedWalls[WALL_UR] = Resources.Load("Walls/Weed/weed_UR") as GameObject;
+		weedWalls[WALL_BL] = Resources.Load("Walls/Weed/weed_BL") as GameObject;
+		weedWalls[WALL_BR] = Resources.Load("Walls/Weed/weed_BR") as GameObject;
+
+		weedWalls[WALL_LUR] = Resources.Load("Walls/Weed/weed_LUR") as GameObject;
+		weedWalls[WALL_URB] = Resources.Load("Walls/Weed/weed_URB") as GameObject;
+		weedWalls[WALL_RBL] = Resources.Load("Walls/Weed/weed_RBL") as GameObject;
+		weedWalls[WALL_BLU] = Resources.Load("Walls/Weed/weed_BLU") as GameObject;
+
+		weedWalls[WALL_URBL] = Resources.Load("Walls/Weed/weed_URBL") as GameObject;
+
+		weedWalls[WALL_U] = Resources.Load("Walls/Weed/weed_U") as GameObject;
+		weedWalls[WALL_R] = Resources.Load("Walls/Weed/weed_R") as GameObject;
+		weedWalls[WALL_B] = Resources.Load("Walls/Weed/weed_B") as GameObject;
+		weedWalls[WALL_L] = Resources.Load("Walls/Weed/weed_L") as GameObject;
+
+		weedWalls[WALL_O] = Resources.Load("Walls/Weed/weed_O") as GameObject;
+
+		wall_v = brownWalls[WALL_V];
+		wall_h = brownWalls[WALL_H];
+
+		wall_ul = brownWalls[WALL_UL];
+		wall_ur = brownWalls[WALL_UR];
+		wall_bl = brownWalls[WALL_BL];
+		wall_br = brownWalls[WALL_BR];
+
+		wall_lur = brownWalls[WALL_LUR];
+		wall_urb = brownWalls[WALL_URB];
+		wall_rbl = brownWalls[WALL_RBL];
+		wall_blu = brownWalls[WALL_BLU];
+
+		wall_urbl = brownWalls[WALL_URBL];
+
+		wall_u = brownWalls[WALL_U];
+		wall_r = brownWalls[WALL_R];
+		wall_b = brownWalls[WALL_B];
+		wall_l = brownWalls[WALL_L];
+		wall_o = brownWalls[WALL_O];
 	}
 }

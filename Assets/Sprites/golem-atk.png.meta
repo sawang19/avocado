@@ -186,12 +186,12 @@ TextureImporter:
       name: golem-atk_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 8
         y: 288
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -207,12 +207,12 @@ TextureImporter:
       name: golem-atk_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 71
         y: 288
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: golem-atk_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 136
         y: 288
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 68
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -249,12 +249,12 @@ TextureImporter:
       name: golem-atk_3
       rect:
         serializedVersion: 2
-        x: 192
+        x: 200
         y: 288
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 75
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -270,12 +270,12 @@ TextureImporter:
       name: golem-atk_4
       rect:
         serializedVersion: 2
-        x: 256
+        x: 264
         y: 288
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -291,12 +291,12 @@ TextureImporter:
       name: golem-atk_5
       rect:
         serializedVersion: 2
-        x: 320
+        x: 328
         y: 288
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -312,12 +312,12 @@ TextureImporter:
       name: golem-atk_6
       rect:
         serializedVersion: 2
-        x: 384
+        x: 392
         y: 288
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -333,12 +333,12 @@ TextureImporter:
       name: golem-atk_7
       rect:
         serializedVersion: 2
-        x: 0
+        x: 16
         y: 192
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -354,12 +354,12 @@ TextureImporter:
       name: golem-atk_8
       rect:
         serializedVersion: 2
-        x: 64
+        x: 80
         y: 192
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -375,12 +375,12 @@ TextureImporter:
       name: golem-atk_9
       rect:
         serializedVersion: 2
-        x: 128
+        x: 144
         y: 192
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 72
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -396,12 +396,12 @@ TextureImporter:
       name: golem-atk_10
       rect:
         serializedVersion: 2
-        x: 192
+        x: 208
         y: 192
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 72
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -419,10 +419,10 @@ TextureImporter:
         serializedVersion: 2
         x: 256
         y: 192
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 52
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -438,12 +438,12 @@ TextureImporter:
       name: golem-atk_12
       rect:
         serializedVersion: 2
-        x: 320
+        x: 328
         y: 192
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -459,12 +459,12 @@ TextureImporter:
       name: golem-atk_13
       rect:
         serializedVersion: 2
-        x: 384
+        x: 392
         y: 192
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -480,12 +480,12 @@ TextureImporter:
       name: golem-atk_14
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 8
+        y: 97
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -501,12 +501,12 @@ TextureImporter:
       name: golem-atk_15
       rect:
         serializedVersion: 2
-        x: 64
+        x: 72
         y: 96
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -522,12 +522,12 @@ TextureImporter:
       name: golem-atk_16
       rect:
         serializedVersion: 2
-        x: 128
+        x: 136
         y: 96
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 68
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -543,12 +543,12 @@ TextureImporter:
       name: golem-atk_17
       rect:
         serializedVersion: 2
-        x: 192
+        x: 200
         y: 96
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 76
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -564,12 +564,12 @@ TextureImporter:
       name: golem-atk_18
       rect:
         serializedVersion: 2
-        x: 256
+        x: 264
         y: 96
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -585,12 +585,12 @@ TextureImporter:
       name: golem-atk_19
       rect:
         serializedVersion: 2
-        x: 320
-        y: 96
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 328
+        y: 97
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -606,12 +606,12 @@ TextureImporter:
       name: golem-atk_20
       rect:
         serializedVersion: 2
-        x: 384
+        x: 392
         y: 96
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -629,10 +629,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -649,11 +649,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 1
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -671,10 +671,10 @@ TextureImporter:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 72
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -691,11 +691,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 0
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 1
+        width: 48
+        height: 72
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -711,12 +711,12 @@ TextureImporter:
       name: golem-atk_25
       rect:
         serializedVersion: 2
-        x: 256
+        x: 268
         y: 0
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 52
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -732,12 +732,12 @@ TextureImporter:
       name: golem-atk_26
       rect:
         serializedVersion: 2
-        x: 320
+        x: 328
         y: 0
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -753,12 +753,12 @@ TextureImporter:
       name: golem-atk_27
       rect:
         serializedVersion: 2
-        x: 384
+        x: 392
         y: 0
-        width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2438459}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

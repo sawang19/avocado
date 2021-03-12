@@ -17,7 +17,7 @@ public enum PlayerState
 public class PlayerMovement : MonoBehaviour
 {
     public PlayerState currentState;
-    public float moveSpeed = 5f;
+    
     public float baseSpeed = 5f;
     public float speedFactor = 1f;
     public float changeSpeedUntil = -1f;
@@ -41,6 +41,10 @@ public class PlayerMovement : MonoBehaviour
 
     public FloatValue currentHealth;
     public FloatValue enemyHealth;
+    public FloatValue moveSpeed;
+    public InventoryItem mykeys;
+    public InventoryItem myboots;
+    public InventoryItem mycoins;
     public Signal playerHealthSignal;
 
     [SerializeField]
@@ -52,6 +56,9 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         InvokeRepeating("BuildMesh", 1.0f, 0.5f);
+        myboots.numberHeld = 0;
+        mykeys.numberHeld = 0;
+        mycoins.numberHeld = 0;
     }
     // Update is called once per frame
     void Update()
@@ -91,15 +98,15 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (Time.time < changeSpeedUntil)
-            {
-                moveSpeed = baseSpeed * speedFactor;
-            }
-            else
-            {
-                moveSpeed = baseSpeed;
-                speedFactor = 1f;
-            }
+            //if (Time.time < changeSpeedUntil)
+            //{
+            //    moveSpeed.runtimeValue = baseSpeed * speedFactor;
+            //}
+            //else
+            //{
+            //    moveSpeed.runtimeValue = baseSpeed;
+            //    speedFactor = 1f;
+            //}
 
         }
 
@@ -115,8 +122,11 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator AttackCo()
     {
+        
         animator.SetBool("Attacking", true);
+        
         currentState = PlayerState.Attacking;
+        
         yield return null;
         animator.SetBool("Attacking", false);
         yield return new WaitForSeconds(0.25f);
@@ -140,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveCharacter()
     {
-        rb.MovePosition(transform.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(transform.position + movement * moveSpeed.runtimeValue * Time.fixedDeltaTime);
     }
 
     public void Knock(Rigidbody2D rb, float knockTime, float damage)
@@ -178,6 +188,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Keys")
         {
             keys++;
+            mykeys.numberHeld = keys;
             FindObjectOfType<AudioManager>().Play("coin");
             Destroy(collision.gameObject);
         }
@@ -185,6 +196,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Coins")
         {
             coins += 10;
+            mycoins.numberHeld = coins;
             FindObjectOfType<AudioManager>().Play("coin");
             Destroy(collision.gameObject);
         }
@@ -192,8 +204,9 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Boots")
         {
             //moveSpeed = 10f;
-            changeSpeedUntil = Time.time + 5;
-            speedFactor = 1.5f;
+            myboots.numberHeld += 1;
+            //changeSpeedUntil = Time.time + 5;
+            //speedFactor = 1.5f;
             FindObjectOfType<AudioManager>().Play("coin");
             Destroy(collision.gameObject);
         }
