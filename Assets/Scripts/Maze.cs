@@ -56,6 +56,7 @@ public class Maze : MonoBehaviour {
 	public GameObject golem; // 11
 	public GameObject dog; //12
 	public GameObject ghost; //13
+	public GameObject door; //14
 
 	[SerializeField]
 	NavMeshSurface2d[] navMeshSurfaces;
@@ -278,22 +279,26 @@ public class Maze : MonoBehaviour {
 			navMeshSurfaces[i].BuildNavMesh();
 		}
 
-		putItems(mazeMapTrf, key, 2, 5);
-		putItems(mazeMapTrf, coin, 3, 10);
-		putItems(mazeMapTrf, boot, 4, 5);
-		putItems(mazeMapTrf, pot, 5, 5);
-		//putItems(mazeMapTrf, mole, 6, 2);
-		putItems(mazeMapTrf, npc, 7, 2);
-		putItems(mazeMapTrf, hpPotion, 8, 5);
-		putItems(mazeMapTrf, slowPotion, 9, 5);
-		putItems(mazeMapTrf, trap, 10, 5);
+        putItems(mazeMapTrf, key, 2, 5);
+        putItems(mazeMapTrf, coin, 3, 10);
+        putItems(mazeMapTrf, boot, 4, 5);
+        putItems(mazeMapTrf, pot, 5, 1);
+        //putItems(mazeMapTrf, mole, 6, 2);
+        putItems(mazeMapTrf, npc, 7, 2);
+		//putItems(mazeMapTrf, hpPotion, 8, 5);
+		//putItems(mazeMapTrf, slowPotion, 9, 5);
+		//putItems(mazeMapTrf, trap, 10, 5);
 		putItems(mazeMapTrf, golem, 11, 2);
 		//putItems(mazeMapTrf, dog, 12, 5);
-		putItems(mazeMapTrf, ghost, 13, 2);
+		//putItems(mazeMapTrf, ghost, 13, 2);
+		putItems(mazeMapTrf, door, 14, 5);
+		//ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
+		//ItemWorld.SpawnItemWorld(new Vector3(10, 11), new Item { itemType = Item.ItemType.coins, amount = 1 });
+		//ItemWorld.SpawnItemWorld(new Vector3(10, 12), new Item { itemType = Item.ItemType.keys, amount = 1 });
 
 
-		
-		
+
+
 	}
 
 	// randomly put [total] [obj]s on the map, and mark the position with [mark]
@@ -326,17 +331,30 @@ public class Maze : MonoBehaviour {
 				mazeMapTrf[i, j] = mark;
 				mazeMap[i, -j + mazeMapY - 1] = mark;
 				Vector3 position = new Vector3(i, -j + offsetY, 0f);
-				if(mark != 6 && mark != 11 && mark != 12 && mark != 13)
+				if(mark == 6 || mark == 11 || mark == 12 || mark == 13)
                 {
+					//GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
+					//OBJ.transform.SetParent(grid.transform);
 					GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
-					OBJ.transform.SetParent(grid.transform);
-				}else
+				}
+				else if(mark == 2)
                 {
                     //Vector3 position3 = new Vector3(position.x, position.y, 0);
+                    //GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
+                    ItemWorld.SpawnItemWorld(position, new Item { itemType = Item.ItemType.keys, amount = 1 });
+
+                } else if(mark == 3)
+                {
+					ItemWorld.SpawnItemWorld(position, new Item { itemType = Item.ItemType.coins, amount = 1 });
+				} else if(mark == 4)
+                {
+					ItemWorld.SpawnItemWorld(position, new Item { itemType = Item.ItemType.boots, amount = 1 });
+				} else
+                {
                     GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
-					
+                    OBJ.transform.SetParent(grid.transform);
                 }
-				
+
 				items++;
 			}
 		}

@@ -16,6 +16,6 @@ public class GameWin : MonoBehaviour
         SceneManager.LoadScene("MenuScene");
     }
     public void NextGameButton() {
-
+        Debug.Log("win");
     }
 }

@@ -16,6 +16,7 @@ TagManager:
   - slowPotion
   - trap
   - EnemyTag_Ghost
+  - Items
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Scenes
   - 
   - 
   - 

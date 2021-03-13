@@ -44,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
     public float step = 15;
     public int dir_flag = 0;
 
+    public GameObject dialogBoxForDoor;
+    public Text dialogTextForDoor;
+    public string dialogForDoor;
+    public bool playerInRangeForDoor;
+
     public FloatValue currentHealth;
     public FloatValue enemyHealth;
     public FloatValue moveSpeed;
@@ -55,6 +60,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     NavMeshSurface2d navMeshSurface;
 
+    [SerializeField] private UI_Inventory uiInventory;
+
+    private Inventory inventory;
+
+    private void Awake()
+    {
+        inventory = new Inventory(UseItem);
+        uiInventory.SetInventory(inventory);
+        
+    }
     private void Start()
     {
         currentState = PlayerState.idle;
@@ -64,6 +79,10 @@ public class PlayerMovement : MonoBehaviour
         myboots.numberHeld = 0;
         mykeys.numberHeld = 0;
         mycoins.numberHeld = 0;
+        keys = 0;
+        //ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
+        //ItemWorld.SpawnItemWorld(new Vector3(10, 13), new Item { itemType = Item.ItemType.coins, amount = 1 });
+        //ItemWorld.SpawnItemWorld(new Vector3(10, 16), new Item { itemType = Item.ItemType.keys, amount = 1 });
     }
     // Update is called once per frame
     void Update()
@@ -102,6 +121,30 @@ public class PlayerMovement : MonoBehaviour
 
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.Return) && playerInRangeForDoor && keys < 2)
+            {
+                if (dialogBoxForDoor.activeInHierarchy)
+                {
+                    dialogBoxForDoor.SetActive(false);
+                    Time.timeScale = 1;
+
+                }
+                else
+                {
+                    dialogBoxForDoor.SetActive(true);
+                    dialogTextForDoor.text = dialogForDoor;
+                    Time.timeScale = 0;
+
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return) && playerInRangeForDoor && keys >= 2)
+            {
+                
+                GameWinAPI();
+            }
+
             drawFieldOfView();
             if (Time.time < changeSpeedUntil)
             {
@@ -110,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                //moveSpeed.runtimeValue = baseSpeed;
+                moveSpeed.runtimeValue = baseSpeed;
                 speedFactor = 1f;
                 //fieldofview.intensity = 2.0f;
                 //fieldofview2.intensity = 2.0f;
@@ -128,6 +171,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         
+    }
+
+    void UseItem(Item item)
+    {
+        if (item.IsUsable())
+        {
+            if (item.itemType == Item.ItemType.boots)
+            {
+                changeSpeedUntil = Time.time + 5;
+                speedFactor = 2;
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.boots, amount = 1 });
+
+            }
+        }
     }
 
     void BuildMesh()
@@ -279,15 +336,36 @@ public class PlayerMovement : MonoBehaviour
             //Destroy(collision.gameObject);
         }
 
+        
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Tigger enter");
         if (other.CompareTag("npc"))
         {
             playerInRange = true;
             //Debug.Log("Player in Range");
         }
+        if (other.CompareTag("Door"))
+        {
+            playerInRangeForDoor = true;
+            //Debug.Log("Player in Range");
+        }
+
+        if(other.CompareTag("Items"))
+        {
+            ItemWorld itemWorld = other.GetComponent<ItemWorld>();
+
+            if (itemWorld != null)
+            {
+                inventory.AddItem(itemWorld.GetItem());
+                Debug.Log("The length is " + inventory.GetItemList().Count);
+                itemWorld.DestroySelf();
+            }
+        }
+        
     }
 
 
@@ -297,6 +375,12 @@ public class PlayerMovement : MonoBehaviour
         {
             playerInRange = false;
             dialogBox.SetActive(false);
+            //Debug.Log("Player out Range");
+        }
+        if (other.CompareTag("Door"))
+        {
+            playerInRangeForDoor = false;
+            dialogBoxForDoor.SetActive(false);
             //Debug.Log("Player out Range");
         }
     }
@@ -314,7 +398,7 @@ public class PlayerMovement : MonoBehaviour
     {
         GameWin.Setup();
         endgame = true;
-        FindObjectOfType<AudioManager>().Pause("bacground");
+        FindObjectOfType<AudioManager>().Pause("background");
     }
 
     void drawFieldOfView()
@@ -426,4 +510,6 @@ public class PlayerMovement : MonoBehaviour
     {
         enemy.GetComponent<ghost>().spottedFrame = Time.frameCount;
     }
+
+    
 }
