@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b3fd9154634ebdb8c8a48960b9a16a, type: 3}
+  m_Name: data
+  m_EditorClassIdentifier: 
+  NodeLinks:
+  - BaseNodeGUID: 47792e2a-43eb-4a71-bc13-10bd47aca58e
+    PortName: Next
+    TargetNodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
+  - BaseNodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
+    PortName: How to escape?
+    TargetNodeGUID: ec6c545b-80e2-4c1a-bf18-69e82a9658cd
+  - BaseNodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
+    PortName: Buy some items.
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: Air rifile
+    TargetNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: Shoes
+    TargetNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: Cloak
+    TargetNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
+  - BaseNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
+    PortName: yes
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
+    PortName: no
+    TargetNodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
+  - BaseNodeGUID: ec6c545b-80e2-4c1a-bf18-69e82a9658cd
+    PortName: I got it!
+    TargetNodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
+  DialogueNodeData:
+  - NodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
+    DialogueText: How's going, buddy?
+    Position: {x: 243, y: 153}
+  - NodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    DialogueText: 'Here are what I have:'
+    Position: {x: 568, y: 293}
+  - NodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
+    DialogueText: Do you want buy Air rifile?
+    Position: {x: 890, y: 241}
+  - NodeGUID: ec6c545b-80e2-4c1a-bf18-69e82a9658cd
+    DialogueText: Collect all the keys and open the door. Good luck!
+    Position: {x: 605, y: 154}
+  ExposedProperties: []
+  CommentBlockData: []

@@ -39,6 +39,11 @@ public class PlayerMovement : MonoBehaviour
     public string dialog;
     public bool playerInRange;
 
+    public bool seetheghost;
+    public float viewradius;
+    public float step = 15;
+    public int dir_flag = 0;
+
     public FloatValue currentHealth;
     public FloatValue enemyHealth;
     public FloatValue moveSpeed;
@@ -92,12 +97,24 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     dialogBox.SetActive(true);
-                    dialogText.text = dialog;
+                    //dialogText.text = dialog;
                     Time.timeScale = 0;
 
                 }
             }
-
+            drawFieldOfView();
+            if (Time.time < changeSpeedUntil)
+            {
+                moveSpeed.runtimeValue = baseSpeed * speedFactor;
+                //fieldofview.intensity = 0.7f;
+            }
+            else
+            {
+                //moveSpeed.runtimeValue = baseSpeed;
+                speedFactor = 1f;
+                //fieldofview.intensity = 2.0f;
+                //fieldofview2.intensity = 2.0f;
+            }
             //if (Time.time < changeSpeedUntil)
             //{
             //    moveSpeed.runtimeValue = baseSpeed * speedFactor;
@@ -253,6 +270,15 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
+        if (collision.gameObject.tag == "EnemyTag_Ghost")
+        {
+            changeSpeedUntil = Time.time + 2;
+            speedFactor = 0.6f;
+            //StartCoroutine(speedTime());
+            FindObjectOfType<AudioManager>().Play("coin");
+            //Destroy(collision.gameObject);
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -289,5 +315,115 @@ public class PlayerMovement : MonoBehaviour
         GameWin.Setup();
         endgame = true;
         FindObjectOfType<AudioManager>().Pause("bacground");
+    }
+
+    void drawFieldOfView()
+    {
+        Vector3 forward_direction;
+        forward_direction = Quaternion.Euler(0, 0, 135) * transform.up * viewradius;
+
+        if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
+        {
+            if (movement.x < 0)
+            {
+                forward_direction = Quaternion.Euler(0, 0, 135) * transform.right * viewradius;
+                dir_flag = 3;
+            }
+            else if (movement.x > 0)
+            {
+                forward_direction = Quaternion.Euler(0, 0, -45) * transform.right * viewradius;
+                dir_flag = 4;
+            }
+        }
+        else if (Mathf.Abs(movement.x) < Mathf.Abs(movement.y))
+        {
+            if (movement.y < 0)
+            {
+                forward_direction = Quaternion.Euler(0, 0, 135) * transform.up * viewradius;
+                dir_flag = 2;
+            }
+            else if (movement.y > 0)
+            {
+                forward_direction = Quaternion.Euler(0, 0, -45) * transform.up * viewradius;
+                dir_flag = 1;
+
+            }
+
+        }
+        else if (Mathf.Abs(movement.x) == 0 && Mathf.Abs(movement.y) == 0)
+        {
+            if (dir_flag == 1)
+            {
+                forward_direction = Quaternion.Euler(0, 0, -45) * transform.up * viewradius;
+            }
+            else if (dir_flag == 2)
+            {
+                forward_direction = Quaternion.Euler(0, 0, 135) * transform.up * viewradius;
+            }
+            else if (dir_flag == 3)
+            {
+                forward_direction = Quaternion.Euler(0, 0, 135) * transform.right * viewradius;
+
+            }
+            else if (dir_flag == 4)
+            {
+                forward_direction = Quaternion.Euler(0, 0, -45) * transform.right * viewradius;
+            }
+
+        }
+
+        for (int i = 0; i <= step; i++)
+        {
+
+            Vector3 v = Quaternion.Euler(0, 0, (90.0f / step) * i) * forward_direction;
+            Vector2 v_2 = v;
+            Vector2 mole_pos_v2 = transform.position;
+            Ray ray = new Ray(mole_pos_v2, v_2);
+
+            RaycastHit2D hitt = new RaycastHit2D();
+            int mask = LayerMask.GetMask("Enemy_dog", "Enemy_ghost", "Wall");
+
+            hitt = Physics2D.Raycast(ray.origin, ray.direction, viewradius, mask);
+
+            Vector2 pos = mole_pos_v2 + v_2;
+            if (hitt.collider != null && hitt.transform.gameObject.layer == LayerMask.NameToLayer("Enemy_ghost"))
+            {
+                Debug.Log("I see the ghost");
+                pos = hitt.point;
+                //Debug.Log("Hit point: " + pos);
+                seetheghost = true;
+                OnEnemySpottedghost(hitt.transform.gameObject);
+
+
+            }
+            if (hitt.collider != null && hitt.transform.gameObject.layer == LayerMask.NameToLayer("Enemy_dog"))
+            {
+                Debug.Log("I see the dog");
+                pos = hitt.point;
+                //Debug.Log("Hit point: " + pos);
+                //OnEnemySpotteddog(hitt.transform.gameObject);
+
+
+            }
+
+
+            if (hitt.collider != null && hitt.transform.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            {
+                //Debug.Log("Hit Wall");
+                pos = hitt.point;
+
+                //Debug.Log("Hit point: " + pos);
+
+            }
+
+
+            Debug.DrawLine(mole_pos_v2, pos, Color.red);
+
+        }
+    }
+
+    void OnEnemySpottedghost(GameObject enemy)
+    {
+        enemy.GetComponent<ghost>().spottedFrame = Time.frameCount;
     }
 }

@@ -42,18 +42,18 @@ public class Knockback : MonoBehaviour
         //    Debug.Log("enemies hit");
         //}
 
-        if (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("EnemyTag_Ghost"))
         {
             Rigidbody2D hit = collision.GetComponent<Rigidbody2D>();
             if(hit != null)
             {
-                if (!(this.gameObject.CompareTag("Enemies") && collision.gameObject.CompareTag("Enemies")))
+                if (!(this.gameObject.CompareTag("Enemies") && (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("EnemyTag_Ghost"))))
                 {
                     Vector2 difference = hit.transform.position - transform.position;
                     difference = difference.normalized * thrust;
                     hit.AddForce(difference, ForceMode2D.Impulse);
 
-                    if (collision.gameObject.CompareTag("Enemies") && collision.isTrigger)
+                    if ((collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("EnemyTag_Ghost")) && collision.isTrigger)
                     {
                         hit.GetComponent<Enemy>().currentState = EnemyState.stagger;
                         collision.GetComponent<Enemy>().Knock(hit, knockTime, damage);

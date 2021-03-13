@@ -54,6 +54,8 @@ public class Maze : MonoBehaviour {
 	public GameObject trap; //10
 
 	public GameObject golem; // 11
+	public GameObject dog; //12
+	public GameObject ghost; //13
 
 	[SerializeField]
 	NavMeshSurface2d[] navMeshSurfaces;
@@ -286,6 +288,8 @@ public class Maze : MonoBehaviour {
 		putItems(mazeMapTrf, slowPotion, 9, 5);
 		putItems(mazeMapTrf, trap, 10, 5);
 		putItems(mazeMapTrf, golem, 11, 2);
+		//putItems(mazeMapTrf, dog, 12, 5);
+		putItems(mazeMapTrf, ghost, 13, 2);
 
 
 		
@@ -322,7 +326,7 @@ public class Maze : MonoBehaviour {
 				mazeMapTrf[i, j] = mark;
 				mazeMap[i, -j + mazeMapY - 1] = mark;
 				Vector3 position = new Vector3(i, -j + offsetY, 0f);
-				if(mark != 6 && mark != 11)
+				if(mark != 6 && mark != 11 && mark != 12 && mark != 13)
                 {
 					GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
 					OBJ.transform.SetParent(grid.transform);

@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.subtegral.dialoguesystem": {
+      "version": "file:/Users/sa/Desktop/526/inventory/dialogSystem/NodeBasedDialogueSystem",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.2d.animation": {
       "version": "3.2.6",
       "depth": 0,

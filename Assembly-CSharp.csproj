@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Cell.cs" />
     <Compile Include="Assets\Scripts\DialogBoxScript.cs" />
+    <Compile Include="Assets\Scripts\Dog.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\GameOver.cs" />
     <Compile Include="Assets\Scripts\GameWin.cs" />
@@ -91,7 +92,10 @@
     <Compile Include="Assets\Scripts\Sound.cs" />
     <Compile Include="Assets\Scripts\TestMovement.cs" />
     <Compile Include="Assets\Scripts\Wait.cs" />
+    <Compile Include="Assets\Scripts\dialog.cs" />
+    <Compile Include="Assets\Scripts\ghost.cs" />
     <Compile Include="Assets\Scripts\golem.cs" />
+    <Compile Include="Assets\Scripts\inventoryButton.cs" />
     <Compile Include="Assets\Scripts\mole.cs" />
     <Compile Include="Assets\Scripts\pot.cs" />
     <Compile Include="Assets\Scripts\teamLogo.cs" />
@@ -750,6 +754,14 @@
     <ProjectReference Include="NavMeshComponents.csproj">
       <Project>{58DF48C5-5209-399E-6B24-51D3EC3796B6}</Project>
       <Name>NavMeshComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="Runtime.csproj">
+      <Project>{963F473F-AD78-0383-C506-720CE6EF0510}</Project>
+      <Name>Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Editor.csproj">
+      <Project>{55D5927C-85D1-D95B-53E1-C8718169395D}</Project>
+      <Name>Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

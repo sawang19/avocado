@@ -10,7 +10,7 @@ public class SpeedReaction : MonoBehaviour
 
     public void Use()
     {
-        playerSpeed.runtimeValue *= 1.5f;
+        playerSpeed.runtimeValue *= 3f;
         Timer t = new Timer(TimerCallback, null, 5000, 0);
     }
 

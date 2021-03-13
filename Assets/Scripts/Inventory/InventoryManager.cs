@@ -14,6 +14,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Text descriptionText;
     [SerializeField] private GameObject useButton;
     public InventoryItem currentItem;
+    public GameObject inventoryUI;
 
     public void SetTextAndButton(string description, bool buttonActive)
     {
@@ -83,5 +84,11 @@ public class InventoryManager : MonoBehaviour
             makeInventorySlots();
             if (currentItem.numberHeld == 0)    SetTextAndButton("", false);
         }
+    }
+
+    public void closeButton()
+    {
+        Time.timeScale = 1;
+        inventoryUI.SetActive(false);
     }
 }
