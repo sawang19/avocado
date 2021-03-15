@@ -17,6 +17,8 @@ TagManager:
   - trap
   - EnemyTag_Ghost
   - Items
+  - randomPotion
+  - sword
   layers:
   - Default
   - TransparentFX
@@ -30,7 +32,7 @@ TagManager:
   - Enemy
   - Player
   - Enemy_ghost
-  - 
+  - Item
   - 
   - 
   - 

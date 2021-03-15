@@ -144,7 +144,7 @@ public class Dog : Enemy
 
                     agent.SetDestination(target.position);
                     agent.isStopped = false;
-                    agent.speed = 8f;
+                    //agent.speed = 8f;
                     ChangeState(EnemyState.walk);
                     animator.SetBool("Walking", true);
                 }
@@ -218,7 +218,7 @@ public class Dog : Enemy
 
                 agent.SetDestination(target.position);
                 agent.isStopped = false;
-                agent.speed = 8f;
+                //agent.speed = 8f;
                 
                 ChangeState(EnemyState.walk);
                 animator.SetBool("Walking", true);
@@ -233,7 +233,7 @@ public class Dog : Enemy
             {
                 //fieldofview.color = Color.green;
                 agent.SetDestination(moveSpot);
-                agent.speed = 3f;
+                //agent.speed = 3f;
                 //Debug.Log("Mole's position: " + transform.position);
                 //Debug.Log("Destination: " + moveSpot);
                 Vector3 direction = moveSpot - transform.position;

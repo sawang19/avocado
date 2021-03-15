@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4620213940746658156}
   - component: {fileID: 4188795695475878075}
-  - component: {fileID: -5231338314274945627}
-  - component: {fileID: -1275423416102516846}
-  - component: {fileID: 8268000049246095230}
+  - component: {fileID: 7003408728184930057}
+  - component: {fileID: -399907716691022718}
+  - component: {fileID: -8543036001902939691}
   m_Layer: 8
   m_Name: brown_URB
   m_TagString: Untagged
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &-5231338314274945627
+--- !u!50 &7003408728184930057
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -105,7 +105,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!61 &-1275423416102516846
+--- !u!61 &-399907716691022718
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8268000049246095230
+--- !u!114 &-8543036001902939691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

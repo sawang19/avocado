@@ -49,14 +49,29 @@ public class Knockback : MonoBehaviour
             {
                 if (!(this.gameObject.CompareTag("Enemies") && (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("EnemyTag_Ghost"))))
                 {
+                    
                     Vector2 difference = hit.transform.position - transform.position;
                     difference = difference.normalized * thrust;
                     hit.AddForce(difference, ForceMode2D.Impulse);
 
+                    
+
                     if ((collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("EnemyTag_Ghost")) && collision.isTrigger)
                     {
-                        hit.GetComponent<Enemy>().currentState = EnemyState.stagger;
-                        collision.GetComponent<Enemy>().Knock(hit, knockTime, damage);
+                        if (collision.GetComponent<Enemy>().currentState != EnemyState.stagger)
+                        {
+                            float boost = Component.FindObjectOfType<PlayerMovement>().attackBoost;
+                            if(collision.gameObject.CompareTag("EnemyTag_Ghost")) {
+                                hit.GetComponent<Enemy>().currentState = EnemyState.stagger;
+                                collision.GetComponent<Enemy>().Knock(hit, knockTime, 0);
+                            } else
+                            {
+                                hit.GetComponent<Enemy>().currentState = EnemyState.stagger;
+                                collision.GetComponent<Enemy>().Knock(hit, knockTime, damage * boost);
+                            }
+                            
+                        }
+                            
                     }
                     if (collision.gameObject.CompareTag("Player"))
                     {
@@ -105,7 +120,7 @@ public class Knockback : MonoBehaviour
 
         if (this.gameObject.CompareTag("Enemies") && collision.gameObject.CompareTag("Enemies"))
         {
-            
+
             return;
         }
 
@@ -125,7 +140,7 @@ public class Knockback : MonoBehaviour
                 //}
                 if (collision.gameObject.CompareTag("Player"))
                 {
-                    
+
                     if (collision.GetComponent<PlayerMovement>().currentState != PlayerState.stagger)
                     {
                         hit.GetComponent<PlayerMovement>().currentState = PlayerState.stagger;

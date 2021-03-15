@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 1249158121469088975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.127212, y: 3.2000892, z: 0}
-  m_LocalScale: {x: 0.9776388, y: 0.9362583, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -77,12 +77,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7cefe9e9e8c984bbd9ff43235be8f54f, type: 3}
+  m_Sprite: {fileID: 7652674833116573622, guid: 9f5200c3bb696e74f97713b612079542,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.24, y: 0.24}
+  m_Size: {x: 1.4375, y: 3.875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -119,7 +120,7 @@ Animator:
   m_GameObject: {fileID: 1249158121469088975}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a90ab8d4bb43a4e32b72e8526dbd3e7a, type: 2}
+  m_Controller: {fileID: 9100000, guid: a21039df26cc5cf4280b458bf9bfec09, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -141,18 +142,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.004606366, y: -0.2595957}
+  m_Offset: {x: 0.021604538, y: -0.2595957}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3333334, y: 1.3333334}
-    newSize: {x: 0.24, y: 0.24}
+    oldSize: {x: 1.4375, y: 3.875}
+    newSize: {x: 1.4375, y: 3.875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6154115, y: 0.5015136}
+  m_Size: {x: 0.5474205, y: 0.5015136}
   m_EdgeRadius: 0
 --- !u!61 &1249158121469089014
 BoxCollider2D:
@@ -167,18 +168,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.001955986, y: -0.26057047}
+  m_Offset: {x: -0.015043259, y: -0.13792133}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3333334, y: 1.3333334}
-    newSize: {x: 0.24, y: 0.24}
+    oldSize: {x: 1.4375, y: 3.875}
+    newSize: {x: 1.4375, y: 3.875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.80690944, y: 0.6948707}
+  m_Size: {x: 2.0307808, y: 4.169815}
   m_EdgeRadius: 0
 --- !u!114 &1249158121469089015
 MonoBehaviour:
@@ -205,16 +206,16 @@ NavMeshAgent:
   m_GameObject: {fileID: 1249158121469088975}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.6666667
+  m_Radius: 0.1
   m_Speed: 2
-  m_Acceleration: 5
+  m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.3333335
+  m_Height: 1
   m_BaseOffset: 0.66666675
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -245,7 +246,7 @@ MonoBehaviour:
   target: {fileID: 0}
   agent: {fileID: 0}
   enemyHealth: {fileID: 11400000, guid: 827ed151b17e94cdcbd3bc3882030393, type: 2}
-  dog_speed: 10
+  dog_speed: 5
   viewradius: 0
   FOV: 0
   step: 15

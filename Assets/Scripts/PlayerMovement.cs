@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     
     public float baseSpeed = 5f;
     public float speedFactor = 1f;
+    public float attackBoost = 1f;
     public float changeSpeedUntil = -1f;
 
     public Rigidbody2D rb;
@@ -184,6 +185,23 @@ public class PlayerMovement : MonoBehaviour
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.boots, amount = 1 });
 
             }
+            if(item.itemType == Item.ItemType.hpPotion)
+            {
+                if (currentHealth.runtimeValue != currentHealth.initialValue)
+                {
+                    currentHealth.runtimeValue += 1;
+                }
+
+                playerHealthSignal.Raise();
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.hpPotion, amount = 1 });
+
+            }
+            if(item.itemType == Item.ItemType.randomPotion)
+            {
+                changeSpeedUntil = Time.time + 5;
+                speedFactor = Random.Range(0.5f, 3.0f);
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.randomPotion, amount = 1 });
+            }
         }
     }
 
@@ -203,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
         
         yield return null;
         animator.SetBool("Attacking", false);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         currentState = PlayerState.Walking;
     }
 
@@ -318,12 +336,20 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag == "slowPotion")
+        if (collision.gameObject.tag == "randomPotion")
         {
             changeSpeedUntil = Time.time + 5;
-            speedFactor = 0.6f;
+            speedFactor = Random.Range(0.5f, 3.0f);
             //StartCoroutine(speedTime());
             FindObjectOfType<AudioManager>().Play("coin");
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "sword")
+        {
+            attackBoost = 2f;
+            FindObjectOfType<AudioManager>().Play("coin");
+            animator.SetBool("red", true);
             Destroy(collision.gameObject);
         }
 
@@ -336,13 +362,23 @@ public class PlayerMovement : MonoBehaviour
             //Destroy(collision.gameObject);
         }
 
-        
+        if(collision.gameObject.tag == "Items")
+        {
+            ItemWorld itemWorld = collision.gameObject.GetComponent<ItemWorld>();
+            if (itemWorld != null)
+            {
+                inventory.AddItem(itemWorld.GetItem());
+                Debug.Log("The length is " + inventory.GetItemList().Count);
+                itemWorld.DestroySelf();
+                FindObjectOfType<AudioManager>().Play("coin");
+            }
+        }
 
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Tigger enter");
+        
         if (other.CompareTag("npc"))
         {
             playerInRange = true;
@@ -354,17 +390,18 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log("Player in Range");
         }
 
-        if(other.CompareTag("Items"))
-        {
-            ItemWorld itemWorld = other.GetComponent<ItemWorld>();
+        //if(other.CompareTag("Items"))
+        //{
+        //    ItemWorld itemWorld = other.GetComponent<ItemWorld>();
 
-            if (itemWorld != null)
-            {
-                inventory.AddItem(itemWorld.GetItem());
-                Debug.Log("The length is " + inventory.GetItemList().Count);
-                itemWorld.DestroySelf();
-            }
-        }
+        //    if (itemWorld != null)
+        //    {
+        //        inventory.AddItem(itemWorld.GetItem());
+        //        Debug.Log("The length is " + inventory.GetItemList().Count);
+        //        itemWorld.DestroySelf();
+        //        FindObjectOfType<AudioManager>().Play("coin");
+        //    }
+        //}
         
     }
 

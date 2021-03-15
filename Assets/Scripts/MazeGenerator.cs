@@ -12,13 +12,13 @@ public class MazeGenerator {
 	public int[,] mazeGrid;
 	private int level;
 
-	private static Random random;
-	private static object syncObj = new object();
-	private static void InitRandomNumber(int seed) {
+	public static Random random;
+	public static object syncObj = new object();
+	public static void InitRandomNumber(int seed) {
 		random = new Random(seed);
 	}
 
-	private static int GenerateRandomNumber(int min, int max) {
+	public static int GenerateRandomNumber(int min, int max) {
 		lock(syncObj) {
 			if (random == null) random = new Random();
 			return random.Next(min, max);
@@ -150,19 +150,75 @@ public class MazeGenerator {
 			}
 		}
 
-		mazeGrid = expandArray(mazeGrid);
+		// Exspand maze
+		mazeGrid = expandMaze(mazeGrid);
+
+		
+		int doorCnt = GenerateRandomNumber(1, 5);
+		if (doorCnt == 1) {
+			// Generate left door
+			while (true) {
+				int row = GenerateRandomNumber(1, mazeGrid.GetLength(0) - 2);
+				if (mazeGrid[1, row] == 0 && mazeGrid[1, row - 1] == 0 && 
+					mazeGrid[1, row + 1] == 0 && mazeGrid[1, row + 2] == 0) {
+					mazeGrid[0, row] = 2021;
+					mazeGrid[0, row + 1] = 2021;
+					break;
+				}
+			}
+		}
+		
+		if (doorCnt == 2) {
+			// Generate right door
+			while (true) {
+				int row = GenerateRandomNumber(1, mazeGrid.GetLength(0) - 2);
+				if (mazeGrid[mazeGrid.GetLength(1) - 2, row] == 0 && mazeGrid[mazeGrid.GetLength(1) - 2, row - 1] == 0 && 
+					mazeGrid[mazeGrid.GetLength(1) - 2, row + 1] == 0 && mazeGrid[mazeGrid.GetLength(1) - 2, row + 2] == 0) {
+					mazeGrid[mazeGrid.GetLength(1) - 1, row] = 2021;
+					mazeGrid[mazeGrid.GetLength(1) - 1, row + 1] = 2021;
+					break;
+				}
+			}
+		}
+
+		if (doorCnt == 3) {
+			// Generate bottom door
+			while (true) {
+				int col = GenerateRandomNumber(1, mazeGrid.GetLength(1) - 2);
+				if (mazeGrid[col - 1, 1] == 0 && mazeGrid[col, 1] == 0 && 
+					mazeGrid[col + 1, 1] == 0 && mazeGrid[col + 2, 1] == 0) {
+					mazeGrid[col, 0] = 2021;
+					mazeGrid[col + 1, 0] = 2021;
+					break;
+				}
+			}
+		}
+
+		if (doorCnt == 4) {
+			// Generate top door
+			while (true) {
+				int col = GenerateRandomNumber(1, mazeGrid.GetLength(1) - 2);
+				if (mazeGrid[col - 1, mazeGrid.GetLength(0) - 2] == 0 && mazeGrid[col, mazeGrid.GetLength(0) - 2] == 0 && 
+					mazeGrid[col + 1, mazeGrid.GetLength(0) - 2] == 0 && mazeGrid[col + 2, mazeGrid.GetLength(0) - 2] == 0) {
+					mazeGrid[col, mazeGrid.GetLength(0) - 1] = 2021;
+					mazeGrid[col + 1, mazeGrid.GetLength(0) - 1] = 2021;
+					break;
+				}
+			}
+		}
 	}
 
-	private int[,] expandArray(int[,] arr) {
+	private int[,] expandMaze(int[,] arr) {
         int[,] newArr = new int[arr.GetLength(0) * 2 - 1, arr.GetLength(1) * 2 - 1];
-            
+        
+        // Expand wall's position
         for (int i = 0; i < arr.GetLength(0); i++) {
             for (int j = 0; j < arr.GetLength(1); j++) {
                 newArr[2 * i, 2 * j] = arr[i, j];
             }
         }
-        //printArray(newArr);
         
+        // Fill the gap of wall
         for (int i = 0; i < newArr.GetLength(0) - 2; i++) {
             for (int j = 0; j < newArr.GetLength(1) - 2; j++) {
                 if (newArr[i, j] == 1) {
@@ -176,14 +232,15 @@ public class MazeGenerator {
             }
         }
         
+        // Fill right and bottom borders
         for (int i = 0; i < newArr.GetLength(1); i++) {
             newArr[newArr.GetLength(0) - 1, i] = 1;
         }
-        
         for (int i = 0; i < newArr.GetLength(0); i++) {
             newArr[i, newArr.GetLength(1) - 1] = 1;
         }
         
+        // Modify 2 to 1
         for (int i = 0; i < newArr.GetLength(0); i++) {
             for (int j = 0; j < newArr.GetLength(1); j++) {
                 if (newArr[i, j] == 2) {
@@ -222,3 +279,5 @@ public class MazeGenerator {
 		}
 	}
 }
+
+

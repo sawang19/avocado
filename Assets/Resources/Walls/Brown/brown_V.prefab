@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7113953175445869588}
   - component: {fileID: 724632692958435144}
-  - component: {fileID: 4365635537806201373}
-  - component: {fileID: -7213944998749782890}
-  - component: {fileID: 542411319352279138}
+  - component: {fileID: 118029943577859800}
+  - component: {fileID: 8324119235329147039}
+  - component: {fileID: -2637254198836975461}
   m_Layer: 8
   m_Name: brown_V
   m_TagString: Untagged
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &4365635537806201373
+--- !u!50 &118029943577859800
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -105,7 +105,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!61 &-7213944998749782890
+--- !u!61 &8324119235329147039
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &542411319352279138
+--- !u!114 &-2637254198836975461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

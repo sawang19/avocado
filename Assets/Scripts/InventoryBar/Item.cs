@@ -8,7 +8,9 @@ public class Item
     {
         boots,
         coins,
-        keys
+        keys,
+        hpPotion,
+        randomPotion
     }
 
     public ItemType itemType;
@@ -22,6 +24,8 @@ public class Item
             case ItemType.boots: return ItemAssets.Instance.boots;
             case ItemType.coins: return ItemAssets.Instance.coins;
             case ItemType.keys: return ItemAssets.Instance.keys;
+            case ItemType.hpPotion: return ItemAssets.Instance.hpPotion;
+            case ItemType.randomPotion: return ItemAssets.Instance.randomPotion;
         }
     }
 
@@ -33,6 +37,8 @@ public class Item
             case ItemType.boots:
             case ItemType.coins:
             case ItemType.keys:
+            case ItemType.hpPotion:
+            case ItemType.randomPotion:
                 return true;
         }
     }
@@ -43,6 +49,8 @@ public class Item
         {
             default:
             case ItemType.boots:
+            case ItemType.hpPotion:
+            case ItemType.randomPotion:
                 return true;
             case ItemType.coins:
             case ItemType.keys:

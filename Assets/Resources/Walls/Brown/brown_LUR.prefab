@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3419907236678979881}
   - component: {fileID: 1229928136834906742}
-  - component: {fileID: -8450809615903930646}
-  - component: {fileID: -1320671386177002088}
-  - component: {fileID: 1917208626180399006}
+  - component: {fileID: 2637383370381368357}
+  - component: {fileID: -2174038511493030062}
+  - component: {fileID: 7947653342981012499}
   m_Layer: 8
   m_Name: brown_LUR
   m_TagString: Untagged
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &-8450809615903930646
+--- !u!50 &2637383370381368357
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -105,7 +105,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!61 &-1320671386177002088
+--- !u!61 &-2174038511493030062
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1917208626180399006
+--- !u!114 &7947653342981012499
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

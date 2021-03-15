@@ -58,7 +58,11 @@ public class Enemy : MonoBehaviour
 
     public void Knock(Rigidbody2D rb, float knockTime, float damage)
     {
+
+        currentState = EnemyState.stagger;
         StartCoroutine(KnockCo(rb, knockTime));
+
+        
         TakeDamage(damage);
     }
 

@@ -178,11 +178,11 @@ public class golem : Enemy
             animator.SetBool("Attacking", false);
             transform.GetComponent<Renderer>().material.color = Color.cyan;
             moveSpeed = 10.0f;
-            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger && currentState != EnemyState.attack)
+            if ((currentState == EnemyState.idle || currentState == EnemyState.walk) && currentState != EnemyState.stagger && currentState != EnemyState.attack)
             {
                 if (findplayer == true)
                 {
-                    if (Vector3.Distance(target.position, transform.position) <= attackRadius)
+                    if (Vector3.Distance(target.position, transform.position) <= attackRadius && currentState != EnemyState.stagger)
                     {
                         //agent.velocity = Vector3.zero;
                         //animator.SetBool("Attacking", true);
@@ -193,7 +193,7 @@ public class golem : Enemy
                         agent.velocity = Vector3.zero;
                         StartCoroutine(GolemAttackCo());
                     }
-                    else if(currentState != EnemyState.attack)
+                    else if(currentState != EnemyState.attack && currentState != EnemyState.stagger)
                     {
                         transform.GetComponent<Renderer>().material.color = Color.red;
                         Vector3 temp = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);

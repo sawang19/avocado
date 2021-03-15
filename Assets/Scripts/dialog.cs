@@ -13,7 +13,7 @@ namespace Subtegral.DialogueSystem.Runtime
     {
         public GameObject dialogBox;
         [SerializeField] private DialogueContainer dialogue;
-        [SerializeField] private TextMeshProUGUI dialogueText;
+        [SerializeField] private Text dialogueText;
         [SerializeField] private Button choicePrefab;
         [SerializeField] private Transform buttonContainer;
 

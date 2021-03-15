@@ -15,4 +15,6 @@ public class ItemAssets : MonoBehaviour
     public Sprite boots;
     public Sprite coins;
     public Sprite keys;
+    public Sprite hpPotion;
+    public Sprite randomPotion;
 }
