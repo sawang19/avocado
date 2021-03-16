@@ -1313,6 +1313,24 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+  - name: ghost
+    clip: {fileID: 8300000, guid: 0b89b2073307d4e96b76bcf537bb571f, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: gamewin
+    clip: {fileID: 8300000, guid: 43560a7d0b25a4b2e9a74dce57785421, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: gameover
+    clip: {fileID: 8300000, guid: d86d35ff66a1c49e59cb8ee84abe7905, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
 --- !u!4 &363637060
 Transform:
   m_ObjectHideFlags: 0

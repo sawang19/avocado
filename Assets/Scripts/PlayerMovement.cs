@@ -81,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         mykeys.numberHeld = 0;
         mycoins.numberHeld = 0;
         keys = 0;
+        Time.timeScale = 1;
         //ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(10, 13), new Item { itemType = Item.ItemType.coins, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(10, 16), new Item { itemType = Item.ItemType.keys, amount = 1 });
@@ -142,7 +143,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Return) && playerInRangeForDoor && keys >= 2)
             {
-                
+
+                FindObjectOfType<AudioManager>().Play("gamewin");
                 GameWinAPI();
             }
 
@@ -262,6 +264,7 @@ public class PlayerMovement : MonoBehaviour
             enemyHealth.runtimeValue = enemyHealth.initialValue;
             //this.gameObject.SetActive(false);
             animator.SetBool("moving", false);
+            FindObjectOfType<AudioManager>().Play("gameover");
             GameOverAPI();
         }
     }
@@ -336,6 +339,7 @@ public class PlayerMovement : MonoBehaviour
                 currentHealth.runtimeValue = currentHealth.initialValue;
                 enemyHealth.runtimeValue = enemyHealth.initialValue;
                 animator.SetBool("moving", false);
+                FindObjectOfType<AudioManager>().Play("gameover");
                 GameOverAPI();
             }
         }
@@ -362,7 +366,7 @@ public class PlayerMovement : MonoBehaviour
             changeSpeedUntil = Time.time + 2;
             speedFactor = 0.6f;
             //StartCoroutine(speedTime());
-            FindObjectOfType<AudioManager>().Play("coin");
+            FindObjectOfType<AudioManager>().Play("ghost");
             //Destroy(collision.gameObject);
         }
 
@@ -450,6 +454,7 @@ public class PlayerMovement : MonoBehaviour
     public void GameOverAPI()
     {
         GameOver.Setup();
+        Time.timeScale = 0;
         endgame = true;
         FindObjectOfType<AudioManager>().Pause("background");
     }
@@ -457,6 +462,7 @@ public class PlayerMovement : MonoBehaviour
     public void GameWinAPI()
     {
         GameWin.Setup();
+        Time.timeScale = 0;
         endgame = true;
         FindObjectOfType<AudioManager>().Pause("background");
     }
