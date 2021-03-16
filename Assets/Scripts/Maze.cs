@@ -313,13 +313,13 @@ public class Maze : MonoBehaviour {
         //ItemWorld.SpawnItemWorld(new Vector3(10, 12), new Item { itemType = Item.ItemType.keys, amount = 1 });
 
 
-        putItems(mazeMapTrf, mole, MOLE, 2);
+        //putItems(mazeMapTrf, mole, MOLE, 2);
         putItems(mazeMapTrf, npc, NPC, 2);
 		putItems(mazeMapTrf, golem, GOLEM, 2);
-        //putItems(mazeMapTrf, dog, DOG, 5);
-        //putItems(mazeMapTrf, ghost, GHOST, 2);
+        putItems(mazeMapTrf, dog, DOG, 5);
+        putItems(mazeMapTrf, ghost, GHOST, 1);
 
-        putItems(mazeMapTrf, pot, POT, 43);
+        putItems(mazeMapTrf, pot, POT, 23);
 		putItems(mazeMapTrf, trap, TRAP, 5);
 
 
@@ -608,29 +608,35 @@ public class Maze : MonoBehaviour {
 			position = new Vector3(i, 0 + offsetY, 0f);
 			if (mazeMapTrf[i, 0] == 2021)
 			{
-				Instantiate(brownDoorH, position, Quaternion.identity);
+				GameObject doorH = Instantiate(brownDoorH, position, Quaternion.identity);
+				doorH.transform.SetParent(grid.transform);
 			}
 			else if (mazeMapTrf[i + 1, 0] == 2021)
 			{
-				Instantiate(wall_r, position, Quaternion.identity);
+				GameObject wallR = Instantiate(wall_r, position, Quaternion.identity);
+				wallR.transform.SetParent(grid.transform);
 			}
 			else if (mazeMapTrf[i - 1, 0] == 2021)
 			{
-				Instantiate(wall_l, position, Quaternion.identity);
+				GameObject wallL = Instantiate(wall_l, position, Quaternion.identity);
+				wallL.transform.SetParent(grid.transform);
 			}
 
 			position = new Vector3(i, -mazeMapY + 1 + offsetY, 0f);
 			if (mazeMapTrf[i, mazeMapY - 1] == 2021)
 			{
-				Instantiate(brownDoorH, position, Quaternion.identity);
+				GameObject doorH = Instantiate(brownDoorH, position, Quaternion.identity);
+				doorH.transform.SetParent(grid.transform);
 			}
 			else if (mazeMapTrf[i + 1, mazeMapY - 1] == 2021)
 			{
-				Instantiate(wall_r, position, Quaternion.identity);
+				GameObject wallR = Instantiate(wall_r, position, Quaternion.identity);
+				wallR.transform.SetParent(grid.transform);
 			}
 			else if (mazeMapTrf[i - 1, mazeMapY - 1] == 2021)
 			{
-				Instantiate(wall_l, position, Quaternion.identity);
+				GameObject wallL = Instantiate(wall_l, position, Quaternion.identity);
+				wallL.transform.SetParent(grid.transform);
 			}
 		}
 
@@ -643,15 +649,18 @@ public class Maze : MonoBehaviour {
 				{
 					position = new Vector3(0, -j + offsetY + 0.2f, 0f);
 				}
-				Instantiate(brownDoorV, position, Quaternion.identity);
+				GameObject doorV = Instantiate(brownDoorV, position, Quaternion.identity);
+				doorV.transform.SetParent(grid.transform);
 			}
 			else if (mazeMapTrf[0, j + 1] == 2021)
 			{
-				Instantiate(wall_b, position, Quaternion.identity);
+				GameObject wallB = Instantiate(wall_b, position, Quaternion.identity);
+				wallB.transform.SetParent(grid.transform);
 			}
 			else if (mazeMapTrf[0, j - 1] == 2021)
 			{
-				Instantiate(wall_u, position, Quaternion.identity);
+				GameObject wallU = Instantiate(wall_u, position, Quaternion.identity);
+				wallU.transform.SetParent(grid.transform);
 			}
 
 			position = new Vector3(mazeMapX - 1, -j + offsetY, 0f);
@@ -661,15 +670,18 @@ public class Maze : MonoBehaviour {
 				{
 					position = new Vector3(mazeMapX - 1, -j + offsetY + 0.2f, 0f);
 				}
-				Instantiate(brownDoorV, position, Quaternion.identity);
+				GameObject doorV = Instantiate(brownDoorV, position, Quaternion.identity);
+				doorV.transform.SetParent(grid.transform);
 			}
 			else if (mazeMapTrf[mazeMapX - 1, j + 1] == 2021)
 			{
-				Instantiate(wall_b, position, Quaternion.identity);
+				GameObject wallB = Instantiate(wall_b, position, Quaternion.identity);
+				wallB.transform.SetParent(grid.transform);
 			}
 			else if (mazeMapTrf[mazeMapX - 1, j - 1] == 2021)
 			{
-				Instantiate(wall_u, position, Quaternion.identity);
+				GameObject wallU = Instantiate(wall_u, position, Quaternion.identity);
+				wallU.transform.SetParent(grid.transform);
 			}
 		}
 	}

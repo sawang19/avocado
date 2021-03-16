@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ItemWorld : MonoBehaviour
 {
+
     public static ItemWorld SpawnItemWorld(Vector3 position, Item item) 
     {
         Transform transform = Instantiate(ItemAssets.Instance.pfItemWorld, position, Quaternion.identity);
+        transform.SetParent(GameObject.Find("Grid").transform);
         ItemWorld itemWorld = transform.GetComponent<ItemWorld>();
         itemWorld.SetItem(item);
 
@@ -15,6 +17,7 @@ public class ItemWorld : MonoBehaviour
 
     private Item item;
     private SpriteRenderer spriteRenderer;
+    
 
     private void Awake()
     {

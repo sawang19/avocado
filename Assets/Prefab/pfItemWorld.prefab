@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5974965017628779368}
   - component: {fileID: 8999813534005106617}
   - component: {fileID: 2978287369945485686}
+  - component: {fileID: -8484127220313449693}
   m_Layer: 12
   m_Name: pfItemWorld
   m_TagString: Items
@@ -143,3 +144,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1333a69d50e4d7c908e14435d280d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8484127220313449693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271900857295885553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

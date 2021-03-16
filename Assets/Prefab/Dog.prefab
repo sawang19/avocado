@@ -246,7 +246,7 @@ MonoBehaviour:
   target: {fileID: 0}
   agent: {fileID: 0}
   enemyHealth: {fileID: 11400000, guid: 827ed151b17e94cdcbd3bc3882030393, type: 2}
-  dog_speed: 5
+  dog_speed: 2
   viewradius: 0
   FOV: 0
   step: 15

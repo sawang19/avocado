@@ -183,8 +183,8 @@ PolygonCollider2D:
       - {x: 0.21118227, y: -0.44790906}
       - {x: 0.7655207, y: -0.5206616}
       - {x: 1.086369, y: -0.5437831}
-      - {x: 1.5438277, y: -0.4597549}
-      - {x: 1.6283174, y: 0.36284027}
+      - {x: 1.3853147, y: -0.414979}
+      - {x: 1.3905494, y: 0.36284027}
       - {x: 1.2285954, y: 0.6739001}
       - {x: 0.814188, y: 0.7210267}
       - {x: 0.27992338, y: 0.5617941}
@@ -1086,12 +1086,12 @@ MonoBehaviour:
     type: 3}
   trap: {fileID: 3242146894608368148, guid: 00f295f51ba194f08834c8ed643ae202, type: 3}
   sword: {fileID: 3403382325861695803, guid: c69537bac0f014a5d897a5124e34c0b8, type: 3}
-  keyNum: 5
-  coinNum: 10
-  bootNum: 5
+  keyNum: 2
+  coinNum: 2
+  bootNum: 3
   hpPotionNum: 5
   randomPotionNum: 5
-  swordNum: 43
+  swordNum: 5
   navMeshSurfaces:
   - {fileID: 1077585668}
 --- !u!4 &276668898
@@ -1288,16 +1288,28 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 1
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: boots
+    clip: {fileID: 8300000, guid: 29ade473ec2c1470bb10908a6709022a, type: 3}
+    volume: 0.1
+    pitch: 1
     source: {fileID: 0}
     loop: 0
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: trap
+    clip: {fileID: 8300000, guid: 6f57c686d58ec4c818bc5a2af1732fe2, type: 3}
+    volume: 0.1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: hpPotion
+    clip: {fileID: 8300000, guid: 56ca4a4ca32c44195b7d0e1c4321f132, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: randomPotion
+    clip: {fileID: 8300000, guid: 8a90867ac2a62494b8269fd3780f10c5, type: 3}
+    volume: 0.5
+    pitch: 1
     source: {fileID: 0}
     loop: 0
 --- !u!4 &363637060
@@ -2929,9 +2941,9 @@ PolygonCollider2D:
     - - {x: -0.159793, y: 0.07917464}
       - {x: -0.3118833, y: 0.45345998}
       - {x: -0.87399125, y: 0.615566}
-      - {x: -1.3956797, y: 0.4615842}
-      - {x: -1.604077, y: -0.0139347315}
-      - {x: -1.3803221, y: -0.41069362}
+      - {x: -1.2767963, y: 0.32725516}
+      - {x: -1.4059385, y: -0.0139347315}
+      - {x: -1.2614387, y: -0.41069362}
       - {x: -0.29108053, y: -0.42985317}
       - {x: -0.1852291, y: -0.37880585}
       - {x: -0.13553935, y: -0.16042244}

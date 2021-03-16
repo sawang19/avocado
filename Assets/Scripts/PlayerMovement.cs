@@ -180,6 +180,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (item.itemType == Item.ItemType.boots)
             {
+                FindObjectOfType<AudioManager>().Play("boots");
                 changeSpeedUntil = Time.time + 5;
                 speedFactor = 2;
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.boots, amount = 1 });
@@ -187,6 +188,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if(item.itemType == Item.ItemType.hpPotion)
             {
+                FindObjectOfType<AudioManager>().Play("hpPotion");
                 if (currentHealth.runtimeValue != currentHealth.initialValue)
                 {
                     currentHealth.runtimeValue += 1;
@@ -198,6 +200,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if(item.itemType == Item.ItemType.randomPotion)
             {
+                FindObjectOfType<AudioManager>().Play("randomPotion");
                 changeSpeedUntil = Time.time + 5;
                 speedFactor = Random.Range(0.5f, 3.0f);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.randomPotion, amount = 1 });
@@ -322,6 +325,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (collision.gameObject.tag == "trap")
         {
+            FindObjectOfType<AudioManager>().Play("trap");
             Destroy(collision.gameObject);
             currentHealth.runtimeValue -= 1;
             playerHealthSignal.Raise();
@@ -362,13 +366,17 @@ public class PlayerMovement : MonoBehaviour
             //Destroy(collision.gameObject);
         }
 
-        if(collision.gameObject.tag == "Items")
+        if (collision.gameObject.tag == "Items")
         {
             ItemWorld itemWorld = collision.gameObject.GetComponent<ItemWorld>();
+            if(itemWorld.GetItem().itemType == Item.ItemType.keys)
+            {
+                keys++;
+            }
             if (itemWorld != null)
             {
                 inventory.AddItem(itemWorld.GetItem());
-                Debug.Log("The length is " + inventory.GetItemList().Count);
+                
                 itemWorld.DestroySelf();
                 FindObjectOfType<AudioManager>().Play("coin");
             }
@@ -390,7 +398,7 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log("Player in Range");
         }
 
-        //if(other.CompareTag("Items"))
+        //if (other.CompareTag("Items"))
         //{
         //    ItemWorld itemWorld = other.GetComponent<ItemWorld>();
 
@@ -402,7 +410,22 @@ public class PlayerMovement : MonoBehaviour
         //        FindObjectOfType<AudioManager>().Play("coin");
         //    }
         //}
-        
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Debug.Log("stay");
+        if (other.CompareTag("npc"))
+        {
+            playerInRange = true;
+            //Debug.Log("Player in Range");
+        }
+        if (other.CompareTag("Door"))
+        {
+            playerInRangeForDoor = true;
+            //Debug.Log("Player in Range");
+        }
     }
 
 
@@ -411,13 +434,13 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("npc"))
         {
             playerInRange = false;
-            dialogBox.SetActive(false);
+            //dialogBox.SetActive(false);
             //Debug.Log("Player out Range");
         }
         if (other.CompareTag("Door"))
         {
             playerInRangeForDoor = false;
-            dialogBoxForDoor.SetActive(false);
+            //dialogBoxForDoor.SetActive(false);
             //Debug.Log("Player out Range");
         }
     }
