@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7248775403618536445}
   - component: {fileID: 7248775403618536444}
   - component: {fileID: 7248775403618536391}
-  - component: {fileID: 7248775403618536390}
   - component: {fileID: 7248775403618536389}
   - component: {fileID: 2938727281178861935}
   m_Layer: 11
@@ -136,7 +135,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7248775403618536446}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -181,22 +180,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9532658, y: 0.8311001}
   m_EdgeRadius: 0
---- !u!114 &7248775403618536390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7248775403618536446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a35e88f06b74e26885800f535928e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thrust: 1
-  knockTime: 0.2
-  damage: 0
-  navMeshSurfaces: []
 --- !u!195 &7248775403618536389
 NavMeshAgent:
   m_ObjectHideFlags: 0

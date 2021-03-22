@@ -381,7 +381,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.011585236, y: -0.123131424}
+  m_Offset: {x: 0.024541855, y: -0.123131394}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.2438459}
@@ -392,7 +392,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4468639, y: 1.0044959}
+  m_Size: {x: 1.110028, y: 1.0044959}
   m_EdgeRadius: 0
 --- !u!61 &8043012064910383164
 BoxCollider2D:
@@ -407,7 +407,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.010222077, y: -0.13235885}
+  m_Offset: {x: 0.015689313, y: -0.13235885}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.2438459}
@@ -418,7 +418,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.903465, y: 1.45813}
+  m_Size: {x: 1.9552878, y: 1.45813}
   m_EdgeRadius: 0
 --- !u!114 &8043012064910383165
 MonoBehaviour:
@@ -445,7 +445,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8043012064910383109}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.1
+  m_Radius: 1.5
   m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 99
@@ -455,9 +455,9 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 4
-  m_BaseOffset: 0.8
+  m_BaseOffset: 1.2
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &1540596461691038167
 MonoBehaviour:
   m_ObjectHideFlags: 0

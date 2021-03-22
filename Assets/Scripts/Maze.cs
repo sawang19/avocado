@@ -316,8 +316,8 @@ public class Maze : MonoBehaviour {
         //putItems(mazeMapTrf, mole, MOLE, 2);
         putItems(mazeMapTrf, npc, NPC, 2);
 		putItems(mazeMapTrf, golem, GOLEM, 2);
-        putItems(mazeMapTrf, dog, DOG, 5);
-        putItems(mazeMapTrf, ghost, GHOST, 1);
+        //putItems(mazeMapTrf, dog, DOG, 5);
+        //putItems(mazeMapTrf, ghost, GHOST, 1);
 
         putItems(mazeMapTrf, pot, POT, 23);
 		putItems(mazeMapTrf, trap, TRAP, 5);

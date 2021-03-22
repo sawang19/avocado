@@ -19,6 +19,7 @@ TagManager:
   - Items
   - randomPotion
   - sword
+  - itemButton
   layers:
   - Default
   - TransparentFX

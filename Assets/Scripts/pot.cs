@@ -37,6 +37,7 @@ public class pot : MonoBehaviour
 
     public void Smash()
     {
+        Debug.Log("break pot");
         anim.SetBool("smash", true);
         StartCoroutine(breakCo());
         

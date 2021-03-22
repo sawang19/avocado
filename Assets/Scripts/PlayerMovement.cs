@@ -16,6 +16,8 @@ public enum PlayerState
 
 public class PlayerMovement : MonoBehaviour
 {
+    public DynamicJoystick dynamicJoystick;
+    //public SimpleInput simpleInput;
     public PlayerState currentState;
     
     public float baseSpeed = 5f;
@@ -92,12 +94,22 @@ public class PlayerMovement : MonoBehaviour
         if(!endgame)
         {
             movement = Vector3.zero;
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+            //movement.x = Input.GetAxisRaw("Horizontal");
+            //movement.y = Input.GetAxisRaw("Vertical");
 
-            if(currentState != PlayerState.stagger)
+            movement.x = SimpleInput.GetAxisRaw("Horizontal");
+            movement.y = SimpleInput.GetAxisRaw("Vertical");
+
+            //if (Mathf.Abs(dynamicJoystick.Horizontal) > Mathf.Abs(dynamicJoystick.Vertical))
+            //{
+            //movement.x = dynamicJoystick.Horizontal;
+            //movement.y = dynamicJoystick.Vertical;
+
+
+
+            if (currentState != PlayerState.stagger)
             {
-                if (Input.GetButtonDown("Jump"))
+                if (Input.GetKeyDown(KeyCode.J))
                 {
                     StartCoroutine(AttackCo());
                 }
@@ -124,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Return) && playerInRangeForDoor && keys < 2)
+            if (Input.GetKeyDown(KeyCode.R) && playerInRangeForDoor && keys < 2)
             {
                 if (dialogBoxForDoor.activeInHierarchy)
                 {
@@ -141,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Return) && playerInRangeForDoor && keys >= 2)
+            if (Input.GetKeyDown(KeyCode.R) && playerInRangeForDoor && keys >= 2)
             {
 
                 FindObjectOfType<AudioManager>().Play("gamewin");
@@ -361,14 +373,14 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.tag == "EnemyTag_Ghost")
-        {
-            changeSpeedUntil = Time.time + 2;
-            speedFactor = 0.6f;
-            //StartCoroutine(speedTime());
-            FindObjectOfType<AudioManager>().Play("ghost");
-            //Destroy(collision.gameObject);
-        }
+        //if (collision.gameObject.tag == "EnemyTag_Ghost")
+        //{
+        //    changeSpeedUntil = Time.time + 2;
+        //    speedFactor = 0.6f;
+        //    //StartCoroutine(speedTime());
+        //    FindObjectOfType<AudioManager>().Play("ghost");
+        //    //Destroy(collision.gameObject);
+        //}
 
         if (collision.gameObject.tag == "Items")
         {
@@ -414,6 +426,14 @@ public class PlayerMovement : MonoBehaviour
         //        FindObjectOfType<AudioManager>().Play("coin");
         //    }
         //}
+        if (other.CompareTag("EnemyTag_Ghost"))
+        {
+            changeSpeedUntil = Time.time + 2;
+            speedFactor = 0.6f;
+            //StartCoroutine(speedTime());
+            FindObjectOfType<AudioManager>().Play("ghost");
+            //Destroy(collision.gameObject);
+        }
 
     }
 
@@ -465,6 +485,11 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 0;
         endgame = true;
         FindObjectOfType<AudioManager>().Pause("background");
+    }
+
+    public void Attack()
+    {
+        StartCoroutine(AttackCo());
     }
 
     void drawFieldOfView()

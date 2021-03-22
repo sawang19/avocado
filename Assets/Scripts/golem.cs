@@ -171,12 +171,12 @@ public class golem : Enemy
         target = GameObject.Find("Player").transform;
         //Debug.Log("Player x: " + target.position.x);
         //Debug.Log("Player y: " + target.position.y);
-        transform.GetComponent<Renderer>().material.color = Color.green;
+        //transform.GetComponent<Renderer>().material.color = Color.green;
 
         if (Vector3.Distance(target.position, transform.position) <= chaseRadius)
         {
             animator.SetBool("Attacking", false);
-            transform.GetComponent<Renderer>().material.color = Color.cyan;
+            //transform.GetComponent<Renderer>().material.color = Color.cyan;
             moveSpeed = 10.0f;
             if ((currentState == EnemyState.idle || currentState == EnemyState.walk) && currentState != EnemyState.stagger && currentState != EnemyState.attack)
             {
@@ -195,7 +195,7 @@ public class golem : Enemy
                     }
                     else if(currentState != EnemyState.attack && currentState != EnemyState.stagger)
                     {
-                        transform.GetComponent<Renderer>().material.color = Color.red;
+                        //transform.GetComponent<Renderer>().material.color = Color.red;
                         Vector3 temp = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
                         Vector3 direction = target.position - transform.position;
                         float degree = Vector3.Angle(direction, transform.forward);
@@ -210,7 +210,7 @@ public class golem : Enemy
                 }
                 else if (findplayer == false)
                 {
-                    transform.GetComponent<Renderer>().material.color = Color.green;
+                    //transform.GetComponent<Renderer>().material.color = Color.green;
                     agent.SetDestination(moveSpot);
                     //Debug.Log("Mole's position: " + transform.position);
                     //Debug.Log("Destination: " + moveSpot);
@@ -271,7 +271,7 @@ public class golem : Enemy
             } else if (currentState == EnemyState.stagger)
             {
                 findplayer = true;
-                transform.GetComponent<Renderer>().material.color = Color.red;
+                //transform.GetComponent<Renderer>().material.color = Color.red;
                 Vector3 temp = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
                 Vector3 direction = target.position - transform.position;
                 float degree = Vector3.Angle(direction, transform.forward);
@@ -287,7 +287,7 @@ public class golem : Enemy
         else if(currentState != EnemyState.attack)
         {
             animator.SetBool("Attacking", false);
-            transform.GetComponent<Renderer>().material.color = Color.green;
+            //transform.GetComponent<Renderer>().material.color = Color.green;
             agent.SetDestination(moveSpot);
             //Debug.Log("Mole's position: " + transform.position);
             //Debug.Log("Destination: " + moveSpot);
