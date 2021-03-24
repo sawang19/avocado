@@ -45,6 +45,14 @@ public class Maze : MonoBehaviour {
 	public GameObject wall_l;
 	public GameObject wall_o;
 
+	public GameObject maze_brown_bk1; // 20210322
+	public GameObject maze_brown_bk2; // 20210322
+	public GameObject maze_brown_bk3; // 20210322
+	public GameObject maze_brown_bk4; // 20210322
+
+	public GameObject maze_fire_bottom; // 20210322
+	public GameObject maze_fire_anim; // 20210322
+
 	public GameObject mole;
 	public GameObject npc;
 	public GameObject golem;
@@ -114,6 +122,7 @@ public class Maze : MonoBehaviour {
 		loadSprites();
 		GameObject[] renderWalls = steelWalls;
 
+
 		wall_v.layer = 8;
         wall_h.layer = 8;
         wall_ul.layer = 8;
@@ -133,20 +142,39 @@ public class Maze : MonoBehaviour {
 
 
         // Draw background
-        maze_bk = Resources.Load("Walls/Steel/bk") as GameObject;
-
         Vector3 position;
-        for (int i = 1; i < mazeMapX - 1; i++)
-        {
-            for (int j = 1; j < mazeMapY - 1; j++)
-            {
-                position = new Vector3(i, j, 0.1f);
-                Instantiate(maze_bk, position, Quaternion.identity);
-            }
-        }
+		for (int i = 0; i < mazeMapX; i++)
+		{ // 20210322
+			for (int j = 0; j < mazeMapY; j++)
+			{
+				position = new Vector3(i, j, -0.1f);
+				if (i % 2 == 0)
+				{
+					if (j % 2 == 0)
+					{
+						Instantiate(maze_brown_bk1, position, Quaternion.identity);
+					}
+					else
+					{
+						Instantiate(maze_brown_bk2, position, Quaternion.identity);
+					}
+				}
+				else
+				{
+					if (j % 2 != 0)
+					{
+						Instantiate(maze_brown_bk1, position, Quaternion.identity);
+					}
+					else
+					{
+						Instantiate(maze_brown_bk2, position, Quaternion.identity);
+					}
+				}
+			}
+		}
 
-        // Draw 4 corners
-        position = new Vector3 (0, 0 + offsetY, 0f);
+		// Draw 4 corners
+		position = new Vector3 (0, 0 + offsetY, 0f);
 		GameObject UL_corner = Instantiate(wall_ul, position, Quaternion.identity);
 		UL_corner.transform.SetParent(grid.transform);
 
@@ -169,7 +197,7 @@ public class Maze : MonoBehaviour {
 				GameObject RBL_hborder = Instantiate(wall_rbl, position, Quaternion.identity);
 				RBL_hborder.transform.SetParent(grid.transform);
 			}
-			if (mazeMapTrf[i, 0] == 1 && mazeMapTrf[i - 1, 0] == 1 && mazeMapTrf[i + 1, 0] == 1)
+			else if (mazeMapTrf[i, 0] == 1 && mazeMapTrf[i - 1, 0] == 1 && mazeMapTrf[i + 1, 0] == 1)
 			{
 				GameObject H_hborder = Instantiate(wall_h, position, Quaternion.identity);
 				H_hborder.transform.SetParent(grid.transform);
@@ -180,7 +208,7 @@ public class Maze : MonoBehaviour {
 				GameObject LUR_hborder = Instantiate(wall_lur, position, Quaternion.identity);
 				LUR_hborder.transform.SetParent(grid.transform);
 			}
-			if (mazeMapTrf[i, mazeMapY - 1] == 1 && mazeMapTrf[i - 1, mazeMapY - 1] == 1 && mazeMapTrf[i + 1, mazeMapY - 1] == 1)	
+			else if (mazeMapTrf[i, mazeMapY - 1] == 1 && mazeMapTrf[i - 1, mazeMapY - 1] == 1 && mazeMapTrf[i + 1, mazeMapY - 1] == 1)	
 			{
 				GameObject H_hborder = Instantiate(wall_h, position, Quaternion.identity);
 				H_hborder.transform.SetParent(grid.transform);
@@ -278,12 +306,17 @@ public class Maze : MonoBehaviour {
 						GameObject L_inner = Instantiate(wall_l, position, Quaternion.identity);
 						L_inner.transform.SetParent(grid.transform);
 					}
-                    if (getTileType(mazeMapTrf, i, j).Equals("o"))
-                    {
-                        GameObject O_inner = Instantiate(wall_o, position, Quaternion.identity);
-                        O_inner.transform.SetParent(grid.transform);
+                    
+					if (getTileType(mazeMapTrf, i, j).Equals("o"))
+					{
+						position = new Vector3(i, -j + offsetY + 0.5f, 0f);
+						GameObject fire_bottom = Instantiate(maze_fire_bottom, position, Quaternion.identity); // 20210322
+						fire_bottom.transform.SetParent(grid.transform);
+                        position = new Vector3(i, -j + offsetY + 0.15f, 0f);
+                        GameObject fire_anim = Instantiate(maze_fire_anim, position, Quaternion.identity); // 20210322
+                        fire_anim.transform.SetParent(grid.transform);
                     }
-                }
+				}
 			}
 		}
 
@@ -554,6 +587,11 @@ public class Maze : MonoBehaviour {
 		brownDoorV = Resources.Load("Walls/Brown/brown_door_V") as GameObject; // 20210313
 		brownDoorH = Resources.Load("Walls/Brown/brown_door_H") as GameObject; // 20210313
 
+		maze_brown_bk1 = Resources.Load("Walls/Brown/brown_bk1") as GameObject; // 20210322
+		maze_brown_bk2 = Resources.Load("Walls/Brown/brown_bk2") as GameObject; // 20210322
+		maze_brown_bk3 = Resources.Load("Walls/Brown/brown_bk3") as GameObject; // 20210322
+		maze_brown_bk4 = Resources.Load("Walls/Brown/brown_bk4") as GameObject; // 20210322
+
 		// Weed
 		weedWalls[WALL_V] = Resources.Load("Walls/Weed/weed_V") as GameObject;
 		weedWalls[WALL_H] = Resources.Load("Walls/Weed/weed_H") as GameObject;
@@ -576,6 +614,9 @@ public class Maze : MonoBehaviour {
 		weedWalls[WALL_L] = Resources.Load("Walls/Weed/weed_L") as GameObject;
 
 		weedWalls[WALL_O] = Resources.Load("Walls/Weed/weed_O") as GameObject;
+
+		maze_fire_bottom = Resources.Load("Walls/Common/fire_bottom") as GameObject; // 20210322
+		maze_fire_anim = Resources.Load("Walls/Common/fire_anim") as GameObject; // 20210322
 
 		wall_v = brownWalls[WALL_V];
 		wall_h = brownWalls[WALL_H];
