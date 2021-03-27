@@ -1,34 +1,43 @@
 ﻿<Properties StartupConfiguration="{203E294F-6A57-B963-05D6-83EB30201135}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/InventoryBar/ItemAssets.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="107" Column="1" />
+      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="321" Column="1" />
       <File FileName="Assets/Scripts/InventoryBar/Inventory.cs" />
-      <File FileName="Assets/Scripts/InventoryBar/Item.cs" />
+      <File FileName="Assets/Scripts/InventoryBar/Item.cs" Line="61" Column="34" />
       <File FileName="Assets/Scripts/InventoryBar/UI_Inventory.cs" />
-      <File FileName="Assets/Scripts/InventoryBar/ItemAssets.cs" />
+      <File FileName="Assets/Scripts/InventoryBar/ItemAssets.cs" Line="21" Column="26" />
       <File FileName="Assets/Scripts/ItemWorld.cs" />
       <File FileName="Assets/Scripts/Enemy.cs" />
-      <File FileName="Assets/Scripts/Maze.cs" Line="320" Column="49" />
+      <File FileName="Assets/Scripts/Maze.cs" Line="447" Column="7" />
       <File FileName="Assets/Scripts/Dog.cs" />
-      <File FileName="Assets/Scripts/GameOver.cs" />
-      <File FileName="Assets/Scripts/GameWin.cs" />
+      <File FileName="Assets/Scripts/GameOver.cs" Line="16" Column="44" />
+      <File FileName="Assets/Scripts/GameWin.cs" Line="19" Column="26" />
       <File FileName="Assets/CodeMonkey/Utils/Button_UI.cs" />
-      <File FileName="Assets/Scripts/PauseMenu.cs" />
+      <File FileName="Assets/Scripts/PauseMenu.cs" Line="8" Column="5" />
       <File FileName="Assets/Scripts/golem.cs" />
       <File FileName="Assets/Scripts/Knockback.cs" Line="55" Column="67" />
-      <File FileName="Assets/Scripts/pot.cs" Line="40" Column="32" />
+      <File FileName="Assets/Scripts/pot.cs" Line="78" Column="46" />
+      <File FileName="Assets/Scripts/Menu.cs" Line="25" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Maze" expanded="True" selected="True" />
+          <Node name="Maze" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="InventoryBar" expanded="True">
+                  <Node name="ItemAssets.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="987c1a4c-356c-4ceb-84c8-cdd798871244" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="360d691b-5ea9-4640-86b3-78e64c316c8f" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

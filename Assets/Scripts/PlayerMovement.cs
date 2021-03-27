@@ -19,7 +19,10 @@ public class PlayerMovement : MonoBehaviour
     public DynamicJoystick dynamicJoystick;
     //public SimpleInput simpleInput;
     public PlayerState currentState;
-    
+
+    public Text keyNum;
+    public Text coinNum;
+
     public float baseSpeed = 5f;
     public float speedFactor = 1f;
     public float attackBoost = 1f;
@@ -36,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
     public bool endgame = false;
     public GameOver GameOver;
     public GameWin GameWin;
+
+    public GameObject helpButton;
 
     public GameObject dialogBox;
     public Text dialogText;
@@ -67,6 +72,10 @@ public class PlayerMovement : MonoBehaviour
 
     private Inventory inventory;
 
+    public int[,] mazeMap;
+    public bool isProtected = false;
+    public int protectedUntil = -1;
+
     private void Awake()
     {
         inventory = new Inventory(UseItem);
@@ -83,7 +92,9 @@ public class PlayerMovement : MonoBehaviour
         mykeys.numberHeld = 0;
         mycoins.numberHeld = 0;
         keys = 0;
-        Time.timeScale = 1;
+        Time.timeScale = 0;
+        playerHealthSignal.Raise();
+        mazeMap = Maze.mazeMap;
         //ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(10, 13), new Item { itemType = Item.ItemType.coins, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(10, 16), new Item { itemType = Item.ItemType.keys, amount = 1 });
@@ -119,46 +130,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Tab) && playerInRange)
-            {
-                if (dialogBox.activeInHierarchy)
-                {
-                    dialogBox.SetActive(false);
-                    Time.timeScale = 1;
-
-                }
-                else
-                {
-                    dialogBox.SetActive(true);
-                    //dialogText.text = dialog;
-                    Time.timeScale = 0;
-
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.R) && playerInRangeForDoor && keys < 2)
-            {
-                if (dialogBoxForDoor.activeInHierarchy)
-                {
-                    dialogBoxForDoor.SetActive(false);
-                    Time.timeScale = 1;
-
-                }
-                else
-                {
-                    dialogBoxForDoor.SetActive(true);
-                    dialogTextForDoor.text = dialogForDoor;
-                    Time.timeScale = 0;
-
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.R) && playerInRangeForDoor && keys >= 2)
-            {
-
-                FindObjectOfType<AudioManager>().Play("gamewin");
-                GameWinAPI();
-            }
+            
 
             drawFieldOfView();
             if (Time.time < changeSpeedUntil)
@@ -186,6 +158,51 @@ public class PlayerMovement : MonoBehaviour
         }
 
         
+    }
+
+    public void npcanddoor()
+    {
+        if (playerInRange)
+        {
+            if (dialogBox.activeInHierarchy)
+            {
+                dialogBox.SetActive(false);
+                Time.timeScale = 1;
+
+            }
+            else
+            {
+                dialogBox.SetActive(true);
+                //dialogText.text = dialog;
+                Time.timeScale = 0;
+
+            }
+        }
+
+        if (playerInRangeForDoor && keys < 2)
+        {
+            if (dialogBoxForDoor.activeInHierarchy)
+            {
+                dialogBoxForDoor.SetActive(false);
+                Time.timeScale = 1;
+
+            }
+            else
+            {
+                dialogBoxForDoor.SetActive(true);
+                dialogTextForDoor.text = dialogForDoor;
+                Time.timeScale = 0;
+
+            }
+        }
+
+        if (playerInRangeForDoor && keys >= 2)
+        {
+
+            FindObjectOfType<AudioManager>().Play("gamewin");
+            GameWinAPI();
+        }
+
     }
 
     void UseItem(Item item)
@@ -218,6 +235,28 @@ public class PlayerMovement : MonoBehaviour
                 changeSpeedUntil = Time.time + 5;
                 speedFactor = Random.Range(0.5f, 3.0f);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.randomPotion, amount = 1 });
+            }
+            if (item.itemType == Item.ItemType.shield)
+            {
+                FindObjectOfType<AudioManager>().Play("randomPotion");
+                isProtected = true;
+                protectedUntil = 5;
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.shield, amount = 1 });
+            }
+            if (item.itemType == Item.ItemType.rocket)
+            {
+                FindObjectOfType<AudioManager>().Play("randomPotion");
+                int mazeMapX = mazeMap.GetLength(0);//2 * mazeWidth + 1;
+                int mazeMapY = mazeMap.GetLength(1);//2 * mazeHeight + 1;
+                int i = Random.Range(1, mazeMapX - 1);
+                int j = Random.Range(1, mazeMapY - 1);
+                while (mazeMap[i, j] != 0)
+                {
+                    i = Random.Range(1, mazeMapX - 1);
+                    j = Random.Range(1, mazeMapY - 1);
+                }
+                rb.position = new Vector3(i, j, 0f);
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.rocket, amount = 1 });
             }
         }
     }
@@ -264,8 +303,22 @@ public class PlayerMovement : MonoBehaviour
 
     public void Knock(Rigidbody2D rb, float knockTime, float damage)
     {
-        currentHealth.runtimeValue -= damage;
-        playerHealthSignal.Raise();
+        //currentHealth.runtimeValue -= damage;
+        //playerHealthSignal.Raise();
+        if (!isProtected)
+        {
+            currentHealth.runtimeValue -= damage;
+            playerHealthSignal.Raise();
+        }
+        else
+        {
+            protectedUntil--;
+            if (protectedUntil == 0)
+            {
+                isProtected = false;
+            }
+        }
+
         if (currentHealth.runtimeValue > 0)
         {
             StartCoroutine(KnockCo(rb, knockTime));
@@ -299,6 +352,7 @@ public class PlayerMovement : MonoBehaviour
         {
             keys++;
             mykeys.numberHeld = keys;
+            keyNum.text = "x " + keys;
             FindObjectOfType<AudioManager>().Play("coin");
             Destroy(collision.gameObject);
         }
@@ -388,14 +442,21 @@ public class PlayerMovement : MonoBehaviour
             if(itemWorld.GetItem().itemType == Item.ItemType.keys)
             {
                 keys++;
-            }
-            if (itemWorld != null)
+                keyNum.text = "x " + keys;
+                
+            } else if(itemWorld.GetItem().itemType == Item.ItemType.coins)
+            {
+                coins++;
+                coinNum.text = "x " + coins;
+                
+            } else if (itemWorld != null)
             {
                 inventory.AddItem(itemWorld.GetItem());
                 
-                itemWorld.DestroySelf();
-                FindObjectOfType<AudioManager>().Play("coin");
+                
             }
+            itemWorld.DestroySelf();
+            FindObjectOfType<AudioManager>().Play("coin");
         }
 
     }
@@ -406,12 +467,32 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("npc"))
         {
             playerInRange = true;
+            helpButton.SetActive(true);
             //Debug.Log("Player in Range");
         }
         if (other.CompareTag("Door"))
         {
             playerInRangeForDoor = true;
+            helpButton.SetActive(true);
             //Debug.Log("Player in Range");
+        }
+
+        if(other.CompareTag("Spike"))
+        {
+
+            Debug.Log("spike");
+            currentHealth.runtimeValue -= 0.5f;
+            playerHealthSignal.Raise();
+            if (currentHealth.runtimeValue < 0)
+            {
+
+                currentHealth.runtimeValue = currentHealth.initialValue;
+                enemyHealth.runtimeValue = enemyHealth.initialValue;
+                animator.SetBool("moving", false);
+                FindObjectOfType<AudioManager>().Play("gameover");
+                GameOverAPI();
+            }
+
         }
 
         //if (other.CompareTag("Items"))
@@ -458,12 +539,14 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("npc"))
         {
             playerInRange = false;
+            helpButton.SetActive(false);
             //dialogBox.SetActive(false);
             //Debug.Log("Player out Range");
         }
         if (other.CompareTag("Door"))
         {
             playerInRangeForDoor = false;
+            helpButton.SetActive(false);
             //dialogBoxForDoor.SetActive(false);
             //Debug.Log("Player out Range");
         }

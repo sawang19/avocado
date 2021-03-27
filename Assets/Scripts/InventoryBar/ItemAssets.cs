@@ -17,4 +17,6 @@ public class ItemAssets : MonoBehaviour
     public Sprite keys;
     public Sprite hpPotion;
     public Sprite randomPotion;
+    public Sprite shield;
+    public Sprite rocket;
 }

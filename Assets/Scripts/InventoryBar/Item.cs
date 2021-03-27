@@ -10,7 +10,9 @@ public class Item
         coins,
         keys,
         hpPotion,
-        randomPotion
+        randomPotion,
+        shield,
+        rocket
     }
 
     public ItemType itemType;
@@ -26,6 +28,8 @@ public class Item
             case ItemType.keys: return ItemAssets.Instance.keys;
             case ItemType.hpPotion: return ItemAssets.Instance.hpPotion;
             case ItemType.randomPotion: return ItemAssets.Instance.randomPotion;
+            case ItemType.shield: return ItemAssets.Instance.shield;
+            case ItemType.rocket: return ItemAssets.Instance.rocket;
         }
     }
 
@@ -39,6 +43,8 @@ public class Item
             case ItemType.keys:
             case ItemType.hpPotion:
             case ItemType.randomPotion:
+            case ItemType.shield:
+            case ItemType.rocket:
                 return true;
         }
     }
@@ -51,6 +57,8 @@ public class Item
             case ItemType.boots:
             case ItemType.hpPotion:
             case ItemType.randomPotion:
+            case ItemType.shield:
+            case ItemType.rocket:
                 return true;
             case ItemType.coins:
             case ItemType.keys:

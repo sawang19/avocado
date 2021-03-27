@@ -68,6 +68,15 @@ public class pot : MonoBehaviour
         } else if(item.CompareTag("randomPotion"))
         {
             ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.randomPotion, amount = 1 });
-        } 
+        }
+        else if (item.CompareTag("Shield"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.shield, amount = 1 });
+        }
+        else if (item.CompareTag("Rocket"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.rocket, amount = 1 });
+        }
+        
     }
 }

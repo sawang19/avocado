@@ -67,6 +67,8 @@ public class Maze : MonoBehaviour {
 	public GameObject randomPotion;
 	public GameObject trap;
 	public GameObject sword;
+	public GameObject shield;
+	public GameObject rocket;
 
 	public int keyNum = 0; // 5
 	public int coinNum = 0; // 10
@@ -74,6 +76,8 @@ public class Maze : MonoBehaviour {
 	public int hpPotionNum = 0; // 10
 	public int randomPotionNum = 0; // 10 
 	public int swordNum = 0;
+	public int shieldNum = 0;
+	public int rocketNum = 25;
 
 	[SerializeField]
 	NavMeshSurface2d[] navMeshSurfaces;
@@ -430,6 +434,16 @@ public class Maze : MonoBehaviour {
 						OBJ.GetComponent<pot>().item = sword;
 						swordNum--;
 
+					}
+					else if (shieldNum > 0)
+					{
+						OBJ.GetComponent<pot>().item = shield;
+						shieldNum--;
+					}
+					else if (rocketNum > 0)
+					{
+						OBJ.GetComponent<pot>().item = rocket;
+						rocketNum--;
 					}
 				}
 
