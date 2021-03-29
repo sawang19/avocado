@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class Maze : MonoBehaviour {
 	const int WALL_V = 0, WALL_H = 1, WALL_UL = 2, WALL_UR = 3, WALL_BL = 4, WALL_BR = 5, WALL_LUR = 6, WALL_URB = 7, WALL_RBL = 8, WALL_BLU = 9, WALL_URBL = 10, WALL_U = 11, WALL_R = 12, WALL_B = 13, WALL_L = 14, WALL_O = 15;
-	const int MOLE = 2, NPC = 3, GOLEM = 4, DOG = 5, GHOST = 6;
+	const int MOLE = 2, NPC = 3, GOLEM = 4, DOG = 5, GHOST = 6, RED = 7, MAGE = 8;
 	const int POT = 10, KEY = 11, COIN = 12, BOOT = 13, HP_POTION = 14, RANDOM_POTION = 15, TRAP = 16;
 
 	public GameObject[] steelWalls = new GameObject[16];
@@ -58,6 +58,8 @@ public class Maze : MonoBehaviour {
 	public GameObject golem;
 	public GameObject dog;
 	public GameObject ghost;
+	public GameObject redevil;
+	public GameObject mage;
 
 	public GameObject pot;
 	public GameObject key;
@@ -353,10 +355,12 @@ public class Maze : MonoBehaviour {
         //putItems(mazeMapTrf, mole, MOLE, 2);
         putItems(mazeMapTrf, npc, NPC, 2);
 		putItems(mazeMapTrf, golem, GOLEM, 2);
-        //putItems(mazeMapTrf, dog, DOG, 5);
-        //putItems(mazeMapTrf, ghost, GHOST, 1);
+		//putItems(mazeMapTrf, redevil, RED, 5);
+		putItems(mazeMapTrf, mage, MAGE, 5);
+		//putItems(mazeMapTrf, dog, DOG, 5);
+		//putItems(mazeMapTrf, ghost, GHOST, 1);
 
-        putItems(mazeMapTrf, pot, POT, 23);
+		putItems(mazeMapTrf, pot, POT, 23);
 		putItems(mazeMapTrf, trap, TRAP, 5);
 
 
@@ -393,7 +397,7 @@ public class Maze : MonoBehaviour {
 				mazeMapTrf[i, j] = mark;
 				mazeMap[i, -j + mazeMapY - 1] = mark;
 				Vector3 position = new Vector3(i, -j + offsetY, 0f);
-				if(mark == MOLE || mark == GOLEM || mark == DOG || mark == GHOST)
+				if(mark == MOLE || mark == GOLEM || mark == DOG || mark == GHOST || mark == RED || mark == MAGE)
                 {
 					//GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
 					//OBJ.transform.SetParent(grid.transform);

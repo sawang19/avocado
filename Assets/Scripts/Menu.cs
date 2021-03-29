@@ -11,7 +11,7 @@ public class Menu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Loading");
     }
 
     public void QuitGame()
@@ -26,21 +26,21 @@ public class Menu : MonoBehaviour
     }
 
     
-    public void LoadLevel(int sceneIndex)
-    {
-        StartCoroutine(LoadSceneAsyncronously(sceneIndex));
-    }
+    //public void LoadLevel(int sceneIndex)
+    //{
+    //    StartCoroutine(LoadSceneAsyncronously(sceneIndex));
+    //}
 
-    IEnumerator LoadSceneAsyncronously(int sceneIndex)
-    {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-        loadingScreen.SetActive(true);
-        while (!operation.isDone)
-        {
-            float progress = Mathf.Clamp01(operation.progress / .9f);
-            slider.value = progress;
-            yield return null;
-        }
+    //IEnumerator LoadSceneAsyncronously(int sceneIndex)
+    //{
+    //    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+    //    loadingScreen.SetActive(true);
+    //    while (!operation.isDone)
+    //    {
+    //        float progress = Mathf.Clamp01(operation.progress / .9f);
+    //        slider.value = progress;
+    //        yield return null;
+    //    }
 
-    }
+    //}
 }

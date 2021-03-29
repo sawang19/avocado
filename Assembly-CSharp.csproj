@@ -110,12 +110,14 @@
     <Compile Include="Assets\Scripts\InventoryBar\UI_Inventory.cs" />
     <Compile Include="Assets\Scripts\ItemWorld.cs" />
     <Compile Include="Assets\Scripts\Knockback.cs" />
+    <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\Maze.cs" />
     <Compile Include="Assets\Scripts\MazeGenerator.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\NavMeshBaker.cs" />
     <Compile Include="Assets\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\RedEvil.cs" />
     <Compile Include="Assets\Scripts\SMask.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\FloatValue.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Signal.cs" />
@@ -124,10 +126,12 @@
     <Compile Include="Assets\Scripts\Sound.cs" />
     <Compile Include="Assets\Scripts\TestMovement.cs" />
     <Compile Include="Assets\Scripts\Wait.cs" />
+    <Compile Include="Assets\Scripts\bullet_fire.cs" />
     <Compile Include="Assets\Scripts\dialog.cs" />
     <Compile Include="Assets\Scripts\ghost.cs" />
     <Compile Include="Assets\Scripts\golem.cs" />
     <Compile Include="Assets\Scripts\inventoryButton.cs" />
+    <Compile Include="Assets\Scripts\mage.cs" />
     <Compile Include="Assets\Scripts\mole.cs" />
     <Compile Include="Assets\Scripts\pot.cs" />
     <Compile Include="Assets\Scripts\teamLogo.cs" />

@@ -74,7 +74,10 @@ public class PlayerMovement : MonoBehaviour
 
     public int[,] mazeMap;
     public bool isProtected = false;
-    public int protectedUntil = -1;
+    public float protectedUntil = -1;
+
+    private Color32 playerColor;
+    private bool rocketWorking;
 
     private void Awake()
     {
@@ -95,6 +98,8 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 0;
         playerHealthSignal.Raise();
         mazeMap = Maze.mazeMap;
+        playerColor = transform.GetComponent<Renderer>().material.color;
+        rocketWorking = false;
         //ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(10, 13), new Item { itemType = Item.ItemType.coins, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(10, 16), new Item { itemType = Item.ItemType.keys, amount = 1 });
@@ -107,16 +112,12 @@ public class PlayerMovement : MonoBehaviour
             movement = Vector3.zero;
             //movement.x = Input.GetAxisRaw("Horizontal");
             //movement.y = Input.GetAxisRaw("Vertical");
-
-            movement.x = SimpleInput.GetAxisRaw("Horizontal");
-            movement.y = SimpleInput.GetAxisRaw("Vertical");
-
-            //if (Mathf.Abs(dynamicJoystick.Horizontal) > Mathf.Abs(dynamicJoystick.Vertical))
-            //{
-            //movement.x = dynamicJoystick.Horizontal;
-            //movement.y = dynamicJoystick.Vertical;
-
-
+            if(!rocketWorking)
+            {
+                movement.x = SimpleInput.GetAxisRaw("Horizontal");
+                movement.y = SimpleInput.GetAxisRaw("Vertical");
+            }
+            
 
             if (currentState != PlayerState.stagger)
             {
@@ -246,6 +247,7 @@ public class PlayerMovement : MonoBehaviour
             if (item.itemType == Item.ItemType.rocket)
             {
                 FindObjectOfType<AudioManager>().Play("randomPotion");
+                rocketWorking = true;
                 int mazeMapX = mazeMap.GetLength(0);//2 * mazeWidth + 1;
                 int mazeMapY = mazeMap.GetLength(1);//2 * mazeHeight + 1;
                 int i = Random.Range(1, mazeMapX - 1);
@@ -257,6 +259,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 rb.position = new Vector3(i, j, 0f);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.rocket, amount = 1 });
+                StartCoroutine(RocketCo());
             }
         }
     }
@@ -279,6 +282,19 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("Attacking", false);
         yield return new WaitForSeconds(0.5f);
         currentState = PlayerState.Walking;
+    }
+
+    private IEnumerator ChangeColorCo()
+    {
+
+        yield return new WaitForSeconds(0.2f);
+        transform.GetComponent<Renderer>().material.color = playerColor;
+    }
+    private IEnumerator RocketCo()
+    {
+
+        yield return new WaitForSeconds(0.05f);
+        rocketWorking = false;
     }
 
     void UpdateAnimationAndMove()
@@ -321,6 +337,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentHealth.runtimeValue > 0)
         {
+            transform.GetComponent<Renderer>().material.color = Color.red;
             StartCoroutine(KnockCo(rb, knockTime));
         } else
         {
@@ -339,6 +356,7 @@ public class PlayerMovement : MonoBehaviour
         if (rb != null)
         {
             yield return new WaitForSeconds(knockTime);
+            transform.GetComponent<Renderer>().material.color = playerColor;
             rb.velocity = Vector2.zero;
             currentState = PlayerState.idle;
         }
@@ -348,50 +366,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Keys")
-        {
-            keys++;
-            mykeys.numberHeld = keys;
-            keyNum.text = "x " + keys;
-            FindObjectOfType<AudioManager>().Play("coin");
-            Destroy(collision.gameObject);
-        }
-
-        if (collision.gameObject.tag == "Coins")
-        {
-            coins += 10;
-            mycoins.numberHeld = coins;
-            FindObjectOfType<AudioManager>().Play("coin");
-            Destroy(collision.gameObject);
-        }
-
-        if (collision.gameObject.tag == "Boots")
-        {
-            //moveSpeed = 10f;
-            myboots.numberHeld += 1;
-            //changeSpeedUntil = Time.time + 5;
-            //speedFactor = 1.5f;
-            FindObjectOfType<AudioManager>().Play("coin");
-            Destroy(collision.gameObject);
-        }
-
-        if (collision.gameObject.tag == "Door" && keys == 4)
-        {
-            GameWinAPI();
-        }
-
-        if (collision.gameObject.tag == "hpPotion")
-        {
-            if(currentHealth.runtimeValue != currentHealth.initialValue)
-            {
-                currentHealth.runtimeValue += 1;
-            }
-            
-            playerHealthSignal.Raise();
-            FindObjectOfType<AudioManager>().Play("coin");
-            Destroy(collision.gameObject);
-        }
-
         if (collision.gameObject.tag == "trap")
         {
             FindObjectOfType<AudioManager>().Play("trap");
@@ -410,15 +384,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag == "randomPotion")
-        {
-            changeSpeedUntil = Time.time + 5;
-            speedFactor = Random.Range(0.5f, 3.0f);
-            //StartCoroutine(speedTime());
-            FindObjectOfType<AudioManager>().Play("coin");
-            Destroy(collision.gameObject);
-        }
-
         if (collision.gameObject.tag == "sword")
         {
             attackBoost = 2f;
@@ -426,15 +391,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("red", true);
             Destroy(collision.gameObject);
         }
-
-        //if (collision.gameObject.tag == "EnemyTag_Ghost")
-        //{
-        //    changeSpeedUntil = Time.time + 2;
-        //    speedFactor = 0.6f;
-        //    //StartCoroutine(speedTime());
-        //    FindObjectOfType<AudioManager>().Play("ghost");
-        //    //Destroy(collision.gameObject);
-        //}
 
         if (collision.gameObject.tag == "Items")
         {
@@ -481,8 +437,22 @@ public class PlayerMovement : MonoBehaviour
         {
 
             Debug.Log("spike");
-            currentHealth.runtimeValue -= 0.5f;
-            playerHealthSignal.Raise();
+            transform.GetComponent<Renderer>().material.color = Color.red;
+            if (!isProtected)
+            {
+                currentHealth.runtimeValue -= 1f;
+                playerHealthSignal.Raise();
+            }
+            else
+            {
+                protectedUntil -= 0.5f;
+                if (protectedUntil == 0)
+                {
+                    isProtected = false;
+                }
+            }
+            StartCoroutine(ChangeColorCo());
+
             if (currentHealth.runtimeValue < 0)
             {
 
@@ -495,18 +465,6 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        //if (other.CompareTag("Items"))
-        //{
-        //    ItemWorld itemWorld = other.GetComponent<ItemWorld>();
-
-        //    if (itemWorld != null)
-        //    {
-        //        inventory.AddItem(itemWorld.GetItem());
-        //        Debug.Log("The length is " + inventory.GetItemList().Count);
-        //        itemWorld.DestroySelf();
-        //        FindObjectOfType<AudioManager>().Play("coin");
-        //    }
-        //}
         if (other.CompareTag("EnemyTag_Ghost"))
         {
             changeSpeedUntil = Time.time + 2;
@@ -520,7 +478,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("stay");
+        
         if (other.CompareTag("npc"))
         {
             playerInRange = true;
@@ -646,7 +604,7 @@ public class PlayerMovement : MonoBehaviour
             Vector2 pos = mole_pos_v2 + v_2;
             if (hitt.collider != null && hitt.transform.gameObject.layer == LayerMask.NameToLayer("Enemy_ghost"))
             {
-                Debug.Log("I see the ghost");
+                //Debug.Log("I see the ghost");
                 pos = hitt.point;
                 //Debug.Log("Hit point: " + pos);
                 seetheghost = true;
@@ -656,7 +614,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (hitt.collider != null && hitt.transform.gameObject.layer == LayerMask.NameToLayer("Enemy_dog"))
             {
-                Debug.Log("I see the dog");
+                //Debug.Log("I see the dog");
                 pos = hitt.point;
                 //Debug.Log("Hit point: " + pos);
                 //OnEnemySpotteddog(hitt.transform.gameObject);
