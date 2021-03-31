@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         mykeys.numberHeld = 0;
         mycoins.numberHeld = 0;
         keys = 0;
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         playerHealthSignal.Raise();
         mazeMap = Maze.mazeMap;
         playerColor = transform.GetComponent<Renderer>().material.color;

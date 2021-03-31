@@ -53,6 +53,9 @@ public class Maze : MonoBehaviour {
 	public GameObject maze_fire_bottom; // 20210322
 	public GameObject maze_fire_anim; // 20210322
 
+	public GameObject spike; // 20210330
+	public GameObject spikeReverse; // 20210330
+
 	public GameObject mole;
 	public GameObject npc;
 	public GameObject golem;
@@ -87,18 +90,9 @@ public class Maze : MonoBehaviour {
 	// Start is called before the first frame update
 	void Start() {
 		DrawMaze(mazeWidth, mazeHeight, level);
-
+		DrawThron(); // 20210330
 		// Test empty space
-		if (false) {
-			for (int x = 0; x < mazeMap.GetLength(0); x++) {
-				for (int y = 0; y < mazeMap.GetLength(1); y++) {
-					if (mazeMap[x, y] == 0) {
-						Vector3 position = new Vector3 (x, y, 0f);
-						Instantiate(wall_urbl, position, Quaternion.identity);
-					}
-				}
-			}
-		}
+		
 		//wall_b.transform.SetParent(grid.transform);
 		//AstarPath.active.Scan();
 	}
@@ -356,7 +350,7 @@ public class Maze : MonoBehaviour {
         putItems(mazeMapTrf, npc, NPC, 2);
 		putItems(mazeMapTrf, golem, GOLEM, 2);
         putItems(mazeMapTrf, redevil, RED, 5);
-        //putItems(mazeMapTrf, mage, MAGE, 5);
+        putItems(mazeMapTrf, mage, MAGE, 5);
         //putItems(mazeMapTrf, dog, DOG, 5);
         //putItems(mazeMapTrf, ghost, GHOST, 1);
 
@@ -365,6 +359,239 @@ public class Maze : MonoBehaviour {
 
 
 
+	}
+
+	// 20210330
+	bool isPositionValid(int x, int y, int[,] map, int[,] thronPattern)
+	{
+		for (int i = 0; i < thronPattern.GetLength(0); i++)
+		{
+			for (int j = 0; j < thronPattern.GetLength(1); j++)
+			{
+				if (thronPattern[i, j] != map[x + i, y + j]) return false;
+			}
+		}
+
+		return true;
+	}
+
+	// 20210330
+	void setMazeMapAsSpike(int x, int y, int[,] map, int[,] thronPattern)
+	{
+		for (int i = 0; i < thronPattern.GetLength(0); i++)
+		{
+			for (int j = 0; j < thronPattern.GetLength(1); j++)
+			{
+				map[x + i, y + j] = 3;
+			}
+		}
+	}
+
+	// 20210330
+	void DrawThron()
+	{
+		int[,] mazeMapTmp = mazeMap.Clone() as int[,];
+
+		bool find;
+		int cnt;
+		int target;
+		int x;
+		int y;
+
+		int[,] thronPattern0 = { { 1, 0, 0, 0, 1 }, { 1, 0, 0, 0, 1 }, { 1, 0, 0, 0, 1 } };
+		find = false;
+		cnt = 4000;
+		target = 5;
+		while (target != 0 && cnt != 0)
+		{
+			find = false;
+			cnt = 4000;
+			while (!find && cnt != 0)
+			{
+				x = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(0) - 5);
+				y = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(1) - 5);
+				if (isPositionValid(x, y, mazeMapTmp, thronPattern0))
+				{
+					Vector3 position;
+					position = new Vector3(x + 1, y + 1, -0.1f);
+					Instantiate(spikeReverse, new Vector3(x + 1, y + 1, -0.1f), Quaternion.identity);
+					position = new Vector3(x + 1, y + 2, -0.1f);
+					Instantiate(spike, position, Quaternion.identity);
+					position = new Vector3(x + 1, y + 3, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+
+					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern0);
+					target--;
+					find = true;
+				}
+				cnt--;
+			}
+		}
+
+		int[,] thronPattern5 = { { 1, 1, 1 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 1, 1, 1 } };
+		find = false;
+		cnt = 4000;
+		target = 5;
+		while (target != 0 && cnt != 0)
+		{
+			find = false;
+			cnt = 4000;
+			while (!find && cnt != 0)
+			{
+				x = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(0) - 5);
+				y = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(1) - 5);
+				if (isPositionValid(x, y, mazeMapTmp, thronPattern5))
+				{
+					Vector3 position;
+					position = new Vector3(x + 1, y + 1, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+					position = new Vector3(x + 2, y + 1, -0.1f);
+					Instantiate(spike, position, Quaternion.identity);
+					position = new Vector3(x + 3, y + 1, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+
+					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern5);
+					target--;
+					find = true;
+				}
+				cnt--;
+			}
+		}
+
+		int[,] thronPattern1 = { { 1, 1, 1, 1, 1 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 1, 1, 1, 1, 1 } };
+		find = false;
+		cnt = 4000;
+		target = 5;
+		while (target != 0 && cnt != 0)
+		{
+			find = false;
+			cnt = 4000;
+			while (!find && cnt != 0)
+			{
+				x = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(0) - 5);
+				y = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(1) - 5);
+				if (isPositionValid(x, y, mazeMapTmp, thronPattern1))
+				{
+					Vector3 position;
+					position = new Vector3(x + 1, y, -0.1f);
+					Instantiate(spike, position, Quaternion.identity);
+					position = new Vector3(x + 2, y, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+					position = new Vector3(x + 3, y, -0.1f);
+					Instantiate(spike, position, Quaternion.identity);
+
+					position = new Vector3(x + 1, y + 3, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+					position = new Vector3(x + 2, y + 3, -0.1f);
+					Instantiate(spike, position, Quaternion.identity);
+					position = new Vector3(x + 3, y + 3, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+
+					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern1);
+					target--;
+					find = true;
+				}
+				cnt--;
+			}
+		}
+
+
+		int[,] thronPattern2 = { { 1, 0, 0, 0, 1 }, { 1, 0, 0, 0, 1 }, { 1, 0, 0, 0, 1 }, { 1, 0, 0, 0, 1 }, { 1, 0, 0, 0, 1 } };
+		find = false;
+		cnt = 4000;
+		target = 5;
+		while (target != 0 && cnt != 0)
+		{
+			find = false;
+			cnt = 4000;
+			while (!find && cnt != 0)
+			{
+				x = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(0) - 5);
+				y = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(1) - 5);
+				if (isPositionValid(x, y, mazeMapTmp, thronPattern2))
+				{
+					Vector3 position;
+					position = new Vector3(x + 1, y + 1, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+					position = new Vector3(x + 1, y + 2, -0.1f);
+					Instantiate(spike, position, Quaternion.identity);
+					position = new Vector3(x + 1, y + 3, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+
+					position = new Vector3(x + 4, y + 1, -0.1f);
+					Instantiate(spike, position, Quaternion.identity);
+					position = new Vector3(x + 4, y + 2, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+					position = new Vector3(x + 4, y + 3, -0.1f);
+					Instantiate(spike, position, Quaternion.identity);
+
+					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern2);
+					target--;
+					find = true;
+				}
+				cnt--;
+			}
+		}
+
+		int[,] thronPattern3 = { { 1, 1, 1, 1, 1 }, { 1, 0, 0, 0, 0 }, { 1, 0, 0, 0, 0 }, { 1, 0, 0, 0, 0 }, { 1, 0, 0, 0, 1 } };
+		find = false;
+		cnt = 4000;
+		target = 5;
+		while (target != 0 && cnt != 0)
+		{
+			find = false;
+			cnt = 4000;
+			while (!find && cnt != 0)
+			{
+				x = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(0) - 5);
+				y = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(1) - 5);
+				if (isPositionValid(x, y, mazeMapTmp, thronPattern3))
+				{
+					Vector3 position;
+					position = new Vector3(x + 1, y + 1, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+					position = new Vector3(x + 2, y + 2, -0.1f);
+					Instantiate(spike, position, Quaternion.identity);
+					position = new Vector3(x + 3, y + 3, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+
+					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern3);
+					target--;
+					find = true;
+				}
+				cnt--;
+			}
+		}
+
+		int[,] thronPattern4 = { { 1, 0, 0, 0, 1 }, { 1, 0, 0, 0, 0 }, { 1, 0, 0, 0, 0 }, { 1, 0, 0, 0, 0 }, { 1, 1, 1, 1, 1 } };
+		find = false;
+		cnt = 4000;
+		target = 5;
+		while (target != 0 && cnt != 0)
+		{
+			find = false;
+			cnt = 4000;
+			while (!find && cnt != 0)
+			{
+				x = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(0) - 5);
+				y = MazeGenerator.GenerateRandomNumber(0, mazeMapTmp.GetLength(1) - 5);
+				if (isPositionValid(x, y, mazeMapTmp, thronPattern4))
+				{
+					Vector3 position;
+					position = new Vector3(x + 3, y + 1, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+					position = new Vector3(x + 2, y + 2, -0.1f);
+					Instantiate(spike, position, Quaternion.identity);
+					position = new Vector3(x + 1, y + 3, -0.1f);
+					Instantiate(spikeReverse, position, Quaternion.identity);
+
+					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern4);
+					target--;
+					find = true;
+				}
+				cnt--;
+			}
+		}
 	}
 
 	// randomly put [total] [obj]s on the map, and mark the position with [mark]
@@ -635,6 +862,9 @@ public class Maze : MonoBehaviour {
 
 		maze_fire_bottom = Resources.Load("Walls/Common/fire_bottom") as GameObject; // 20210322
 		maze_fire_anim = Resources.Load("Walls/Common/fire_anim") as GameObject; // 20210322
+
+		spike = Resources.Load("Spike/Spike") as GameObject; // 20210330
+		spikeReverse = Resources.Load("Spike/SpikeReverse") as GameObject; // 20210330
 
 		wall_v = brownWalls[WALL_V];
 		wall_h = brownWalls[WALL_H];

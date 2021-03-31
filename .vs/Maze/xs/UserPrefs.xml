@@ -1,27 +1,20 @@
 ﻿<Properties StartupConfiguration="{203E294F-6A57-B963-05D6-83EB30201135}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Maze.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerMovement.cs">
     <Files>
+      <File FileName="Assets/Scripts/SliderControl.cs" Line="27" Column="6" />
       <File FileName="Assets/Scripts/PlayerMovement.cs" Line="262" Column="44" />
-      <File FileName="Assets/Scripts/InventoryBar/Inventory.cs" />
-      <File FileName="Assets/Scripts/InventoryBar/Item.cs" />
-      <File FileName="Assets/Scripts/InventoryBar/UI_Inventory.cs" />
-      <File FileName="Assets/Scripts/InventoryBar/ItemAssets.cs" Line="21" Column="26" />
-      <File FileName="Assets/Scripts/ItemWorld.cs" />
-      <File FileName="Assets/Scripts/Enemy.cs" />
       <File FileName="Assets/Scripts/Maze.cs" Line="358" Column="47" />
-      <File FileName="Assets/Scripts/Dog.cs" Line="129" Column="73" />
-      <File FileName="Assets/Scripts/GameOver.cs" />
-      <File FileName="Assets/Scripts/GameWin.cs" />
       <File FileName="Assets/CodeMonkey/Utils/Button_UI.cs" />
       <File FileName="Assets/Scripts/PauseMenu.cs" />
-      <File FileName="Assets/Scripts/golem.cs" Line="79" Column="43" />
-      <File FileName="Assets/Scripts/Knockback.cs" Line="55" Column="67" />
-      <File FileName="Assets/Scripts/pot.cs" Line="78" Column="46" />
-      <File FileName="Assets/Scripts/Menu.cs" Line="14" Column="43" />
-      <File FileName="Assets/Scripts/LevelLoader.cs" Line="11" Column="11" />
-      <File FileName="Assets/Scripts/golem1.cs" Line="79" Column="43" />
-      <File FileName="Assets/Scripts/bullet_fire.cs" Line="20" Column="50" />
-      <File FileName="Assets/Scripts/mage.cs" Line="543" Column="49" />
+      <File FileName="Assets/Scripts/golem.cs" />
+      <File FileName="Assets/Scripts/Knockback.cs" />
+      <File FileName="Assets/Scripts/pot.cs" />
+      <File FileName="Assets/Scripts/Menu.cs" />
+      <File FileName="Assets/Scripts/LevelLoader.cs" />
+      <File FileName="Assets/Scripts/bullet_fire.cs" />
+      <File FileName="Assets/Scripts/mage.cs" />
+      <File FileName="Assets/Scripts/CameraFollow.cs" Line="13" Column="63" />
+      <File FileName="Assets/Scripts/HelpMenu.cs" Line="8" Column="45" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -33,7 +26,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="360d691b-5ea9-4640-86b3-78e64c316c8f" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="1186baba-2727-4cb0-9d45-5ba4d3306918" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

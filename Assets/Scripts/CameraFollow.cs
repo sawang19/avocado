@@ -10,6 +10,7 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        AudioListener.volume = PlayerPrefs.GetFloat("Volume");
     }
 
     // Update is called once per frame

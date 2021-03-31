@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class SliderControl : MonoBehaviour
 {
     // Start is called before the first frame update
-    public AudioMixer audioMixer;
+
     public GameObject Setting, Menu;
+    public Slider mSlider;
+
+    void Update()
+    {
+        mSlider.value = PlayerPrefs.GetFloat("Volume");
+    }
+
     public void OpenSetting()
     {
         Setting.SetActive(true);
@@ -22,7 +30,8 @@ public class SliderControl : MonoBehaviour
     }
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("Volume", volume);
+        PlayerPrefs.SetFloat("Volume", volume);
+        AudioListener.volume = PlayerPrefs.GetFloat("Volume");
     }
 
 }

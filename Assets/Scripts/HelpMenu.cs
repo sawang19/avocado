@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class HelpMenu : MonoBehaviour
 {
     public GameObject HelpPanel, HelpButton;
-  
+
     public void Pause()
     {
         HelpPanel.SetActive(true);
