@@ -64,14 +64,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Graph\NodeSearchWindow.cs" />
-    <Compile Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Graph\StoryGraph.cs" />
-    <Compile Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Graph\StoryGraphView.cs" />
-    <Compile Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\GraphSaveUtility.cs" />
-    <Compile Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Nodes\DialogueNode.cs" />
-    <None Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Resources\NarrativeGraph.uss" />
-    <None Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Resources\Node.uss" />
-    <None Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Subtegral.DialogueSystem.Editor.asmdef" />
+    <Compile Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Graph\NodeSearchWindow.cs" />
+    <Compile Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Graph\StoryGraph.cs" />
+    <Compile Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Graph\StoryGraphView.cs" />
+    <Compile Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\GraphSaveUtility.cs" />
+    <Compile Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Nodes\DialogueNode.cs" />
+    <None Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Resources\NarrativeGraph.uss" />
+    <None Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Resources\Node.uss" />
+    <None Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Editor\Subtegral.DialogueSystem.Editor.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>/Applications/Unity/Hub/Editor/2019.4.18f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

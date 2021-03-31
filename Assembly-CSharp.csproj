@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\GameOver.cs" />
     <Compile Include="Assets\Scripts\GameWin.cs" />
     <Compile Include="Assets\Scripts\HeartManager.cs" />
+    <Compile Include="Assets\Scripts\HelpMenu.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventorySlot.cs" />

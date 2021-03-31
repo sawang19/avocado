@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.subtegral.dialoguesystem": "file:/Users/sa/Desktop/526/inventory/dialogSystem/NodeBasedDialogueSystem",
+    "com.subtegral.dialoguesystem": "file:/Users/sa/dialogSystem/NodeBasedDialogueSystem",
     "com.unity.2d.animation": "3.2.6",
     "com.unity.2d.pixel-perfect": "2.1.0",
     "com.unity.2d.psdimporter": "2.1.6",

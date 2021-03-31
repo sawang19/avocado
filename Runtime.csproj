@@ -64,12 +64,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\CommentBlockData.cs" />
-    <Compile Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\DialogueContainer.cs" />
-    <Compile Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\DialogueNodeData.cs" />
-    <Compile Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\ExposedProperty.cs" />
-    <Compile Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\NodeLinkData.cs" />
-    <None Include="\Users\sa\Desktop\526\inventory\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\Subtegral.DialogueSystem.Runtime.asmdef" />
+    <Compile Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\CommentBlockData.cs" />
+    <Compile Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\DialogueContainer.cs" />
+    <Compile Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\DialogueNodeData.cs" />
+    <Compile Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\ExposedProperty.cs" />
+    <Compile Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\NodeLinkData.cs" />
+    <None Include="\Users\sa\dialogSystem\NodeBasedDialogueSystem\com.subtegral.dialoguesystem\Runtime\Subtegral.DialogueSystem.Runtime.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>/Applications/Unity/Hub/Editor/2019.4.18f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
