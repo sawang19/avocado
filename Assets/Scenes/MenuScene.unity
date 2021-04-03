@@ -617,6 +617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 0}
   slider: {fileID: 0}
+  level2: {fileID: 0}
 --- !u!1 &618434385
 GameObject:
   m_ObjectHideFlags: 0
@@ -2142,6 +2143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1048586384}
   slider: {fileID: 1706280474}
+  level2: {fileID: 11400000, guid: 09ed7a3c2aea04a19865cf658cdcd533, type: 2}
 --- !u!1 &1665504668
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,7 +2759,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1916955441}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1600065011}
+        m_MethodName: LevelSelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1916955441
 MonoBehaviour:
   m_ObjectHideFlags: 0

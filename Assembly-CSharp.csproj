@@ -112,6 +112,8 @@
     <Compile Include="Assets\Scripts\ItemWorld.cs" />
     <Compile Include="Assets\Scripts\Knockback.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
+    <Compile Include="Assets\Scripts\LevelLoader2.cs" />
+    <Compile Include="Assets\Scripts\LevelSelect.cs" />
     <Compile Include="Assets\Scripts\Maze.cs" />
     <Compile Include="Assets\Scripts\MazeGenerator.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\RedEvil.cs" />
     <Compile Include="Assets\Scripts\SMask.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\BoolValue.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\FloatValue.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Signal.cs" />
     <Compile Include="Assets\Scripts\SignalListener.cs" />

@@ -8,10 +8,18 @@ public class Menu : MonoBehaviour
 {
     public GameObject loadingScreen;
     public Slider slider;
+    public BoolValue level2;
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Loading");
+        if(level2.initialValue)
+        {
+            SceneManager.LoadScene("Loading2");
+        } else
+        {
+            SceneManager.LoadScene("Loading");
+        }
+        
     }
 
     public void QuitGame()
@@ -22,7 +30,7 @@ public class Menu : MonoBehaviour
 
     public void LevelSelect()
     {
-
+        SceneManager.LoadScene("Levels");
     }
 
     
