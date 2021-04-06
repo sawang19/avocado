@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Cell.cs" />
+    <Compile Include="Assets\Scripts\Dialog.cs" />
     <Compile Include="Assets\Scripts\DialogBoxScript.cs" />
     <Compile Include="Assets\Scripts\Dog.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
@@ -131,7 +132,6 @@
     <Compile Include="Assets\Scripts\TestMovement.cs" />
     <Compile Include="Assets\Scripts\Wait.cs" />
     <Compile Include="Assets\Scripts\bullet_fire.cs" />
-    <Compile Include="Assets\Scripts\dialog.cs" />
     <Compile Include="Assets\Scripts\ghost.cs" />
     <Compile Include="Assets\Scripts\golem.cs" />
     <Compile Include="Assets\Scripts\inventoryButton.cs" />

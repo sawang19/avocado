@@ -22,6 +22,7 @@ public class Maze : MonoBehaviour {
 	int mazeWidth = 10;
 	int mazeHeight = 10;
 	string level = "HARD";
+	string mazeStyle = "STEEL"; // 20210405
 
 	public GameObject grid;
 	public GameObject wall_v;
@@ -45,16 +46,19 @@ public class Maze : MonoBehaviour {
 	public GameObject wall_l;
 	public GameObject wall_o;
 
-	public GameObject maze_brown_bk1; // 20210322
-	public GameObject maze_brown_bk2; // 20210322
-	public GameObject maze_brown_bk3; // 20210322
-	public GameObject maze_brown_bk4; // 20210322
+	public GameObject maze_bk1; // 20210322
+	public GameObject maze_bk2; // 20210322
+	public GameObject maze_bk3; // 20210322
+	public GameObject maze_bk4; // 20210322
 
 	public GameObject maze_fire_bottom; // 20210322
 	public GameObject maze_fire_anim; // 20210322
 
 	public GameObject spike; // 20210330
 	public GameObject spikeReverse; // 20210330
+
+	public GameObject weaponShelf1; // 20210405
+	public GameObject weaponShelf2; // 20210405
 
 	public GameObject mole;
 	public GameObject npc;
@@ -90,6 +94,7 @@ public class Maze : MonoBehaviour {
 	// Start is called before the first frame update
 	void Start() {
 		DrawMaze(mazeWidth, mazeHeight, level);
+		DrawWeaponShelf(); // 20210405
 		DrawThron(); // 20210330
 		// Test empty space
 		
@@ -152,22 +157,22 @@ public class Maze : MonoBehaviour {
 				{
 					if (j % 2 == 0)
 					{
-						Instantiate(maze_brown_bk1, position, Quaternion.identity);
+						Instantiate(maze_bk1, position, Quaternion.identity);
 					}
 					else
 					{
-						Instantiate(maze_brown_bk2, position, Quaternion.identity);
+						Instantiate(maze_bk2, position, Quaternion.identity);
 					}
 				}
 				else
 				{
 					if (j % 2 != 0)
 					{
-						Instantiate(maze_brown_bk1, position, Quaternion.identity);
+						Instantiate(maze_bk1, position, Quaternion.identity);
 					}
 					else
 					{
-						Instantiate(maze_brown_bk2, position, Quaternion.identity);
+						Instantiate(maze_bk2, position, Quaternion.identity);
 					}
 				}
 			}
@@ -347,10 +352,10 @@ public class Maze : MonoBehaviour {
 
 
         //putItems(mazeMapTrf, mole, MOLE, 2);
-        putItems(mazeMapTrf, npc, NPC, 2);
-		putItems(mazeMapTrf, golem, GOLEM, 2);
-        putItems(mazeMapTrf, redevil, RED, 5);
-        putItems(mazeMapTrf, mage, MAGE, 5);
+        putItems(mazeMapTrf, npc, NPC, 10);
+		//putItems(mazeMapTrf, golem, GOLEM, 2);
+  //      putItems(mazeMapTrf, redevil, RED, 5);
+  //      putItems(mazeMapTrf, mage, MAGE, 5);
         //putItems(mazeMapTrf, dog, DOG, 5);
         //putItems(mazeMapTrf, ghost, GHOST, 1);
 
@@ -586,6 +591,63 @@ public class Maze : MonoBehaviour {
 					Instantiate(spikeReverse, position, Quaternion.identity);
 
 					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern4);
+					target--;
+					find = true;
+				}
+				cnt--;
+			}
+		}
+	}
+
+	void DrawWeaponShelf()
+	{
+		bool find = false;
+		int cnt = 4000;
+		int target = 5;
+		while (target != 0 && cnt != 0)
+		{
+			find = false;
+			cnt = 4000;
+
+			while (!find && cnt != 0)
+			{
+				int x = MazeGenerator.GenerateRandomNumber(0, mazeMap.GetLength(0) - 1);
+				int y = MazeGenerator.GenerateRandomNumber(0, mazeMap.GetLength(1) - 1);
+
+				if (mazeMap[x, y] == 0 && mazeMap[x + 1, y] == 0 && mazeMap[x, y + 1] == 0 && mazeMap[x + 1, y + 1] == 0)
+				{
+					Instantiate(weaponShelf1, new Vector3(x + 0.5f, y + 0.5f, -0.1f), Quaternion.identity);
+					mazeMap[x, y] = 1;
+					mazeMap[x + 1, y] = 1;
+					mazeMap[x, y + 1] = 1;
+					mazeMap[x + 1, y + 1] = 1;
+					target--;
+					find = true;
+				}
+				cnt--;
+			}
+		}
+
+		find = false;
+		cnt = 4000;
+		target = 5;
+		while (target != 0 && cnt != 0)
+		{
+			find = false;
+			cnt = 4000;
+
+			while (!find && cnt != 0)
+			{
+				int x = MazeGenerator.GenerateRandomNumber(0, mazeMap.GetLength(0) - 1);
+				int y = MazeGenerator.GenerateRandomNumber(0, mazeMap.GetLength(1) - 1);
+
+				if (mazeMap[x, y] == 0 && mazeMap[x + 1, y] == 0 && mazeMap[x, y + 1] == 0 && mazeMap[x + 1, y + 1] == 0)
+				{
+					Instantiate(weaponShelf2, new Vector3(x + 0.5f, y + 0.5f, -0.1f), Quaternion.identity);
+					mazeMap[x, y] = 1;
+					mazeMap[x + 1, y] = 1;
+					mazeMap[x, y + 1] = 1;
+					mazeMap[x + 1, y + 1] = 1;
 					target--;
 					find = true;
 				}
@@ -832,10 +894,10 @@ public class Maze : MonoBehaviour {
 		brownDoorV = Resources.Load("Walls/Brown/brown_door_V") as GameObject; // 20210313
 		brownDoorH = Resources.Load("Walls/Brown/brown_door_H") as GameObject; // 20210313
 
-		maze_brown_bk1 = Resources.Load("Walls/Brown/brown_bk1") as GameObject; // 20210322
-		maze_brown_bk2 = Resources.Load("Walls/Brown/brown_bk2") as GameObject; // 20210322
-		maze_brown_bk3 = Resources.Load("Walls/Brown/brown_bk3") as GameObject; // 20210322
-		maze_brown_bk4 = Resources.Load("Walls/Brown/brown_bk4") as GameObject; // 20210322
+		maze_bk1 = Resources.Load("Walls/Brown/brown_bk1") as GameObject; // 20210322
+		maze_bk2 = Resources.Load("Walls/Brown/brown_bk2") as GameObject; // 20210322
+		maze_bk3 = Resources.Load("Walls/Brown/brown_bk3") as GameObject; // 20210322
+		maze_bk4 = Resources.Load("Walls/Brown/brown_bk4") as GameObject; // 20210322
 
 		// Weed
 		weedWalls[WALL_V] = Resources.Load("Walls/Weed/weed_V") as GameObject;
@@ -866,6 +928,9 @@ public class Maze : MonoBehaviour {
 		spike = Resources.Load("Spike/Spike") as GameObject; // 20210330
 		spikeReverse = Resources.Load("Spike/SpikeReverse") as GameObject; // 20210330
 
+		weaponShelf1 = Resources.Load("WeaponShelf/weaponShelf1") as GameObject; // 20210405
+		weaponShelf2 = Resources.Load("WeaponShelf/weaponShelf2") as GameObject; // 20210405
+
 		wall_v = brownWalls[WALL_V];
 		wall_h = brownWalls[WALL_H];
 
@@ -886,6 +951,104 @@ public class Maze : MonoBehaviour {
 		wall_b = brownWalls[WALL_B];
 		wall_l = brownWalls[WALL_L];
 		wall_o = brownWalls[WALL_O];
+		styleChoose();  // 20210405
+	}
+
+	void styleChoose()
+	{
+		if (mazeStyle.Equals("BROWN"))
+		{
+			maze_bk1 = Resources.Load("Walls/Brown/brown_bk1") as GameObject; // 202100405
+			maze_bk2 = Resources.Load("Walls/Brown/brown_bk2") as GameObject; // 202100405
+			maze_bk3 = Resources.Load("Walls/Brown/brown_bk3") as GameObject; // 202100405
+			maze_bk4 = Resources.Load("Walls/Brown/brown_bk4") as GameObject; // 202100405
+
+			maze_fire_bottom = Resources.Load("Walls/Common/fire_bottom") as GameObject; // 202100405
+			maze_fire_anim = Resources.Load("Walls/Common/fire_anim") as GameObject; // 20210322
+
+			wall_v = brownWalls[WALL_V];
+			wall_h = brownWalls[WALL_H];
+
+			wall_ul = brownWalls[WALL_UL];
+			wall_ur = brownWalls[WALL_UR];
+			wall_bl = brownWalls[WALL_BL];
+			wall_br = brownWalls[WALL_BR];
+
+			wall_lur = brownWalls[WALL_LUR];
+			wall_urb = brownWalls[WALL_URB];
+			wall_rbl = brownWalls[WALL_RBL];
+			wall_blu = brownWalls[WALL_BLU];
+
+			wall_urbl = brownWalls[WALL_URBL];
+
+			wall_u = brownWalls[WALL_U];
+			wall_r = brownWalls[WALL_R];
+			wall_b = brownWalls[WALL_B];
+			wall_l = brownWalls[WALL_L];
+			wall_o = brownWalls[WALL_O];
+		}
+		else if (mazeStyle.Equals("STEEL"))
+		{
+			maze_bk1 = Resources.Load("Walls/Brown/brown_bk1") as GameObject; // 202100405
+			maze_bk2 = Resources.Load("Walls/Brown/brown_bk2") as GameObject; // 202100405
+			maze_bk3 = Resources.Load("Walls/Brown/brown_bk3") as GameObject; // 202100405
+			maze_bk4 = Resources.Load("Walls/Brown/brown_bk4") as GameObject; // 202100405
+
+			maze_fire_bottom = Resources.Load("Walls/Common/fire_bottom") as GameObject; // 202100405
+			maze_fire_anim = Resources.Load("Walls/Common/fire_anim") as GameObject; // 20210322
+
+			wall_v = steelWalls[WALL_V];
+			wall_h = steelWalls[WALL_H];
+
+			wall_ul = steelWalls[WALL_UL];
+			wall_ur = steelWalls[WALL_UR];
+			wall_bl = steelWalls[WALL_BL];
+			wall_br = steelWalls[WALL_BR];
+
+			wall_lur = steelWalls[WALL_LUR];
+			wall_urb = steelWalls[WALL_URB];
+			wall_rbl = steelWalls[WALL_RBL];
+			wall_blu = steelWalls[WALL_BLU];
+
+			wall_urbl = steelWalls[WALL_URBL];
+
+			wall_u = steelWalls[WALL_U];
+			wall_r = steelWalls[WALL_R];
+			wall_b = steelWalls[WALL_B];
+			wall_l = steelWalls[WALL_L];
+			wall_o = steelWalls[WALL_O];
+		}
+		else if (mazeStyle.Equals("WEED"))
+		{
+			maze_bk1 = Resources.Load("Walls/Brown/brown_bk1") as GameObject; // 202100405
+			maze_bk2 = Resources.Load("Walls/Brown/brown_bk2") as GameObject; // 202100405
+			maze_bk3 = Resources.Load("Walls/Brown/brown_bk3") as GameObject; // 202100405
+			maze_bk4 = Resources.Load("Walls/Brown/brown_bk4") as GameObject; // 202100405
+
+			maze_fire_bottom = Resources.Load("Walls/Common/fire_bottom") as GameObject; // 202100405
+			maze_fire_anim = Resources.Load("Walls/Common/fire_anim") as GameObject; // 20210322
+
+			wall_v = weedWalls[WALL_V];
+			wall_h = weedWalls[WALL_H];
+
+			wall_ul = weedWalls[WALL_UL];
+			wall_ur = weedWalls[WALL_UR];
+			wall_bl = weedWalls[WALL_BL];
+			wall_br = weedWalls[WALL_BR];
+
+			wall_lur = weedWalls[WALL_LUR];
+			wall_urb = weedWalls[WALL_URB];
+			wall_rbl = weedWalls[WALL_RBL];
+			wall_blu = weedWalls[WALL_BLU];
+
+			wall_urbl = weedWalls[WALL_URBL];
+
+			wall_u = weedWalls[WALL_U];
+			wall_r = weedWalls[WALL_R];
+			wall_b = weedWalls[WALL_B];
+			wall_l = weedWalls[WALL_L];
+			wall_o = weedWalls[WALL_O];
+		}
 	}
 
 	void drawDoors(int[,] mazeMapTrf, int mazeMapX, int mazeMapY, GameObject[] renderWalls, int offsetY)

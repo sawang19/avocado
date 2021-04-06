@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 movement;
     public Animator animator;
     public static int keys = 0;
-    public static int coins = 0;
+    public static int coins = 100;
     public static int boots = 0;
 
     public Text youwin;
@@ -78,6 +78,20 @@ public class PlayerMovement : MonoBehaviour
 
     private Color32 playerColor;
     private bool rocketWorking;
+
+    /// <new>
+    /// /////////
+    /// </new>
+    private int POTION_HP = 1;
+    private int POTION_HP_COST = 30;
+    private int POTION_RANDOM = 2;
+    private int POTION_RANDOM_COST = 2;
+    private int SHIELD = 3;
+    private int SHIELD_COST = 3;
+    private int ROCKET = 4;
+    private int ROCKET_COST = 4;
+    private int BOOTS = 5;
+    private int BOOTS_COST = 5;
 
     private void Awake()
     {
@@ -175,6 +189,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 dialogBox.SetActive(true);
                 //dialogText.text = dialog;
+                FindObjectOfType<Subtegral.DialogueSystem.Runtime.Dialog>().SetToStart();
                 Time.timeScale = 0;
 
             }
@@ -262,6 +277,66 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(RocketCo());
             }
         }
+    }
+
+    public bool BuyItem(int item)
+    {
+        Debug.Log("suc");
+        if (item == POTION_HP)
+        {
+            if (POTION_HP_COST > coins)
+            {
+                return false;
+            }
+            coins -= POTION_HP_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.hpPotion, amount = 1 });
+
+        }
+        else if (item == POTION_RANDOM)
+        {
+            if (POTION_RANDOM_COST > coins)
+            {
+                return false;
+            }
+            coins -= POTION_RANDOM_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.randomPotion, amount = 1 });
+
+        }
+        else if (item == BOOTS)
+        {
+            if (BOOTS_COST > coins)
+            {
+                return false;
+            }
+            coins -= BOOTS_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.boots, amount = 1 });
+        }
+        else if (item == SHIELD)
+        {
+            if (SHIELD_COST > coins)
+            {
+                return false;
+            }
+            coins -= SHIELD_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.shield, amount = 1 });
+
+        }
+        else if (item == ROCKET)
+        {
+            if (ROCKET_COST > coins)
+            {
+                return false;
+            }
+            coins -= ROCKET_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.rocket, amount = 1 });
+        }
+
+        return true;
     }
 
     void BuildMesh()

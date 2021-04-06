@@ -22,36 +22,93 @@ MonoBehaviour:
   - BaseNodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
     PortName: Buy some items.
     TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
-  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
-    PortName: Air rifile
-    TargetNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
-  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
-    PortName: Shoes
-    TargetNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
-  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
-    PortName: Cloak
-    TargetNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
-  - BaseNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
-    PortName: yes
-    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
-  - BaseNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
-    PortName: no
-    TargetNodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
   - BaseNodeGUID: ec6c545b-80e2-4c1a-bf18-69e82a9658cd
     PortName: I got it!
     TargetNodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: hp potion
+    TargetNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: random potion
+    TargetNodeGUID: 27a913ec-6793-406f-975e-fbdb1e926b5d
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: shield
+    TargetNodeGUID: f29c46e9-eec4-44a1-ac3a-581d4fe96501
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: rocket
+    TargetNodeGUID: 96ef141c-3004-487c-9fc2-4f4edd5ecf0a
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: boots
+    TargetNodeGUID: bb37bcb3-a05c-4d51-a895-815807931410
+  - BaseNodeGUID: 27a913ec-6793-406f-975e-fbdb1e926b5d
+    PortName: yes
+    TargetNodeGUID: 54dbc8b6-9a6b-4bff-b220-b8a3dd57cf52
+  - BaseNodeGUID: 27a913ec-6793-406f-975e-fbdb1e926b5d
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f29c46e9-eec4-44a1-ac3a-581d4fe96501
+    PortName: yes
+    TargetNodeGUID: 89bf671b-b651-4055-8dee-854b61a78f4f
+  - BaseNodeGUID: f29c46e9-eec4-44a1-ac3a-581d4fe96501
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: 96ef141c-3004-487c-9fc2-4f4edd5ecf0a
+    PortName: yes
+    TargetNodeGUID: b81b2256-0074-4c71-8c82-41bf07c47bf1
+  - BaseNodeGUID: 96ef141c-3004-487c-9fc2-4f4edd5ecf0a
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
+    PortName: yes
+    TargetNodeGUID: 3f2d0fab-5bdb-4c0b-ac4a-79ff22d5618f
+  - BaseNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: bb37bcb3-a05c-4d51-a895-815807931410
+    PortName: yes
+    TargetNodeGUID: 5acc647b-ea39-42de-8630-8f0f1f63922f
+  - BaseNodeGUID: bb37bcb3-a05c-4d51-a895-815807931410
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
   DialogueNodeData:
   - NodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
     DialogueText: How's going, buddy?
-    Position: {x: 243, y: 153}
-  - NodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
-    DialogueText: 'Here are what I have:'
-    Position: {x: 568, y: 293}
-  - NodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
-    DialogueText: Do you want buy Air rifile?
-    Position: {x: 890, y: 241}
+    Position: {x: 70, y: 85}
   - NodeGUID: ec6c545b-80e2-4c1a-bf18-69e82a9658cd
     DialogueText: Collect all the keys and open the door. Good luck!
-    Position: {x: 605, y: 154}
+    Position: {x: 481, y: -54}
+  - NodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    DialogueText: 'Here are what I have:'
+    Position: {x: 397, y: 230}
+  - NodeGUID: 27a913ec-6793-406f-975e-fbdb1e926b5d
+    DialogueText: Do you wanna buy Random Potion?
+    Position: {x: 941, y: 230}
+  - NodeGUID: f29c46e9-eec4-44a1-ac3a-581d4fe96501
+    DialogueText: Do you wanna buy Shield?
+    Position: {x: 945, y: 341}
+  - NodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
+    DialogueText: Do you wanna buy HP Potion?
+    Position: {x: 954, y: 115}
+  - NodeGUID: bb37bcb3-a05c-4d51-a895-815807931410
+    DialogueText: Do you wanna buy Boots?
+    Position: {x: 963, y: 831}
+  - NodeGUID: 3f2d0fab-5bdb-4c0b-ac4a-79ff22d5618f
+    DialogueText: 
+    Position: {x: 1380, y: 110}
+  - NodeGUID: 54dbc8b6-9a6b-4bff-b220-b8a3dd57cf52
+    DialogueText: 
+    Position: {x: 1375, y: 234}
+  - NodeGUID: 89bf671b-b651-4055-8dee-854b61a78f4f
+    DialogueText: 
+    Position: {x: 1376, y: 348}
+  - NodeGUID: b81b2256-0074-4c71-8c82-41bf07c47bf1
+    DialogueText: 
+    Position: {x: 1390, y: 622}
+  - NodeGUID: 5acc647b-ea39-42de-8630-8f0f1f63922f
+    DialogueText: 
+    Position: {x: 1384, y: 804}
+  - NodeGUID: 96ef141c-3004-487c-9fc2-4f4edd5ecf0a
+    DialogueText: Do you wanna buy Rocket?
+    Position: {x: 956, y: 622}
   ExposedProperties: []
   CommentBlockData: []
