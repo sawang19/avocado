@@ -6,47 +6,87 @@ public class bullet_fire : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] Transform target;
-    public float speed = 50f;
+    [SerializeField] Transform mageitself;
+
+    public float speed = 1f;
     private float shootingTime;
     public Rigidbody2D rb;
-    public Signal playerHealthSignal;
     public GameObject impactEffect;
-    public float factor = 0.1f;
+    public GameObject fireEffect;
+
+    public int level2_mage_count = 0;
+    public int level2_mage_ballnum = 3;
+    public bool level2_mage_keppit = true;
+    public float waittime = 5f;
+    public float angle = 45f;
+    public GameObject bullet_son;
+
+    //light control
+    //public UnityEngine.Experimental.Rendering.Universal.Light2D BSL;
+    //public GameObject bsl;
+
+
     void Start()
     {
         Vector2 StartPos = new Vector2(transform.position.x, transform.position.y);
         target = GameObject.Find("Player").transform;
-        Vector2 bulletDir = (Vector2)target.position - StartPos;
-        rb.velocity = bulletDir * speed * factor;
-        Debug.Log(rb.velocity);
+        int level = magef.magelevel;
+        //bsl = GameObject.Find("firelight");
+        //BSL = bsl.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
+        //BSL.color = Color.red;
+        
+        if (level2_mage_keppit)
+        {
+            if (level2_mage_count < level2_mage_ballnum)
+            {
+                level2_mage_count++;
+                if (level2_mage_count == level2_mage_ballnum)
+                {
+                    level2_mage_keppit = false;
+                }
+                else
+                {
+                    Instantiate(bullet_son, transform.position, transform.rotation);
+
+                }
+                Vector2 bulletDir = (Vector2)target.position - StartPos;
+                if (level2_mage_count == 1)
+                {
+                    rb.velocity = (Quaternion.Euler(0, 0, -1*angle) * bulletDir).normalized * speed;
+                }
+                else if (level2_mage_count == 2)
+                {
+                    rb.velocity = (Quaternion.Euler(0, 0, 0f) * bulletDir).normalized * speed;
+                }
+                else if (level2_mage_count == 3)
+                {
+                    rb.velocity = (Quaternion.Euler(0, 0, angle) * bulletDir).normalized * speed;
+                }
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
 
-        Debug.Log("Bullet hit player!");
-        PlayerMovement theplayer = hitInfo.GetComponent<PlayerMovement>();
-        if(theplayer != null)
+        if (hitInfo.CompareTag("breakable"))
         {
-            theplayer.currentHealth.runtimeValue -= 1;
-            playerHealthSignal.Raise();
-            if (theplayer.currentHealth.runtimeValue < 0)
-            {
+            pot thepot = hitInfo.GetComponent<pot>();
+            thepot.Smash();
 
-                theplayer.currentHealth.runtimeValue = theplayer.currentHealth.initialValue;
-                theplayer.enemyHealth.runtimeValue = theplayer.enemyHealth.initialValue;
-                theplayer.animator.SetBool("moving", false);
-                FindObjectOfType<AudioManager>().Play("gameover");
-                theplayer.GameOverAPI();
-            }
         }
         GameObject effect = Instantiate(impactEffect, transform.position, transform.rotation);
-        
+        GameObject feffect = Instantiate(fireEffect, transform.position, transform.rotation);
+
         Destroy(gameObject);
-        Destroy(effect, 0.5f);
-        
-        
+
+        Destroy(effect, 3f);
+
+        Destroy(feffect, 3f);
+
+
+
     }
 
-    
+
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public enum PlayerState
 {
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     Vector3 movement;
     public Animator animator;
+    
     public static int keys = 0;
     public static int coins = 100;
     public static int boots = 0;
@@ -56,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
     public Text dialogTextForDoor;
     public string dialogForDoor;
     public bool playerInRangeForDoor;
+
+    public bool playerInRangeForTrigger;
 
     public FloatValue currentHealth;
     public FloatValue enemyHealth;
@@ -93,6 +97,17 @@ public class PlayerMovement : MonoBehaviour
     private int BOOTS = 5;
     private int BOOTS_COST = 5;
 
+    //light control
+    public UnityEngine.Experimental.Rendering.Universal.Light2D SL;
+    public UnityEngine.Experimental.Rendering.Universal.Light2D FL;
+    public UnityEngine.Experimental.Rendering.Universal.Light2D SD;
+    public GameObject fl;
+    public GameObject sl;
+    public GameObject sd;
+
+    //trigger
+    public Maze maze;
+
     private void Awake()
     {
         inventory = new Inventory(UseItem);
@@ -112,8 +127,22 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 0;
         playerHealthSignal.Raise();
         mazeMap = Maze.mazeMap;
-        playerColor = transform.GetComponent<Renderer>().material.color;
+        playerColor = Color.white;
         rocketWorking = false;
+
+        //light control
+        fl = GameObject.Find("flashlight");
+        sl = GameObject.Find("selflight");
+        sd = GameObject.Find("shield");
+        FL = fl.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
+        SL = sl.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
+        SD = sd.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
+        fl.SetActive(false);
+        sl.SetActive(false);
+        sd.SetActive(false);
+
+        Debug.Log("player prefs level = " + PlayerPrefs.GetInt("levels"));
+
         //ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(10, 13), new Item { itemType = Item.ItemType.coins, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(10, 16), new Item { itemType = Item.ItemType.keys, amount = 1 });
@@ -123,6 +152,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!endgame)
         {
+            
             movement = Vector3.zero;
             //movement.x = Input.GetAxisRaw("Horizontal");
             //movement.y = Input.GetAxisRaw("Vertical");
@@ -212,6 +242,20 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if(playerInRangeForTrigger)
+        {
+            Debug.Log("trigger");
+            foreach (GameObject triggerPrefab in maze.triggerList)
+            {
+                triggerPrefab.GetComponent<Animator>().SetBool("switch", true);
+            }
+            foreach (GameObject spikePrefab in maze.spikePrefabs)
+            {
+                spikePrefab.GetComponent<Animator>().SetBool("trigger", true);
+            }
+            
+        }
+
         if (playerInRangeForDoor && keys >= 2)
         {
 
@@ -255,8 +299,10 @@ public class PlayerMovement : MonoBehaviour
             if (item.itemType == Item.ItemType.shield)
             {
                 FindObjectOfType<AudioManager>().Play("randomPotion");
+                sd.SetActive(true);
                 isProtected = true;
-                protectedUntil = 5;
+                protectedUntil = 5f;
+                Debug.Log("protected = " + protectedUntil);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.shield, amount = 1 });
             }
             if (item.itemType == Item.ItemType.rocket)
@@ -359,12 +405,37 @@ public class PlayerMovement : MonoBehaviour
         currentState = PlayerState.Walking;
     }
 
-    private IEnumerator ChangeColorCo()
+    public IEnumerator ChangeColorCo()
     {
 
+
         yield return new WaitForSeconds(0.2f);
-        transform.GetComponent<Renderer>().material.color = playerColor;
+        transform.GetComponent<SpriteRenderer>().color = playerColor;
+
     }
+
+    public IEnumerator ChangeColorCoIce(float freezetime)
+    {
+
+
+        yield return new WaitForSeconds(freezetime);
+        transform.GetComponent<SpriteRenderer>().color = playerColor;
+
+    }
+
+
+
+    public IEnumerator ShieldBreak()
+    {
+        sd.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        sd.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        sd.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        sd.SetActive(true);
+    }
+
     private IEnumerator RocketCo()
     {
 
@@ -398,23 +469,41 @@ public class PlayerMovement : MonoBehaviour
         //playerHealthSignal.Raise();
         if (!isProtected)
         {
+            sd.SetActive(false);
+            transform.GetComponent<SpriteRenderer>().color = Color.red;
             currentHealth.runtimeValue -= damage;
             playerHealthSignal.Raise();
         }
         else
         {
+
+
             protectedUntil--;
+
             if (protectedUntil == 0)
             {
+                Debug.Log("Current is turn off : ");
                 isProtected = false;
+                sd.SetActive(false);
             }
+            else
+            {
+                StartCoroutine(ShieldBreak());
+            }
+
+
         }
 
         if (currentHealth.runtimeValue > 0)
         {
-            transform.GetComponent<Renderer>().material.color = Color.red;
+
+
+
             StartCoroutine(KnockCo(rb, knockTime));
-        } else
+
+            StartCoroutine(ChangeColorCo());
+        }
+        else
         {
 
             currentHealth.runtimeValue = currentHealth.initialValue;
@@ -507,26 +596,51 @@ public class PlayerMovement : MonoBehaviour
             helpButton.SetActive(true);
             //Debug.Log("Player in Range");
         }
+        if(other.CompareTag("trigger"))
+        {
+            Debug.Log("hello there");
+            playerInRangeForTrigger = true;
+            helpButton.SetActive(true);
+        }
 
-        if(other.CompareTag("Spike"))
+        if (other.CompareTag("Spike"))
         {
 
-            Debug.Log("spike");
-            transform.GetComponent<Renderer>().material.color = Color.red;
+            Debug.Log("spike: " + protectedUntil);
+
             if (!isProtected)
             {
+                sd.SetActive(false);
+                transform.GetComponent<SpriteRenderer>().color = Color.red;
                 currentHealth.runtimeValue -= 1f;
                 playerHealthSignal.Raise();
+                StartCoroutine(ChangeColorCo());
             }
             else
             {
+
+
+
                 protectedUntil -= 0.5f;
+                Debug.Log("protected = " + protectedUntil);
+                Physics2D.IgnoreCollision(other, GetComponent<Collider2D>());
                 if (protectedUntil == 0)
                 {
+                    Debug.Log("Current is turn off : ");
                     isProtected = false;
+                    sd.SetActive(false);
+                    
                 }
+                else
+                {
+
+                    StartCoroutine(ShieldBreak());
+                }
+
+
             }
-            StartCoroutine(ChangeColorCo());
+
+
 
             if (currentHealth.runtimeValue < 0)
             {
@@ -536,6 +650,160 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("moving", false);
                 FindObjectOfType<AudioManager>().Play("gameover");
                 GameOverAPI();
+            }
+
+        }
+
+        if (other.CompareTag("Bullet"))
+        {
+
+
+            if (!isProtected)
+            {
+                sd.SetActive(false);
+                transform.GetComponent<SpriteRenderer>().color = Color.red;
+                currentHealth.runtimeValue -= 1f;
+                playerHealthSignal.Raise();
+                StartCoroutine(ChangeColorCo());
+            }
+            else
+            {
+
+
+                protectedUntil--;
+
+                if (protectedUntil == 0)
+                {
+                    Debug.Log("Current is turn off : ");
+                    isProtected = false;
+                    sd.SetActive(false);
+                }
+                else
+                {
+                    StartCoroutine(ShieldBreak());
+                }
+
+
+            }
+
+
+
+            if (currentHealth.runtimeValue < 0)
+            {
+
+                currentHealth.runtimeValue = currentHealth.initialValue;
+                enemyHealth.runtimeValue = enemyHealth.initialValue;
+                animator.SetBool("moving", false);
+                FindObjectOfType<AudioManager>().Play("gameover");
+                GameOverAPI();
+            }
+
+        }
+
+        if (other.CompareTag("fire"))
+        {
+
+
+            if (!isProtected)
+            {
+                sd.SetActive(false);
+                transform.GetComponent<SpriteRenderer>().color = Color.red;
+                currentHealth.runtimeValue -= 1f;
+                playerHealthSignal.Raise();
+                StartCoroutine(ChangeColorCo());
+            }
+            else
+            {
+
+
+                protectedUntil--;
+
+                if (protectedUntil == 0)
+                {
+                    Debug.Log("Current is turn off : ");
+                    isProtected = false;
+                    sd.SetActive(false);
+                }
+                else
+                {
+                    StartCoroutine(ShieldBreak());
+                }
+
+
+            }
+
+
+
+            if (currentHealth.runtimeValue < 0)
+            {
+
+                currentHealth.runtimeValue = currentHealth.initialValue;
+                enemyHealth.runtimeValue = enemyHealth.initialValue;
+                animator.SetBool("moving", false);
+                FindObjectOfType<AudioManager>().Play("gameover");
+                GameOverAPI();
+            }
+
+        }
+
+        if (other.CompareTag("ice"))
+        {
+
+
+            if (!isProtected)
+            {
+                sd.SetActive(false);
+                transform.GetComponent<SpriteRenderer>().color = Color.cyan;
+
+                currentHealth.runtimeValue -= 1f;
+                playerHealthSignal.Raise();
+                changeSpeedUntil = Time.time + 1.5f;
+                speedFactor = 0.0f;
+                StartCoroutine(ChangeColorCoIce(1.5f));
+            }
+            else
+            {
+
+
+                protectedUntil--;
+
+                if (protectedUntil == 0)
+                {
+                    Debug.Log("Current is turn off : ");
+                    isProtected = false;
+                    sd.SetActive(false);
+                }
+                else
+                {
+                    StartCoroutine(ShieldBreak());
+                }
+
+
+            }
+
+
+
+            if (currentHealth.runtimeValue < 0)
+            {
+
+                currentHealth.runtimeValue = currentHealth.initialValue;
+                enemyHealth.runtimeValue = enemyHealth.initialValue;
+                animator.SetBool("moving", false);
+                FindObjectOfType<AudioManager>().Play("gameover");
+                GameOverAPI();
+            }
+
+        }
+
+        if (other.CompareTag("bigice"))
+        {
+            if (!isProtected)
+            {
+                sd.SetActive(false);
+                transform.GetComponent<SpriteRenderer>().color = Color.cyan;
+                changeSpeedUntil = Time.time + 3;
+                speedFactor = 0f;
+                StartCoroutine(ChangeColorCoIce(3f));
             }
 
         }
@@ -582,6 +850,11 @@ public class PlayerMovement : MonoBehaviour
             helpButton.SetActive(false);
             //dialogBoxForDoor.SetActive(false);
             //Debug.Log("Player out Range");
+        }
+        if(other.CompareTag("trigger"))
+        {
+            playerInRangeForTrigger = false;
+            helpButton.SetActive(false);
         }
     }
 

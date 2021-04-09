@@ -9,17 +9,42 @@ public class Menu : MonoBehaviour
     public GameObject loadingScreen;
     public Slider slider;
     public BoolValue level2;
+    public BoolValue level3;
 
     public void PlayGame()
     {
-        if(level2.initialValue)
+        //if(level3.initialValue)
+        //{
+        //    PlayerPrefs.SetInt("levels", 3);
+        //    SceneManager.LoadScene("Loading3");
+
+        //} else if(level2.initialValue)
+        //{
+        //    PlayerPrefs.SetInt("levels", 2);
+        //    SceneManager.LoadScene("Loading2");
+        //}
+        //else
+        //{
+        //    PlayerPrefs.SetInt("levels", 1);
+        //    SceneManager.LoadScene("Loading");
+        //}
+        if (PlayerPrefs.GetInt("level3") == 1)
         {
+            PlayerPrefs.SetInt("levels", 3);
+            SceneManager.LoadScene("Loading3");
+
+        }
+        else if (PlayerPrefs.GetInt("level2") == 1)
+        {
+            PlayerPrefs.SetInt("levels", 2);
             SceneManager.LoadScene("Loading2");
-        } else
+        }
+        else
         {
+            PlayerPrefs.SetInt("levels", 1);
             SceneManager.LoadScene("Loading");
         }
-        
+
     }
 
     public void QuitGame()

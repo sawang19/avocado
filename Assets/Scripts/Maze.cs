@@ -7,8 +7,8 @@ using UnityEditor;
 
 public class Maze : MonoBehaviour {
 	const int WALL_V = 0, WALL_H = 1, WALL_UL = 2, WALL_UR = 3, WALL_BL = 4, WALL_BR = 5, WALL_LUR = 6, WALL_URB = 7, WALL_RBL = 8, WALL_BLU = 9, WALL_URBL = 10, WALL_U = 11, WALL_R = 12, WALL_B = 13, WALL_L = 14, WALL_O = 15;
-	const int MOLE = 2, NPC = 3, GOLEM = 4, DOG = 5, GHOST = 6, RED = 7, MAGE = 8;
-	const int POT = 10, KEY = 11, COIN = 12, BOOT = 13, HP_POTION = 14, RANDOM_POTION = 15, TRAP = 16;
+	const int MOLE = 2, NPC = 3, GOLEM = 4, DOG = 5, GHOST = 6, RED = 7, MAGE = 8, SLIMELAVA = 9, MAGEF = 21, MAGEI = 22;
+	const int POT = 10, KEY = 11, COIN = 12, BOOT = 13, HP_POTION = 14, RANDOM_POTION = 15, TRAP = 16, CHEST = 17, TRIGGER = 18;
 
 	public GameObject[] steelWalls = new GameObject[16];
 	public GameObject[] brownWalls = new GameObject[16];
@@ -22,7 +22,7 @@ public class Maze : MonoBehaviour {
 	int mazeWidth = 10;
 	int mazeHeight = 10;
 	string level = "HARD";
-	string mazeStyle = "STEEL"; // 20210405
+	string mazeStyle = "BROWN"; // 20210405
 
 	public GameObject grid;
 	public GameObject wall_v;
@@ -67,8 +67,13 @@ public class Maze : MonoBehaviour {
 	public GameObject ghost;
 	public GameObject redevil;
 	public GameObject mage;
+	public GameObject magef;
+	public GameObject magei;
+	public GameObject slime_lava;
+
 
 	public GameObject pot;
+	public GameObject chest;
 	public GameObject key;
 	public GameObject coin;
 	public GameObject boot;
@@ -78,6 +83,11 @@ public class Maze : MonoBehaviour {
 	public GameObject sword;
 	public GameObject shield;
 	public GameObject rocket;
+
+	public List<GameObject> spikePrefabs = new List<GameObject>();
+	public GameObject trigger;
+	public List<GameObject> triggerList = new List<GameObject>();
+
 
 	public int keyNum = 0; // 5
 	public int coinNum = 0; // 10
@@ -354,12 +364,19 @@ public class Maze : MonoBehaviour {
         //putItems(mazeMapTrf, mole, MOLE, 2);
         putItems(mazeMapTrf, npc, NPC, 10);
 		//putItems(mazeMapTrf, golem, GOLEM, 2);
-  //      putItems(mazeMapTrf, redevil, RED, 5);
-  //      putItems(mazeMapTrf, mage, MAGE, 5);
-        //putItems(mazeMapTrf, dog, DOG, 5);
-        //putItems(mazeMapTrf, ghost, GHOST, 1);
+		//putItems(mazeMapTrf, redevil, RED, 5);
+		//putItems(mazeMapTrf, mage, MAGE, 5);
+		//putItems(mazeMapTrf, dog, DOG, 5);
+		//putItems(mazeMapTrf, ghost, GHOST, 1);
+		//putItems(mazeMapTrf, mage, MAGE, 3);
+		//putItems(mazeMapTrf, magef, MAGEF, 3);
+		//putItems(mazeMapTrf, magei, MAGEI, 3);
+		//putItems(mazeMapTrf, slime_lava, SLIMELAVA, 5);
 
-        putItems(mazeMapTrf, pot, POT, 23);
+		putItems(mazeMapTrf, trigger, TRIGGER, 13);
+
+		putItems(mazeMapTrf, pot, POT, 13);
+		putItems(mazeMapTrf, chest, CHEST, 10);
 		putItems(mazeMapTrf, trap, TRAP, 5);
 
 
@@ -419,11 +436,14 @@ public class Maze : MonoBehaviour {
 				{
 					Vector3 position;
 					position = new Vector3(x + 1, y + 1, -0.1f);
-					Instantiate(spikeReverse, new Vector3(x + 1, y + 1, -0.1f), Quaternion.identity);
+					GameObject spikeReverseObj1 = Instantiate(spikeReverse, new Vector3(x + 1, y + 1, -0.1f), Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj1);
 					position = new Vector3(x + 1, y + 2, -0.1f);
-					Instantiate(spike, position, Quaternion.identity);
+					GameObject spikeObj = Instantiate(spike, position, Quaternion.identity);
+					spikePrefabs.Add(spikeObj);
 					position = new Vector3(x + 1, y + 3, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj2 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj2);
 
 					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern0);
 					target--;
@@ -449,11 +469,15 @@ public class Maze : MonoBehaviour {
 				{
 					Vector3 position;
 					position = new Vector3(x + 1, y + 1, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj1 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj1);
 					position = new Vector3(x + 2, y + 1, -0.1f);
-					Instantiate(spike, position, Quaternion.identity);
+					//Instantiate(spike, position, Quaternion.identity);
+					GameObject spikeObj = Instantiate(spike, position, Quaternion.identity);
+					spikePrefabs.Add(spikeObj);
 					position = new Vector3(x + 3, y + 1, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj2 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj2);
 
 					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern5);
 					target--;
@@ -479,18 +503,27 @@ public class Maze : MonoBehaviour {
 				{
 					Vector3 position;
 					position = new Vector3(x + 1, y, -0.1f);
-					Instantiate(spike, position, Quaternion.identity);
+					//Instantiate(spike, position, Quaternion.identity);
+					GameObject spikeObj1 = Instantiate(spike, position, Quaternion.identity);
+					spikePrefabs.Add(spikeObj1);
 					position = new Vector3(x + 2, y, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj);
 					position = new Vector3(x + 3, y, -0.1f);
-					Instantiate(spike, position, Quaternion.identity);
+					//Instantiate(spike, position, Quaternion.identity);
+					GameObject spikeObj2 = Instantiate(spike, position, Quaternion.identity);
+					spikePrefabs.Add(spikeObj2);
 
 					position = new Vector3(x + 1, y + 3, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj1 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj1);
 					position = new Vector3(x + 2, y + 3, -0.1f);
-					Instantiate(spike, position, Quaternion.identity);
+					//Instantiate(spike, position, Quaternion.identity);
+					GameObject spikeObj = Instantiate(spike, position, Quaternion.identity);
+					spikePrefabs.Add(spikeObj);
 					position = new Vector3(x + 3, y + 3, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj2 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj2);
 
 					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern1);
 					target--;
@@ -517,18 +550,27 @@ public class Maze : MonoBehaviour {
 				{
 					Vector3 position;
 					position = new Vector3(x + 1, y + 1, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj1 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj1);
 					position = new Vector3(x + 1, y + 2, -0.1f);
-					Instantiate(spike, position, Quaternion.identity);
+					//Instantiate(spike, position, Quaternion.identity);
+					GameObject spikeObj = Instantiate(spike, position, Quaternion.identity);
+					spikePrefabs.Add(spikeObj);
 					position = new Vector3(x + 1, y + 3, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj2 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj2);
 
 					position = new Vector3(x + 4, y + 1, -0.1f);
-					Instantiate(spike, position, Quaternion.identity);
+					//Instantiate(spike, position, Quaternion.identity);
+					GameObject spikeObj1 = Instantiate(spike, position, Quaternion.identity);
+					spikePrefabs.Add(spikeObj1);
 					position = new Vector3(x + 4, y + 2, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj);
 					position = new Vector3(x + 4, y + 3, -0.1f);
-					Instantiate(spike, position, Quaternion.identity);
+					//Instantiate(spike, position, Quaternion.identity);
+					GameObject spikeObj2 = Instantiate(spike, position, Quaternion.identity);
+					spikePrefabs.Add(spikeObj2);
 
 					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern2);
 					target--;
@@ -554,11 +596,15 @@ public class Maze : MonoBehaviour {
 				{
 					Vector3 position;
 					position = new Vector3(x + 1, y + 1, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj1 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj1);
 					position = new Vector3(x + 2, y + 2, -0.1f);
-					Instantiate(spike, position, Quaternion.identity);
+					//Instantiate(spike, position, Quaternion.identity);
+					GameObject spikeObj = Instantiate(spike, position, Quaternion.identity);
+					spikePrefabs.Add(spikeObj);
 					position = new Vector3(x + 3, y + 3, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj2 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj2);
 
 					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern3);
 					target--;
@@ -584,11 +630,14 @@ public class Maze : MonoBehaviour {
 				{
 					Vector3 position;
 					position = new Vector3(x + 3, y + 1, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj1 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj1);
 					position = new Vector3(x + 2, y + 2, -0.1f);
-					Instantiate(spike, position, Quaternion.identity);
+					GameObject spikeObj = Instantiate(spike, position, Quaternion.identity);
+					spikePrefabs.Add(spikeObj);
 					position = new Vector3(x + 1, y + 3, -0.1f);
-					Instantiate(spikeReverse, position, Quaternion.identity);
+					GameObject spikeReverseObj2 = Instantiate(spikeReverse, position, Quaternion.identity);
+					spikePrefabs.Add(spikeReverseObj2);
 
 					setMazeMapAsSpike(x, y, mazeMapTmp, thronPattern4);
 					target--;
@@ -686,11 +735,16 @@ public class Maze : MonoBehaviour {
 				mazeMapTrf[i, j] = mark;
 				mazeMap[i, -j + mazeMapY - 1] = mark;
 				Vector3 position = new Vector3(i, -j + offsetY, 0f);
-				if(mark == MOLE || mark == GOLEM || mark == DOG || mark == GHOST || mark == RED || mark == MAGE)
+				if(mark == MOLE || mark == GOLEM || mark == DOG || mark == GHOST || mark == RED || mark == MAGE || mark == MAGEF || mark == MAGEI || mark == SLIMELAVA)
                 {
 					//GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
 					//OBJ.transform.SetParent(grid.transform);
 					GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
+				}
+				else if(mark == TRIGGER)
+                {
+					GameObject triggerObj = Instantiate(obj, position, Quaternion.identity);
+					triggerList.Add(triggerObj);
 				}
 
 				else if (mark == POT)
@@ -712,15 +766,22 @@ public class Maze : MonoBehaviour {
 						OBJ.GetComponent<pot>().item = boot;
 						bootNum--;
 					}
-					else if (hpPotionNum > 0)
-					{
-						OBJ.GetComponent<pot>().item = hpPotion;
-						hpPotionNum--;
-					}
+					
 					else if (randomPotionNum > 0)
 					{
 						OBJ.GetComponent<pot>().item = randomPotion;
 						randomPotionNum--;
+					}
+					
+				}
+				else if (mark == CHEST)
+				{
+					GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
+					OBJ.transform.SetParent(grid.transform);
+					if (hpPotionNum > 0)
+					{
+						OBJ.GetComponent<pot>().item = hpPotion;
+						hpPotionNum--;
 					}
 					else if (swordNum > 0)
 					{
@@ -741,16 +802,16 @@ public class Maze : MonoBehaviour {
 				}
 
 				//else if(mark == 2)
-    //            {
-    //                //Vector3 position3 = new Vector3(position.x, position.y, 0);
-    //                //GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
-    //                ItemWorld.SpawnItemWorld(position, new Item { itemType = Item.ItemType.keys, amount = 1 });
+				//            {
+				//                //Vector3 position3 = new Vector3(position.x, position.y, 0);
+				//                //GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
+				//                ItemWorld.SpawnItemWorld(position, new Item { itemType = Item.ItemType.keys, amount = 1 });
 
-    //            } else if(mark == 3)
-    //            {
+				//            } else if(mark == 3)
+				//            {
 				//	ItemWorld.SpawnItemWorld(position, new Item { itemType = Item.ItemType.coins, amount = 1 });
 				//} else if(mark == 4)
-    //            {
+				//            {
 				//	ItemWorld.SpawnItemWorld(position, new Item { itemType = Item.ItemType.boots, amount = 1 });
 				else
                 {
@@ -762,6 +823,11 @@ public class Maze : MonoBehaviour {
 			}
 		}
 	}
+
+	public int getSpikeListLength()
+    {
+		return spikePrefabs.Count;
+    }
 
 	int[,] mazeTransfer(int[,] mazeOld) {
 		int mazeMapX = mazeOld.GetLength(0);

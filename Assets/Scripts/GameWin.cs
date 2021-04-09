@@ -6,9 +6,19 @@ using UnityEngine.SceneManagement;
 public class GameWin : MonoBehaviour
 {
     public BoolValue Level2_available;
+    public BoolValue Level3_available;
     public void Setup() {
-        Level2_available.initialValue = true;
-    	gameObject.SetActive(true);
+        if (PlayerPrefs.GetInt("levels") == 1)
+        {
+            PlayerPrefs.SetInt("level2", 1);
+        }
+        if (PlayerPrefs.GetInt("levels") == 2)
+        {
+            PlayerPrefs.SetInt("level3", 1);
+        }
+
+
+        gameObject.SetActive(true);
     }
 
     public void RestartButton() {
@@ -18,16 +28,26 @@ public class GameWin : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene2");
     }
-    //public void RestartButton3()
-    //{
-    //    SceneManager.LoadScene("SampleScene3");
-    //}
+    public void RestartButton3()
+    {
+        SceneManager.LoadScene("SampleScene3");
+    }
 
     public void ExitButton() {
         SceneManager.LoadScene("MenuScene");
     }
     public void NextGameButton() {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Loading2");
+        if (PlayerPrefs.GetInt("levels") == 1)
+        {
+            PlayerPrefs.SetInt("levels", 2);
+            SceneManager.LoadScene("Loading2");
+        }
+        else if (PlayerPrefs.GetInt("levels") == 2)
+        {
+            PlayerPrefs.SetInt("levels", 3);
+            SceneManager.LoadScene("Loading3");
+        }
+        
     }
 }

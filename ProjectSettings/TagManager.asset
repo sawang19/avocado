@@ -25,6 +25,10 @@ TagManager:
   - Shield
   - Rocket
   - Bullet
+  - ice
+  - bigice
+  - fire
+  - trigger
   layers:
   - Default
   - TransparentFX

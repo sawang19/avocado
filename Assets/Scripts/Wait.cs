@@ -9,6 +9,7 @@ public class Wait : MonoBehaviour
     public float wait_time = 5f;
     void Start()
     {
+        PlayerPrefs.DeleteAll();
         StartCoroutine(Wait_for_splash());
     }
 

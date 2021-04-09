@@ -10,7 +10,7 @@ public class LevelLoader2 : MonoBehaviour
     public GameObject loadingScreen;
     public Slider slider;
 
-
+    
     void Update()
     {
         if (slider.value < targetProgress)
@@ -29,6 +29,7 @@ public class LevelLoader2 : MonoBehaviour
     }
     void Start()
     {
+        Time.timeScale = 1;
         IncrementProgress(1f);
 
     }

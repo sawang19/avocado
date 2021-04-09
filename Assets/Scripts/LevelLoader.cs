@@ -29,6 +29,7 @@ public class LevelLoader : MonoBehaviour
     }
     void Start()
     {
+        Time.timeScale = 1;
         IncrementProgress(1f);
 
     }
