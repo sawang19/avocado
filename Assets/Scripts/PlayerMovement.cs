@@ -21,6 +21,11 @@ public class PlayerMovement : MonoBehaviour
     //public SimpleInput simpleInput;
     public PlayerState currentState;
 
+    //Timer
+    public GameObject textDisplay;
+    public int secondsLeft = 80;
+    public bool takingAway = false;
+
     public Text keyNum;
     public Text coinNum;
 
@@ -129,6 +134,12 @@ public class PlayerMovement : MonoBehaviour
         mazeMap = Maze.mazeMap;
         playerColor = Color.white;
         rocketWorking = false;
+        if(PlayerPrefs.GetInt("levels") == 2)
+        {
+            textDisplay.SetActive(true);
+            textDisplay.GetComponent<Text>().text = "0" + secondsLeft / 60 + ":" + secondsLeft % 60;
+        }
+        
 
         //light control
         fl = GameObject.Find("flashlight");
@@ -175,7 +186,17 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            
+            if (takingAway == false && secondsLeft > 0)
+            {
+                StartCoroutine(TimerTake());
+            }
+
+            if(PlayerPrefs.GetInt("levels") == 2 && secondsLeft <= 0)
+            {
+                GameOverAPI();
+            }
+
+
 
             drawFieldOfView();
             if (Time.time < changeSpeedUntil)
@@ -390,6 +411,22 @@ public class PlayerMovement : MonoBehaviour
         
         navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
 
+    }
+
+    IEnumerator TimerTake()
+    {
+        takingAway = true;
+        yield return new WaitForSeconds(1);
+        secondsLeft -= 1;
+        if(secondsLeft % 60 < 10)
+        {
+            textDisplay.GetComponent<Text>().text = "0" + secondsLeft / 60 + ":0" + secondsLeft % 60;
+        }else
+        {
+            textDisplay.GetComponent<Text>().text = "0" + secondsLeft / 60 + ":" + secondsLeft % 60;
+        }
+        
+        takingAway = false;
     }
 
     private IEnumerator AttackCo()

@@ -29,6 +29,7 @@ TagManager:
   - bigice
   - fire
   - trigger
+  - chest
   layers:
   - Default
   - TransparentFX

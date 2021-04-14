@@ -1,24 +1,24 @@
 ﻿<Properties StartupConfiguration="{203E294F-6A57-B963-05D6-83EB30201135}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Wait.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/pot1.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="19" Column="2" IsPinned="True" />
-      <File FileName="Assets/Scripts/Maze.cs" Line="637" Column="33" />
-      <File FileName="Assets/Scripts/Menu.cs" Line="37" Column="44" />
-      <File FileName="Assets/Scripts/LevelLoader.cs" Line="32" Column="28" />
+      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="1026" Column="18" IsPinned="True" />
+      <File FileName="Assets/Scripts/LevelLoader.cs" />
       <File FileName="Assets/Scripts/bullet_fire.cs" />
-      <File FileName="Assets/Scripts/CameraFollow.cs" Line="23" Column="94" />
+      <File FileName="Assets/Scripts/CameraFollow.cs" />
       <File FileName="Assets/Scripts/HelpMenu.cs" />
       <File FileName="Assets/Scripts/InventoryBar/Inventory.cs" />
-      <File FileName="Assets/Scripts/dialog.cs" Line="46" Column="14" />
-      <File FileName="Assets/Scripts/GameWin.cs" Line="17" Column="45" />
-      <File FileName="Assets/Scripts/LevelSelect.cs" Line="18" Column="46" />
-      <File FileName="Assets/Torch.cs" Line="38" Column="2" />
-      <File FileName="Assets/Scripts/DialogBoxScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/InventoryBar/UI_Inventory.cs" Line="37" Column="53" />
-      <File FileName="Assets/Scripts/ScriptableObjects/BoolValue1.cs" Line="11" Column="29" />
-      <File FileName="Assets/Scripts/LevelLoader3.cs" Line="32" Column="28" />
-      <File FileName="Assets/Scripts/LevelLoader2.cs" Line="32" Column="9" />
-      <File FileName="Assets/Scripts/Wait.cs" Line="12" Column="1" />
+      <File FileName="Assets/Scripts/dialog.cs" Line="51" Column="1" />
+      <File FileName="Assets/Scripts/GameWin.cs" />
+      <File FileName="Assets/Scripts/LevelSelect.cs" />
+      <File FileName="Assets/Scripts/DialogBoxScript.cs" />
+      <File FileName="Assets/Scripts/InventoryBar/UI_Inventory.cs" />
+      <File FileName="Assets/Scripts/LevelLoader3.cs" />
+      <File FileName="Assets/Scripts/LevelLoader2.cs" />
+      <File FileName="Assets/Scripts/Wait.cs" />
+      <File FileName="Assets/Scripts/Knockback.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/pot.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Maze.cs" Line="784" Column="7" />
+      <File FileName="Assets/Scripts/pot1.cs" Line="6" Column="19" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -31,7 +31,7 @@
               <Node name="Scripts" expanded="True">
                 <Node name="InventoryBar" expanded="True" />
                 <Node name="ScriptableObjects" expanded="True" />
-                <Node name="Wait.cs" selected="True" />
+                <Node name="pot1.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -41,7 +41,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="4b2bba99-d872-469c-b621-e3632c6063bb" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="ab6fb5b6-10f2-4364-a4a7-170945d2bb5d" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -25,13 +25,19 @@ EditorBuildSettings:
     guid: 526333778f7eb433fb0e7214af23db60
   - enabled: 1
     path: Assets/Scenes/SampleScene2.unity
-    guid: 07b98e27bf6aa4cc5821453f839653aa
+    guid: b9a3d2b749cc64428a4449bbc94eb748
+  - enabled: 0
+    path: Assets/Scenes/SampleScene2_old.unity
+    guid: f5504ac9871ae4a57aa0c8cb907ca22d
   - enabled: 1
     path: Assets/Scenes/Loading3.unity
     guid: d8cb5b5f5842f45e1875888f993d8b87
   - enabled: 1
     path: Assets/Scenes/SampleScene3.unity
-    guid: 7c8a5b30a6dd04ca6988fd4ae2e974fc
+    guid: 7cd8798e91b17465a976e919b335ae33
+  - enabled: 0
+    path: Assets/Scenes/SampleScene3_old.unity
+    guid: 0115204decb5d43e69087292b40abe5b
   - enabled: 0
     path: Assets/Scenes/SampleScene_useless.unity
     guid: e84500233258d4b16b72bfe846247359

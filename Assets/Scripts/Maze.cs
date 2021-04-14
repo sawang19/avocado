@@ -5,7 +5,10 @@ using UnityEngine.AI;
 using UnityEditor;
 
 
-public class Maze : MonoBehaviour {
+public class Maze : MonoBehaviour
+{
+	int curScene; // 20210411 Range: 0 ~ 4
+
 	const int WALL_V = 0, WALL_H = 1, WALL_UL = 2, WALL_UR = 3, WALL_BL = 4, WALL_BR = 5, WALL_LUR = 6, WALL_URB = 7, WALL_RBL = 8, WALL_BLU = 9, WALL_URBL = 10, WALL_U = 11, WALL_R = 12, WALL_B = 13, WALL_L = 14, WALL_O = 15;
 	const int MOLE = 2, NPC = 3, GOLEM = 4, DOG = 5, GHOST = 6, RED = 7, MAGE = 8, SLIMELAVA = 9, MAGEF = 21, MAGEI = 22;
 	const int POT = 10, KEY = 11, COIN = 12, BOOT = 13, HP_POTION = 14, RANDOM_POTION = 15, TRAP = 16, CHEST = 17, TRIGGER = 18;
@@ -102,28 +105,62 @@ public class Maze : MonoBehaviour {
 	NavMeshSurface2d[] navMeshSurfaces;
 
 	// Start is called before the first frame update
-	void Start() {
+	void Start()
+	{
+		initVariables(); // 20210411
 		DrawMaze(mazeWidth, mazeHeight, level);
-		DrawWeaponShelf(); // 20210405
-		DrawThron(); // 20210330
-		// Test empty space
-		
+        DrawWeaponShelf(); // 20210405
+        DrawThron(); // 20210330
+					 // Test empty space
+
 		//wall_b.transform.SetParent(grid.transform);
 		//AstarPath.active.Scan();
 	}
 
-    // Update is called once per frame
-	void Update() {
+	// Update is called once per frame
+	void Update()
+	{
 
 	}
 
-	void DrawMaze(int mazeWidth, int mazeHeight, string level) {
+	// 20210411
+	void initVariables()
+	{
+		if (PlayerPrefs.GetInt("levels") == 0)
+		{
+			level = "EASY";
+			mazeStyle = "BROWN";
+		}
+		else if (PlayerPrefs.GetInt("levels") == 1)
+		{
+			level = "HARD";
+			mazeStyle = "WEED";
+		}
+		else if (PlayerPrefs.GetInt("levels") == 2)
+		{
+			level = "HARD";
+			mazeStyle = "BROWN";
+		}
+		else if (PlayerPrefs.GetInt("levels") == 3)
+		{
+			level = "HARD";
+			mazeStyle = "STEEL";
+		}
+		else if (PlayerPrefs.GetInt("levels") == 4)
+		{
+			level = "EASY";
+			mazeStyle = "BROWN";
+		}
+	}
+
+	void DrawMaze(int mazeWidth, int mazeHeight, string level)
+	{
 		MazeGenerator maze = new MazeGenerator(mazeWidth, mazeHeight, level);
 		maze.generate();
-        
-        mazeMap = maze.mazeGrid;
 
-		
+		mazeMap = maze.mazeGrid;
+
+
 
 		int[,] mazeMapTrf = mazeTransfer(mazeMap);
 		int mazeMapX = mazeMapTrf.GetLength(0);//2 * mazeWidth + 1;
@@ -139,25 +176,25 @@ public class Maze : MonoBehaviour {
 
 
 		wall_v.layer = 8;
-        wall_h.layer = 8;
-        wall_ul.layer = 8;
-        wall_ur.layer = 8;
-        wall_bl.layer = 8;
-        wall_br.layer = 8;
-        wall_lur.layer = 8;
-        wall_urb.layer = 8;
-        wall_rbl.layer = 8;
-        wall_blu.layer = 8;
-        wall_urbl.layer = 8;
-        wall_u.layer = 8;
-        wall_r.layer = 8;
-        wall_b.layer = 8;
-        wall_l.layer = 8;
-        wall_o.layer = 8;
+		wall_h.layer = 8;
+		wall_ul.layer = 8;
+		wall_ur.layer = 8;
+		wall_bl.layer = 8;
+		wall_br.layer = 8;
+		wall_lur.layer = 8;
+		wall_urb.layer = 8;
+		wall_rbl.layer = 8;
+		wall_blu.layer = 8;
+		wall_urbl.layer = 8;
+		wall_u.layer = 8;
+		wall_r.layer = 8;
+		wall_b.layer = 8;
+		wall_l.layer = 8;
+		wall_o.layer = 8;
 
 
-        // Draw background
-        Vector3 position;
+		// Draw background
+		Vector3 position;
 		for (int i = 0; i < mazeMapX; i++)
 		{ // 20210322
 			for (int j = 0; j < mazeMapY; j++)
@@ -189,26 +226,28 @@ public class Maze : MonoBehaviour {
 		}
 
 		// Draw 4 corners
-		position = new Vector3 (0, 0 + offsetY, 0f);
+		position = new Vector3(0, 0 + offsetY, 0f);
 		GameObject UL_corner = Instantiate(wall_ul, position, Quaternion.identity);
 		UL_corner.transform.SetParent(grid.transform);
 
-		position = new Vector3 (0, -mazeMapY + 1 + offsetY, 0f);
+		position = new Vector3(0, -mazeMapY + 1 + offsetY, 0f);
 		GameObject BL_corner = Instantiate(wall_bl, position, Quaternion.identity);
 		BL_corner.transform.SetParent(grid.transform);
 
-		position = new Vector3 (mazeMapX - 1, 0 + offsetY, 0f);
+		position = new Vector3(mazeMapX - 1, 0 + offsetY, 0f);
 		GameObject UR_corner = Instantiate(wall_ur, position, Quaternion.identity);
 		UR_corner.transform.SetParent(grid.transform);
 
-		position = new Vector3 (mazeMapX - 1, -mazeMapY + 1 + offsetY, 0f);
+		position = new Vector3(mazeMapX - 1, -mazeMapY + 1 + offsetY, 0f);
 		GameObject BR_corner = Instantiate(wall_br, position, Quaternion.identity);
 		BR_corner.transform.SetParent(grid.transform);
 
 		// Draw 2 horizontal borders
-		for (int i = 1; i < mazeMapX - 1; i++) {
-			position = new Vector3 (i, 0 + offsetY, 0f);
-			if (mazeMapTrf[i, 1] == 1) {
+		for (int i = 1; i < mazeMapX - 1; i++)
+		{
+			position = new Vector3(i, 0 + offsetY, 0f);
+			if (mazeMapTrf[i, 1] == 1)
+			{
 				GameObject RBL_hborder = Instantiate(wall_rbl, position, Quaternion.identity);
 				RBL_hborder.transform.SetParent(grid.transform);
 			}
@@ -218,12 +257,13 @@ public class Maze : MonoBehaviour {
 				H_hborder.transform.SetParent(grid.transform);
 			}
 
-			position = new Vector3 (i, -mazeMapY + 1 + offsetY, 0f);
-			if (mazeMapTrf[i, mazeMapY - 2] == 1) {
+			position = new Vector3(i, -mazeMapY + 1 + offsetY, 0f);
+			if (mazeMapTrf[i, mazeMapY - 2] == 1)
+			{
 				GameObject LUR_hborder = Instantiate(wall_lur, position, Quaternion.identity);
 				LUR_hborder.transform.SetParent(grid.transform);
 			}
-			else if (mazeMapTrf[i, mazeMapY - 1] == 1 && mazeMapTrf[i - 1, mazeMapY - 1] == 1 && mazeMapTrf[i + 1, mazeMapY - 1] == 1)	
+			else if (mazeMapTrf[i, mazeMapY - 1] == 1 && mazeMapTrf[i - 1, mazeMapY - 1] == 1 && mazeMapTrf[i + 1, mazeMapY - 1] == 1)
 			{
 				GameObject H_hborder = Instantiate(wall_h, position, Quaternion.identity);
 				H_hborder.transform.SetParent(grid.transform);
@@ -231,9 +271,11 @@ public class Maze : MonoBehaviour {
 		}
 
 		// Draw 2 vertical borders
-		for (int j = 1; j < mazeMapY - 1; j++) {
-			position = new Vector3 (0, -j + offsetY, 0f);
-			if (mazeMapTrf[1, j] == 1) {
+		for (int j = 1; j < mazeMapY - 1; j++)
+		{
+			position = new Vector3(0, -j + offsetY, 0f);
+			if (mazeMapTrf[1, j] == 1)
+			{
 				GameObject URB_vborder = Instantiate(wall_urb, position, Quaternion.identity);
 				URB_vborder.transform.SetParent(grid.transform);
 			}
@@ -243,8 +285,9 @@ public class Maze : MonoBehaviour {
 				V_vborder.transform.SetParent(grid.transform);
 			}
 
-			position = new Vector3 (mazeMapX - 1, -j + offsetY, 0f);
-			if (mazeMapTrf[mazeMapX - 2, j] == 1) {
+			position = new Vector3(mazeMapX - 1, -j + offsetY, 0f);
+			if (mazeMapTrf[mazeMapX - 2, j] == 1)
+			{
 				GameObject BLU_vborder = Instantiate(wall_blu, position, Quaternion.identity);
 				BLU_vborder.transform.SetParent(grid.transform);
 			}
@@ -256,81 +299,99 @@ public class Maze : MonoBehaviour {
 		}
 
 		// Draw inner
-		for (int i = 1; i < mazeMapX - 1; i++) {
-			for (int j = 1; j < mazeMapY - 1; j++) {
-				if (mazeMapTrf[i, j] == 1) {
-					position = new Vector3 (i, -j + offsetY, 0f);
+		for (int i = 1; i < mazeMapX - 1; i++)
+		{
+			for (int j = 1; j < mazeMapY - 1; j++)
+			{
+				if (mazeMapTrf[i, j] == 1)
+				{
+					position = new Vector3(i, -j + offsetY, 0f);
 
-					if (getTileType(mazeMapTrf, i, j).Equals("h")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("h"))
+					{
 						GameObject H_inner = Instantiate(wall_h, position, Quaternion.identity);
 						H_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("v")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("v"))
+					{
 						GameObject V_inner = Instantiate(wall_v, position, Quaternion.identity);
 						V_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("ul")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("ul"))
+					{
 						GameObject UL_inner = Instantiate(wall_ul, position, Quaternion.identity);
 						UL_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("ur")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("ur"))
+					{
 						GameObject UR_inner = Instantiate(wall_ur, position, Quaternion.identity);
 						UR_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("bl")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("bl"))
+					{
 						GameObject BL_inner = Instantiate(wall_bl, position, Quaternion.identity);
 						BL_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("br")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("br"))
+					{
 						GameObject BR_inner = Instantiate(wall_br, position, Quaternion.identity);
 						BR_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("lur")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("lur"))
+					{
 						GameObject LUR_inner = Instantiate(wall_lur, position, Quaternion.identity);
 						LUR_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("urb")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("urb"))
+					{
 						GameObject URB_inner = Instantiate(wall_urb, position, Quaternion.identity);
 						URB_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("rbl")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("rbl"))
+					{
 						GameObject RBL_inner = Instantiate(wall_rbl, position, Quaternion.identity);
 						RBL_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("blu")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("blu"))
+					{
 						GameObject BLU_inner = Instantiate(wall_blu, position, Quaternion.identity);
 						BLU_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("urbl")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("urbl"))
+					{
 						GameObject URBL_inner = Instantiate(wall_urbl, position, Quaternion.identity);
 						URBL_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("u")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("u"))
+					{
 						GameObject U_inner = Instantiate(wall_u, position, Quaternion.identity);
 						U_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("r")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("r"))
+					{
 						GameObject R_inner = Instantiate(wall_r, position, Quaternion.identity);
 						R_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("b")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("b"))
+					{
 						GameObject B_inner = Instantiate(wall_b, position, Quaternion.identity);
 						B_inner.transform.SetParent(grid.transform);
 					}
-					if (getTileType(mazeMapTrf, i, j).Equals("l")) {
+					if (getTileType(mazeMapTrf, i, j).Equals("l"))
+					{
 						GameObject L_inner = Instantiate(wall_l, position, Quaternion.identity);
 						L_inner.transform.SetParent(grid.transform);
 					}
-                    
+
 					if (getTileType(mazeMapTrf, i, j).Equals("o"))
 					{
 						position = new Vector3(i, -j + offsetY + 0.5f, 0f);
 						GameObject fire_bottom = Instantiate(maze_fire_bottom, position, Quaternion.identity); // 20210322
 						fire_bottom.transform.SetParent(grid.transform);
-                        position = new Vector3(i, -j + offsetY + 0.15f, 0f);
-                        GameObject fire_anim = Instantiate(maze_fire_anim, position, Quaternion.identity); // 20210322
-                        fire_anim.transform.SetParent(grid.transform);
-                    }
+						position = new Vector3(i, -j + offsetY + 0.15f, 0f);
+						GameObject fire_anim = Instantiate(maze_fire_anim, position, Quaternion.identity); // 20210322
+						fire_anim.transform.SetParent(grid.transform);
+					}
 				}
 			}
 		}
@@ -343,37 +404,37 @@ public class Maze : MonoBehaviour {
 		// Draw door
 		drawDoors(mazeMapTrf, mazeMapX, mazeMapY, renderWalls, offsetY);
 
-        //putItems(mazeMapTrf, key, 2, 5);
-        //putItems(mazeMapTrf, coin, 3, 10);
-        //putItems(mazeMapTrf, boot, 4, 5);
-        //putItems(mazeMapTrf, pot, 5, 1);
-        //putItems(mazeMapTrf, mole, 6, 2);
-        //putItems(mazeMapTrf, npc, 7, 2);
-        //putItems(mazeMapTrf, hpPotion, 8, 5);
-        //putItems(mazeMapTrf, slowPotion, 9, 5);
-        //putItems(mazeMapTrf, trap, 10, 5);
-        //putItems(mazeMapTrf, golem, 11, 2);
-        //putItems(mazeMapTrf, dog, 12, 5);
-        //putItems(mazeMapTrf, ghost, 13, 2);
-        //putItems(mazeMapTrf, door, 14, 5);
-        //ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
-        //ItemWorld.SpawnItemWorld(new Vector3(10, 11), new Item { itemType = Item.ItemType.coins, amount = 1 });
-        //ItemWorld.SpawnItemWorld(new Vector3(10, 12), new Item { itemType = Item.ItemType.keys, amount = 1 });
+		//putItems(mazeMapTrf, key, 2, 5);
+		//putItems(mazeMapTrf, coin, 3, 10);
+		//putItems(mazeMapTrf, boot, 4, 5);
+		//putItems(mazeMapTrf, pot, 5, 1);
+		//putItems(mazeMapTrf, mole, 6, 2);
+		//putItems(mazeMapTrf, npc, 7, 2);
+		//putItems(mazeMapTrf, hpPotion, 8, 5);
+		//putItems(mazeMapTrf, slowPotion, 9, 5);
+		//putItems(mazeMapTrf, trap, 10, 5);
+		//putItems(mazeMapTrf, golem, 11, 2);
+		//putItems(mazeMapTrf, dog, 12, 5);
+		//putItems(mazeMapTrf, ghost, 13, 2);
+		//putItems(mazeMapTrf, door, 14, 5);
+		//ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
+		//ItemWorld.SpawnItemWorld(new Vector3(10, 11), new Item { itemType = Item.ItemType.coins, amount = 1 });
+		//ItemWorld.SpawnItemWorld(new Vector3(10, 12), new Item { itemType = Item.ItemType.keys, amount = 1 });
 
 
-        //putItems(mazeMapTrf, mole, MOLE, 2);
-        putItems(mazeMapTrf, npc, NPC, 10);
-		//putItems(mazeMapTrf, golem, GOLEM, 2);
-		//putItems(mazeMapTrf, redevil, RED, 5);
-		//putItems(mazeMapTrf, mage, MAGE, 5);
-		//putItems(mazeMapTrf, dog, DOG, 5);
-		//putItems(mazeMapTrf, ghost, GHOST, 1);
-		//putItems(mazeMapTrf, mage, MAGE, 3);
-		//putItems(mazeMapTrf, magef, MAGEF, 3);
-		//putItems(mazeMapTrf, magei, MAGEI, 3);
-		//putItems(mazeMapTrf, slime_lava, SLIMELAVA, 5);
+		//putItems(mazeMapTrf, mole, MOLE, 2);
+		putItems(mazeMapTrf, npc, NPC, 2);
+        //putItems(mazeMapTrf, golem, GOLEM, 2);
+        //putItems(mazeMapTrf, redevil, RED, 5);
+        //putItems(mazeMapTrf, mage, MAGE, 5);
+        //putItems(mazeMapTrf, dog, DOG, 5);
+        //putItems(mazeMapTrf, ghost, GHOST, 1);
+        putItems(mazeMapTrf, mage, MAGE, 3);
+        putItems(mazeMapTrf, magef, MAGEF, 3);
+        putItems(mazeMapTrf, magei, MAGEI, 3);
+        putItems(mazeMapTrf, slime_lava, SLIMELAVA, 5);
 
-		putItems(mazeMapTrf, trigger, TRIGGER, 13);
+        putItems(mazeMapTrf, trigger, TRIGGER, 5);
 
 		putItems(mazeMapTrf, pot, POT, 13);
 		putItems(mazeMapTrf, chest, CHEST, 10);
@@ -648,6 +709,20 @@ public class Maze : MonoBehaviour {
 		}
 	}
 
+	// 20210411
+	bool isWeaponMatch(int x, int y)
+	{
+		if (mazeMap[x - 1, y - 1] == 1 && mazeMap[x, y - 1] == 0 && mazeMap[x + 1, y - 1] == 0 &&
+			mazeMap[x - 1, y] == 1 && mazeMap[x, y] == 0 && mazeMap[x + 1, y] == 0 &&
+			mazeMap[x - 1, y + 1] == 1 && mazeMap[x, y + 1] == 1 && mazeMap[x + 1, y + 1] == 1)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	// 20210411
 	void DrawWeaponShelf()
 	{
 		bool find = false;
@@ -660,16 +735,17 @@ public class Maze : MonoBehaviour {
 
 			while (!find && cnt != 0)
 			{
-				int x = MazeGenerator.GenerateRandomNumber(0, mazeMap.GetLength(0) - 1);
-				int y = MazeGenerator.GenerateRandomNumber(0, mazeMap.GetLength(1) - 1);
+				int x = MazeGenerator.GenerateRandomNumber(1, mazeMap.GetLength(0) - 1);
+				int y = MazeGenerator.GenerateRandomNumber(1, mazeMap.GetLength(1) - 1);
 
-				if (mazeMap[x, y] == 0 && mazeMap[x + 1, y] == 0 && mazeMap[x, y + 1] == 0 && mazeMap[x + 1, y + 1] == 0)
+				if (isWeaponMatch(x, y))
 				{
-					Instantiate(weaponShelf1, new Vector3(x + 0.5f, y + 0.5f, -0.1f), Quaternion.identity);
+					GameObject weapon1 = Instantiate(weaponShelf1, new Vector3(x + 0.5f, y + 0.5f, 0f), Quaternion.identity);
+					weapon1.transform.SetParent(grid.transform);
 					mazeMap[x, y] = 1;
 					mazeMap[x + 1, y] = 1;
-					mazeMap[x, y + 1] = 1;
-					mazeMap[x + 1, y + 1] = 1;
+					mazeMap[x, y - 1] = 1;
+					mazeMap[x + 1, y - 1] = 1;
 					target--;
 					find = true;
 				}
@@ -687,16 +763,17 @@ public class Maze : MonoBehaviour {
 
 			while (!find && cnt != 0)
 			{
-				int x = MazeGenerator.GenerateRandomNumber(0, mazeMap.GetLength(0) - 1);
-				int y = MazeGenerator.GenerateRandomNumber(0, mazeMap.GetLength(1) - 1);
+				int x = MazeGenerator.GenerateRandomNumber(1, mazeMap.GetLength(0) - 1);
+				int y = MazeGenerator.GenerateRandomNumber(1, mazeMap.GetLength(1) - 1);
 
-				if (mazeMap[x, y] == 0 && mazeMap[x + 1, y] == 0 && mazeMap[x, y + 1] == 0 && mazeMap[x + 1, y + 1] == 0)
+				if (isWeaponMatch(x, y))
 				{
-					Instantiate(weaponShelf2, new Vector3(x + 0.5f, y + 0.5f, -0.1f), Quaternion.identity);
+					GameObject weapon2 = Instantiate(weaponShelf2, new Vector3(x + 0.5f, y + 0.5f, 0f), Quaternion.identity);
+					weapon2.transform.SetParent(grid.transform);
 					mazeMap[x, y] = 1;
 					mazeMap[x + 1, y] = 1;
-					mazeMap[x, y + 1] = 1;
-					mazeMap[x + 1, y + 1] = 1;
+					mazeMap[x, y - 1] = 1;
+					mazeMap[x + 1, y - 1] = 1;
 					target--;
 					find = true;
 				}
@@ -735,23 +812,24 @@ public class Maze : MonoBehaviour {
 				mazeMapTrf[i, j] = mark;
 				mazeMap[i, -j + mazeMapY - 1] = mark;
 				Vector3 position = new Vector3(i, -j + offsetY, 0f);
-				if(mark == MOLE || mark == GOLEM || mark == DOG || mark == GHOST || mark == RED || mark == MAGE || mark == MAGEF || mark == MAGEI || mark == SLIMELAVA)
-                {
+				if (mark == MOLE || mark == GOLEM || mark == DOG || mark == GHOST || mark == RED || mark == MAGE || mark == MAGEF || mark == MAGEI || mark == SLIMELAVA)
+				{
 					//GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
 					//OBJ.transform.SetParent(grid.transform);
 					GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
 				}
-				else if(mark == TRIGGER)
-                {
+				else if (mark == TRIGGER)
+				{
 					GameObject triggerObj = Instantiate(obj, position, Quaternion.identity);
+					triggerObj.transform.SetParent(grid.transform);
 					triggerList.Add(triggerObj);
 				}
 
 				else if (mark == POT)
 				{
 					GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
-                    OBJ.transform.SetParent(grid.transform);
-                    if (keyNum > 0)
+					OBJ.transform.SetParent(grid.transform);
+					if (keyNum > 0)
 					{
 						OBJ.GetComponent<pot>().item = key;
 						keyNum--;
@@ -766,13 +844,13 @@ public class Maze : MonoBehaviour {
 						OBJ.GetComponent<pot>().item = boot;
 						bootNum--;
 					}
-					
+
 					else if (randomPotionNum > 0)
 					{
 						OBJ.GetComponent<pot>().item = randomPotion;
 						randomPotionNum--;
 					}
-					
+
 				}
 				else if (mark == CHEST)
 				{
@@ -780,23 +858,23 @@ public class Maze : MonoBehaviour {
 					OBJ.transform.SetParent(grid.transform);
 					if (hpPotionNum > 0)
 					{
-						OBJ.GetComponent<pot>().item = hpPotion;
+						OBJ.GetComponent<chest>().item = hpPotion;
 						hpPotionNum--;
 					}
 					else if (swordNum > 0)
 					{
-						OBJ.GetComponent<pot>().item = sword;
+						OBJ.GetComponent<chest>().item = sword;
 						swordNum--;
 
 					}
 					else if (shieldNum > 0)
 					{
-						OBJ.GetComponent<pot>().item = shield;
+						OBJ.GetComponent<chest>().item = shield;
 						shieldNum--;
 					}
 					else if (rocketNum > 0)
 					{
-						OBJ.GetComponent<pot>().item = rocket;
+						OBJ.GetComponent<chest>().item = rocket;
 						rocketNum--;
 					}
 				}
@@ -814,10 +892,10 @@ public class Maze : MonoBehaviour {
 				//            {
 				//	ItemWorld.SpawnItemWorld(position, new Item { itemType = Item.ItemType.boots, amount = 1 });
 				else
-                {
-                    GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
-                    OBJ.transform.SetParent(grid.transform);
-                }
+				{
+					GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
+					OBJ.transform.SetParent(grid.transform);
+				}
 
 				items++;
 			}
@@ -825,18 +903,21 @@ public class Maze : MonoBehaviour {
 	}
 
 	public int getSpikeListLength()
-    {
+	{
 		return spikePrefabs.Count;
-    }
+	}
 
-	int[,] mazeTransfer(int[,] mazeOld) {
+	int[,] mazeTransfer(int[,] mazeOld)
+	{
 		int mazeMapX = mazeOld.GetLength(0);
 		int mazeMapY = mazeOld.GetLength(1);
 
 		int[,] mazeNew = new int[mazeMapX, mazeMapY];
 
-		for (int i = 0; i < mazeMapX; i++) {
-			for (int j = 0; j < mazeMapY; j++) {
+		for (int i = 0; i < mazeMapX; i++)
+		{
+			for (int j = 0; j < mazeMapY; j++)
+			{
 				mazeNew[i, mazeMapY - j - 1] = mazeOld[i, j];
 			}
 		}
@@ -844,64 +925,80 @@ public class Maze : MonoBehaviour {
 		return mazeNew;
 	}
 
-	string getTileType(int[,] localMaze, int i, int j) {
-		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1) {
+	string getTileType(int[,] localMaze, int i, int j)
+	{
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1)
+		{
 			return "h";
 		}
 
-		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0) {
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0)
+		{
 			return "v";
 		}
 
-		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0) {
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0)
+		{
 			return "ul";
 		}
 
-		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1) {
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1)
+		{
 			return "ur";
 		}
 
-		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 0) {
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 0)
+		{
 			return "bl";
 		}
 
-		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1) {
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1)
+		{
 			return "br";
 		}
 
-		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1) {
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1)
+		{
 			return "lur";
 		}
 
-		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0) {
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0)
+		{
 			return "urb";
 		}
 
-		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1) {
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1)
+		{
 			return "rbl";
 		}
 
-		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1) {
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1)
+		{
 			return "blu";
 		}
 
-		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1) {
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 1)
+		{
 			return "urbl";
 		}
 
-		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0) {
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 1 && localMaze[i - 1, j] == 0)
+		{
 			return "u";
 		}
 
-		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1) {
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 1)
+		{
 			return "r";
 		}
 
-		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 0) {
+		if (localMaze[i, j - 1] == 1 && localMaze[i + 1, j] == 0 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 0)
+		{
 			return "b";
 		}
 
-		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 0) {
+		if (localMaze[i, j - 1] == 0 && localMaze[i + 1, j] == 1 && localMaze[i, j + 1] == 0 && localMaze[i - 1, j] == 0)
+		{
 			return "l";
 		}
 
@@ -1020,6 +1117,7 @@ public class Maze : MonoBehaviour {
 		styleChoose();  // 20210405
 	}
 
+	// 20210411
 	void styleChoose()
 	{
 		if (mazeStyle.Equals("BROWN"))
@@ -1055,13 +1153,13 @@ public class Maze : MonoBehaviour {
 		}
 		else if (mazeStyle.Equals("STEEL"))
 		{
-			maze_bk1 = Resources.Load("Walls/Brown/brown_bk1") as GameObject; // 202100405
-			maze_bk2 = Resources.Load("Walls/Brown/brown_bk2") as GameObject; // 202100405
-			maze_bk3 = Resources.Load("Walls/Brown/brown_bk3") as GameObject; // 202100405
-			maze_bk4 = Resources.Load("Walls/Brown/brown_bk4") as GameObject; // 202100405
+			maze_bk1 = Resources.Load("Walls/Steel/steel_bk1") as GameObject; // 202100405
+			maze_bk2 = Resources.Load("Walls/Steel/steel_bk2") as GameObject; // 202100405
+			maze_bk3 = Resources.Load("Walls/Steel/steel_bk3") as GameObject; // 202100405
+			maze_bk4 = Resources.Load("Walls/Steel/steel_bk4") as GameObject; // 202100405
 
-			maze_fire_bottom = Resources.Load("Walls/Common/fire_bottom") as GameObject; // 202100405
-			maze_fire_anim = Resources.Load("Walls/Common/fire_anim") as GameObject; // 20210322
+			maze_fire_bottom = Resources.Load("Walls/SteelFire/fire_bottom") as GameObject; // 202100405
+			maze_fire_anim = Resources.Load("Walls/SteelFire/fire_anim") as GameObject; // 20210322
 
 			wall_v = steelWalls[WALL_V];
 			wall_h = steelWalls[WALL_H];
@@ -1086,10 +1184,10 @@ public class Maze : MonoBehaviour {
 		}
 		else if (mazeStyle.Equals("WEED"))
 		{
-			maze_bk1 = Resources.Load("Walls/Brown/brown_bk1") as GameObject; // 202100405
-			maze_bk2 = Resources.Load("Walls/Brown/brown_bk2") as GameObject; // 202100405
-			maze_bk3 = Resources.Load("Walls/Brown/brown_bk3") as GameObject; // 202100405
-			maze_bk4 = Resources.Load("Walls/Brown/brown_bk4") as GameObject; // 202100405
+			maze_bk1 = Resources.Load("Walls/Weed/weed_bk1") as GameObject; // 202100405
+			maze_bk2 = Resources.Load("Walls/Weed/weed_bk2") as GameObject; // 202100405
+			maze_bk3 = Resources.Load("Walls/Weed/weed_bk3") as GameObject; // 202100405
+			maze_bk4 = Resources.Load("Walls/Weed/weed_bk4") as GameObject; // 202100405
 
 			maze_fire_bottom = Resources.Load("Walls/Common/fire_bottom") as GameObject; // 202100405
 			maze_fire_anim = Resources.Load("Walls/Common/fire_anim") as GameObject; // 20210322

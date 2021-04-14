@@ -37,6 +37,14 @@ public class Knockback : MonoBehaviour
 
         }
 
+        if (collision.gameObject.CompareTag("chest") && this.gameObject.CompareTag("Player"))
+        {
+
+            collision.GetComponent<chest>().Smash();
+
+
+        }
+
         //if (this.gameObject.CompareTag("Enemies") && collision.gameObject.CompareTag("Enemies"))
         //{
         //    Debug.Log("enemies hit");
@@ -116,6 +124,14 @@ public class Knockback : MonoBehaviour
         if (collision.gameObject.CompareTag("breakable") && this.gameObject.CompareTag("Player"))
         {
             collision.GetComponent<pot>().Smash();
+        }
+
+        if (collision.gameObject.CompareTag("chest") && this.gameObject.CompareTag("Player"))
+        {
+
+            collision.GetComponent<chest>().Smash();
+
+
         }
 
         if (this.gameObject.CompareTag("Enemies") && collision.gameObject.CompareTag("Enemies"))

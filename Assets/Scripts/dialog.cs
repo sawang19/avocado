@@ -45,6 +45,10 @@ namespace Subtegral.DialogueSystem.Runtime
                 Destroy(buttons[i].gameObject);
             }
             int isItem = GetItemNumber(dialogueText.text);
+
+            float xPos = buttonContainer.position.x;
+            buttonContainer.position = new Vector2(xPos, 0);
+
             foreach (var choice in choices)
             {
                 var button = Instantiate(choicePrefab, buttonContainer);
