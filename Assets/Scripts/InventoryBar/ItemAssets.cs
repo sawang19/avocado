@@ -19,4 +19,6 @@ public class ItemAssets : MonoBehaviour
     public Sprite randomPotion;
     public Sprite shield;
     public Sprite rocket;
+    public Sprite warmDrink;
+    public Sprite coldDrink;
 }

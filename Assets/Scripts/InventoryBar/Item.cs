@@ -12,7 +12,9 @@ public class Item
         hpPotion,
         randomPotion,
         shield,
-        rocket
+        rocket,
+        warmDrink,
+        coldDrink
     }
 
     public ItemType itemType;
@@ -30,6 +32,8 @@ public class Item
             case ItemType.randomPotion: return ItemAssets.Instance.randomPotion;
             case ItemType.shield: return ItemAssets.Instance.shield;
             case ItemType.rocket: return ItemAssets.Instance.rocket;
+            case ItemType.warmDrink: return ItemAssets.Instance.warmDrink;
+            case ItemType.coldDrink: return ItemAssets.Instance.coldDrink;
         }
     }
 
@@ -45,6 +49,8 @@ public class Item
             case ItemType.randomPotion:
             case ItemType.shield:
             case ItemType.rocket:
+            case ItemType.warmDrink:
+            case ItemType.coldDrink:
                 return true;
         }
     }
@@ -59,6 +65,8 @@ public class Item
             case ItemType.randomPotion:
             case ItemType.shield:
             case ItemType.rocket:
+            case ItemType.warmDrink:
+            case ItemType.coldDrink:
                 return true;
             case ItemType.coins:
             case ItemType.keys:

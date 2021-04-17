@@ -13,7 +13,10 @@ public class UI_Inventory : MonoBehaviour
 
     private void Awake()
     {
-        itemSlotContainer = transform.Find("itemSlotContainer");
+        Transform scroll = transform.Find("Scroll");
+        Transform viewPort = scroll.Find("Viewport");
+        itemSlotContainer = viewPort.Find("itemSlotContainer");
+        
         itemSlotTemplete = itemSlotContainer.Find("itemSlotTemplete");
     }
 
@@ -34,6 +37,13 @@ public class UI_Inventory : MonoBehaviour
 
     private void RefreshInventoryItems()
     {
+        if(inventory.GetItemList().Count <= 6)
+        {
+            itemSlotContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(745, itemSlotContainer.GetComponent<RectTransform>().sizeDelta.y);
+        } else
+        {
+            itemSlotContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(745 + 120 * (inventory.GetItemList().Count - 6), itemSlotContainer.GetComponent<RectTransform>().sizeDelta.y);
+        }
         foreach(Transform child in itemSlotContainer)
         {
             if (child == itemSlotTemplete) continue;

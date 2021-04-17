@@ -77,6 +77,14 @@ public class chest : MonoBehaviour
         {
             ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.rocket, amount = 1 });
         }
-        
+        else if (item.CompareTag("warmDrink"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.warmDrink, amount = 1 });
+        }
+        else if (item.CompareTag("coldDrink"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.coldDrink, amount = 1 });
+        }
+
     }
 }

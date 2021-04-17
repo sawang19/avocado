@@ -4,12 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class Menu : MonoBehaviour
 {
     public GameObject loadingScreen;
     public Slider slider;
     public BoolValue level2;
     public BoolValue level3;
+
+    private void Start()
+    {
+        AudioListener.volume = PlayerPrefs.GetFloat("Volume");
+        FindObjectOfType<AudioManager>().Play("MenuScene");
+    }
 
     public void PlayGame()
     {

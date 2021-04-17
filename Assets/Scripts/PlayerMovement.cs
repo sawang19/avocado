@@ -83,7 +83,13 @@ public class PlayerMovement : MonoBehaviour
 
     public int[,] mazeMap;
     public bool isProtected = false;
+    public bool isProtectedFromIce = false;
+    public bool isProtectedFromFire = false;
     public float protectedUntil = -1;
+    public float protectedFromIceUntil = -1;
+    public float protectedFromFireUntil = -1;
+    //public bool isProtected = false;
+    //public float protectedUntil = -1;
 
     private Color32 playerColor;
     private bool rocketWorking;
@@ -136,6 +142,7 @@ public class PlayerMovement : MonoBehaviour
         rocketWorking = false;
         if(PlayerPrefs.GetInt("levels") == 2)
         {
+            Debug.Log("text display");
             textDisplay.SetActive(true);
             textDisplay.GetComponent<Text>().text = "0" + secondsLeft / 60 + ":" + secondsLeft % 60;
         }
@@ -220,6 +227,29 @@ public class PlayerMovement : MonoBehaviour
             //    moveSpeed.runtimeValue = baseSpeed;
             //    speedFactor = 1f;
             //}
+            if (Time.time > protectedFromIceUntil)
+            {
+                isProtectedFromIce = false;
+                //transform.GetComponent<SpriteRenderer>().color = playerColor;
+                //sd.SetActive(false);
+
+            }
+            if (Time.time > protectedFromFireUntil)
+            {
+                isProtectedFromFire = false;
+
+                //sd.SetActive(false);
+            }
+            if (Time.time > protectedUntil)
+            {
+                isProtected = false;
+                Debug.Log("isProtected is false");
+                //sd.SetActive(false);
+            }
+            if(Time.time > protectedFromFireUntil && Time.time > protectedFromIceUntil && Time.time > protectedUntil)
+            {
+                sd.SetActive(false);
+            }
 
         }
 
@@ -322,9 +352,27 @@ public class PlayerMovement : MonoBehaviour
                 FindObjectOfType<AudioManager>().Play("randomPotion");
                 sd.SetActive(true);
                 isProtected = true;
-                protectedUntil = 5f;
+                protectedUntil = Time.time + 5;
                 Debug.Log("protected = " + protectedUntil);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.shield, amount = 1 });
+            }
+            if (item.itemType == Item.ItemType.warmDrink)
+            {
+                FindObjectOfType<AudioManager>().Play("randomPotion");
+                //sd.SetActive(true);
+                transform.GetComponent<SpriteRenderer>().color = Color.red;
+                isProtectedFromIce = true;
+                protectedFromIceUntil = Time.time + 5;
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.warmDrink, amount = 1 });
+
+            }
+            if (item.itemType == Item.ItemType.coldDrink)
+            {
+                FindObjectOfType<AudioManager>().Play("randomPotion");
+                //sd.SetActive(true);
+                isProtectedFromFire = true;
+                protectedFromFireUntil = Time.time + 5;
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.coldDrink, amount = 1 });
             }
             if (item.itemType == Item.ItemType.rocket)
             {
@@ -507,6 +555,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isProtected)
         {
             sd.SetActive(false);
+            FindObjectOfType<AudioManager>().Play("hurt");
             transform.GetComponent<SpriteRenderer>().color = Color.red;
             currentHealth.runtimeValue -= damage;
             playerHealthSignal.Raise();
@@ -515,18 +564,19 @@ public class PlayerMovement : MonoBehaviour
         {
 
 
-            protectedUntil--;
+            //protectedUntil--;
 
-            if (protectedUntil == 0)
-            {
-                Debug.Log("Current is turn off : ");
-                isProtected = false;
-                sd.SetActive(false);
-            }
-            else
-            {
-                StartCoroutine(ShieldBreak());
-            }
+            //if (protectedUntil == 0)
+            //{
+            //    Debug.Log("Current is turn off : ");
+            //    isProtected = false;
+            //    sd.SetActive(false);
+            //}
+            //else
+            //{
+            //    StartCoroutine(ShieldBreak());
+            //}
+            StartCoroutine(ShieldBreak());
 
 
         }
@@ -648,6 +698,7 @@ public class PlayerMovement : MonoBehaviour
             if (!isProtected)
             {
                 sd.SetActive(false);
+                FindObjectOfType<AudioManager>().Play("hurt");
                 transform.GetComponent<SpriteRenderer>().color = Color.red;
                 currentHealth.runtimeValue -= 1f;
                 playerHealthSignal.Raise();
@@ -658,21 +709,23 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-                protectedUntil -= 0.5f;
-                Debug.Log("protected = " + protectedUntil);
-                Physics2D.IgnoreCollision(other, GetComponent<Collider2D>());
-                if (protectedUntil == 0)
-                {
-                    Debug.Log("Current is turn off : ");
-                    isProtected = false;
-                    sd.SetActive(false);
-                    
-                }
-                else
-                {
+                //protectedUntil -= 0.5f;
+                //Debug.Log("protected = " + protectedUntil);
+                //Physics2D.IgnoreCollision(other, GetComponent<Collider2D>());
+                //if (protectedUntil == 0)
+                //{
+                //    Debug.Log("Current is turn off : ");
+                //    isProtected = false;
+                //    sd.SetActive(false);
 
-                    StartCoroutine(ShieldBreak());
-                }
+                //}
+                //else
+                //{
+
+                //    StartCoroutine(ShieldBreak());
+                //}
+                StartCoroutine(ShieldBreak());
+                Physics2D.IgnoreCollision(other, GetComponent<Collider2D>());
 
 
             }
@@ -697,7 +750,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (!isProtected)
             {
-                sd.SetActive(false);
+                //sd.SetActive(false);
+                FindObjectOfType<AudioManager>().Play("hurt");
                 transform.GetComponent<SpriteRenderer>().color = Color.red;
                 currentHealth.runtimeValue -= 1f;
                 playerHealthSignal.Raise();
@@ -707,18 +761,19 @@ public class PlayerMovement : MonoBehaviour
             {
 
 
-                protectedUntil--;
+                //protectedUntil--;
 
-                if (protectedUntil == 0)
-                {
-                    Debug.Log("Current is turn off : ");
-                    isProtected = false;
-                    sd.SetActive(false);
-                }
-                else
-                {
-                    StartCoroutine(ShieldBreak());
-                }
+                //if (protectedUntil == 0)
+                //{
+                //    Debug.Log("Current is turn off : ");
+                //    isProtected = false;
+                //    sd.SetActive(false);
+                //}
+                //else
+                //{
+                //    StartCoroutine(ShieldBreak());
+                //}
+                StartCoroutine(ShieldBreak());
 
 
             }
@@ -741,9 +796,10 @@ public class PlayerMovement : MonoBehaviour
         {
 
 
-            if (!isProtected)
+            if (!isProtected && !isProtectedFromFire)
             {
-                sd.SetActive(false);
+                //sd.SetActive(false);
+                FindObjectOfType<AudioManager>().Play("hurt");
                 transform.GetComponent<SpriteRenderer>().color = Color.red;
                 currentHealth.runtimeValue -= 1f;
                 playerHealthSignal.Raise();
@@ -753,19 +809,19 @@ public class PlayerMovement : MonoBehaviour
             {
 
 
-                protectedUntil--;
+                //protectedUntil--;
 
-                if (protectedUntil == 0)
-                {
-                    Debug.Log("Current is turn off : ");
-                    isProtected = false;
-                    sd.SetActive(false);
-                }
-                else
-                {
-                    StartCoroutine(ShieldBreak());
-                }
-
+                //if (protectedUntil == 0)
+                //{
+                //    Debug.Log("Current is turn off : ");
+                //    isProtected = false;
+                //    sd.SetActive(false);
+                //}
+                //else
+                //{
+                //    StartCoroutine(ShieldBreak());
+                //}
+                StartCoroutine(ShieldBreak());
 
             }
 
@@ -787,9 +843,10 @@ public class PlayerMovement : MonoBehaviour
         {
 
 
-            if (!isProtected)
+            if (!isProtected && !isProtectedFromIce)
             {
-                sd.SetActive(false);
+                //sd.SetActive(false);
+                FindObjectOfType<AudioManager>().Play("hurt");
                 transform.GetComponent<SpriteRenderer>().color = Color.cyan;
 
                 currentHealth.runtimeValue -= 1f;
@@ -802,18 +859,19 @@ public class PlayerMovement : MonoBehaviour
             {
 
 
-                protectedUntil--;
+                //protectedUntil--;
 
-                if (protectedUntil == 0)
-                {
-                    Debug.Log("Current is turn off : ");
-                    isProtected = false;
-                    sd.SetActive(false);
-                }
-                else
-                {
-                    StartCoroutine(ShieldBreak());
-                }
+                //if (protectedUntil == 0)
+                //{
+                //    Debug.Log("Current is turn off : ");
+                //    isProtected = false;
+                //    sd.SetActive(false);
+                //}
+                //else
+                //{
+                //    StartCoroutine(ShieldBreak());
+                //}
+                StartCoroutine(ShieldBreak());
 
 
             }
@@ -834,7 +892,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.CompareTag("bigice"))
         {
-            if (!isProtected)
+            if (!isProtected && !isProtectedFromFire)
             {
                 sd.SetActive(false);
                 transform.GetComponent<SpriteRenderer>().color = Color.cyan;

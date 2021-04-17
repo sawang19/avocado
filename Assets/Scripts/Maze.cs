@@ -11,7 +11,7 @@ public class Maze : MonoBehaviour
 
 	const int WALL_V = 0, WALL_H = 1, WALL_UL = 2, WALL_UR = 3, WALL_BL = 4, WALL_BR = 5, WALL_LUR = 6, WALL_URB = 7, WALL_RBL = 8, WALL_BLU = 9, WALL_URBL = 10, WALL_U = 11, WALL_R = 12, WALL_B = 13, WALL_L = 14, WALL_O = 15;
 	const int MOLE = 2, NPC = 3, GOLEM = 4, DOG = 5, GHOST = 6, RED = 7, MAGE = 8, SLIMELAVA = 9, MAGEF = 21, MAGEI = 22;
-	const int POT = 10, KEY = 11, COIN = 12, BOOT = 13, HP_POTION = 14, RANDOM_POTION = 15, TRAP = 16, CHEST = 17, TRIGGER = 18;
+	const int POT = 10, KEY = 11, COIN = 12, BOOT = 13, HP_POTION = 14, RANDOM_POTION = 15, TRAP = 16, CHEST = 17, TRIGGER = 18, WARM_DRINK = 19, COLD_DRINK = 20;
 
 	public GameObject[] steelWalls = new GameObject[16];
 	public GameObject[] brownWalls = new GameObject[16];
@@ -86,6 +86,8 @@ public class Maze : MonoBehaviour
 	public GameObject sword;
 	public GameObject shield;
 	public GameObject rocket;
+	public GameObject warmDrink;
+	public GameObject coldDrink;
 
 	public List<GameObject> spikePrefabs = new List<GameObject>();
 	public GameObject trigger;
@@ -100,6 +102,8 @@ public class Maze : MonoBehaviour
 	public int swordNum = 0;
 	public int shieldNum = 0;
 	public int rocketNum = 25;
+	public int warmDrinkNum = 0;
+	public int coldDrinkNum = 0;
 
 	[SerializeField]
 	NavMeshSurface2d[] navMeshSurfaces;
@@ -423,16 +427,16 @@ public class Maze : MonoBehaviour
 
 
 		//putItems(mazeMapTrf, mole, MOLE, 2);
-		putItems(mazeMapTrf, npc, NPC, 2);
+		putItems(mazeMapTrf, npc, NPC, 12);
         //putItems(mazeMapTrf, golem, GOLEM, 2);
         //putItems(mazeMapTrf, redevil, RED, 5);
         //putItems(mazeMapTrf, mage, MAGE, 5);
         //putItems(mazeMapTrf, dog, DOG, 5);
         //putItems(mazeMapTrf, ghost, GHOST, 1);
-        putItems(mazeMapTrf, mage, MAGE, 3);
-        putItems(mazeMapTrf, magef, MAGEF, 3);
-        putItems(mazeMapTrf, magei, MAGEI, 3);
-        putItems(mazeMapTrf, slime_lava, SLIMELAVA, 5);
+        //putItems(mazeMapTrf, mage, MAGE, 3);
+        //putItems(mazeMapTrf, magef, MAGEF, 3);
+        //putItems(mazeMapTrf, magei, MAGEI, 10);
+        //putItems(mazeMapTrf, slime_lava, SLIMELAVA, 5);
 
         putItems(mazeMapTrf, trigger, TRIGGER, 5);
 
@@ -876,6 +880,16 @@ public class Maze : MonoBehaviour
 					{
 						OBJ.GetComponent<chest>().item = rocket;
 						rocketNum--;
+					}
+					else if (warmDrinkNum > 0)
+					{
+						OBJ.GetComponent<chest>().item = warmDrink;
+						warmDrinkNum--;
+					}
+					else if (coldDrinkNum > 0)
+					{
+						OBJ.GetComponent<chest>().item = coldDrink;
+						coldDrinkNum--;
 					}
 				}
 
