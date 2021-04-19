@@ -71,7 +71,23 @@ public class UI_Inventory : MonoBehaviour
             itemSlotRectTransform.anchoredPosition = new Vector2(60f + x * itemSlotCellSize, 0);
             Image image = itemSlotRectTransform.Find("Image").GetComponent<Image>();
             image.sprite = item.GetSprite();
-            
+            if(item.itemType == Item.ItemType.firesword)
+            {
+                image.color = new Color(1f, 0f, 0f);
+            }
+            else if (item.itemType == Item.ItemType.icesword)
+            {
+                image.color = new Color(0f, 0.7117f, 1f);
+            }
+            else if (item.itemType == Item.ItemType.holysword)
+            {
+                image.color = new Color(1f, 0.9847f, 0f);
+            }
+            else if (item.itemType == Item.ItemType.magicsword)
+            {
+                image.color = new Color(0.9130f, 0.1355f, 0.9905f);
+            }
+
             TextMeshProUGUI uiText = itemSlotRectTransform.Find("text").GetComponent<TextMeshProUGUI>();
             if(item.amount > 1)
             {

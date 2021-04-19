@@ -11,6 +11,7 @@ public class ItemWorld : MonoBehaviour
         transform.SetParent(GameObject.Find("Grid").transform);
         ItemWorld itemWorld = transform.GetComponent<ItemWorld>();
         itemWorld.SetItem(item);
+        
 
         return itemWorld;
     }
@@ -28,6 +29,23 @@ public class ItemWorld : MonoBehaviour
     {
         this.item = item;
         spriteRenderer.sprite = item.GetSprite();
+        if (item.itemType == Item.ItemType.firesword)
+        {
+            spriteRenderer.color = Color.red;
+        }
+        else if (item.itemType == Item.ItemType.icesword)
+        {
+            spriteRenderer.color = new Color(0f, 0.7117f, 1f);
+        }
+        else if (item.itemType == Item.ItemType.holysword)
+        {
+            spriteRenderer.color = new Color(1f, 0.9847f, 0f);
+        }
+        else if (item.itemType == Item.ItemType.magicsword)
+        {
+            spriteRenderer.color = new Color(0.9130f, 0.1355f, 0.9905f);
+        }
+        
     }
 
     public Item GetItem()

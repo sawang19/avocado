@@ -21,4 +21,10 @@ public class ItemAssets : MonoBehaviour
     public Sprite rocket;
     public Sprite warmDrink;
     public Sprite coldDrink;
+    public Sprite generalsword;
+    public Sprite firesword;
+    public Sprite icesword;
+    public Sprite holysword;
+    public Sprite magicsword;
+    public Sprite reaper;
 }

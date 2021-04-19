@@ -10,7 +10,7 @@ public class Maze : MonoBehaviour
 	int curScene; // 20210411 Range: 0 ~ 4
 
 	const int WALL_V = 0, WALL_H = 1, WALL_UL = 2, WALL_UR = 3, WALL_BL = 4, WALL_BR = 5, WALL_LUR = 6, WALL_URB = 7, WALL_RBL = 8, WALL_BLU = 9, WALL_URBL = 10, WALL_U = 11, WALL_R = 12, WALL_B = 13, WALL_L = 14, WALL_O = 15;
-	const int MOLE = 2, NPC = 3, GOLEM = 4, DOG = 5, GHOST = 6, RED = 7, MAGE = 8, SLIMELAVA = 9, MAGEF = 21, MAGEI = 22;
+	const int MOLE = 2, NPC = 3, GOLEM = 4, DOG = 5, GHOST = 6, RED = 7, MAGE = 8, SLIMELAVA = 9, MAGEF = 21, MAGEI = 22, SLIMEICE = 23;
 	const int POT = 10, KEY = 11, COIN = 12, BOOT = 13, HP_POTION = 14, RANDOM_POTION = 15, TRAP = 16, CHEST = 17, TRIGGER = 18, WARM_DRINK = 19, COLD_DRINK = 20;
 
 	public GameObject[] steelWalls = new GameObject[16];
@@ -73,6 +73,7 @@ public class Maze : MonoBehaviour
 	public GameObject magef;
 	public GameObject magei;
 	public GameObject slime_lava;
+	public GameObject slime_ice;
 
 
 	public GameObject pot;
@@ -88,6 +89,11 @@ public class Maze : MonoBehaviour
 	public GameObject rocket;
 	public GameObject warmDrink;
 	public GameObject coldDrink;
+	public GameObject firesword;
+	public GameObject icesword;
+	public GameObject holysword;
+	public GameObject magicsword;
+	public GameObject reaper;
 
 	public List<GameObject> spikePrefabs = new List<GameObject>();
 	public GameObject trigger;
@@ -101,9 +107,14 @@ public class Maze : MonoBehaviour
 	public int randomPotionNum = 0; // 10 
 	public int swordNum = 0;
 	public int shieldNum = 0;
-	public int rocketNum = 25;
+	public int rocketNum = 0;
 	public int warmDrinkNum = 0;
 	public int coldDrinkNum = 0;
+	public int fireswordNum = 0;
+	public int iceswordNum = 0;
+	public int holyswordNum = 0;
+	public int magicswordNum = 0;
+	public int reaperNum = 0;
 
 	[SerializeField]
 	NavMeshSurface2d[] navMeshSurfaces;
@@ -408,40 +419,41 @@ public class Maze : MonoBehaviour
 		// Draw door
 		drawDoors(mazeMapTrf, mazeMapX, mazeMapY, renderWalls, offsetY);
 
-		//putItems(mazeMapTrf, key, 2, 5);
-		//putItems(mazeMapTrf, coin, 3, 10);
-		//putItems(mazeMapTrf, boot, 4, 5);
-		//putItems(mazeMapTrf, pot, 5, 1);
-		//putItems(mazeMapTrf, mole, 6, 2);
-		//putItems(mazeMapTrf, npc, 7, 2);
-		//putItems(mazeMapTrf, hpPotion, 8, 5);
-		//putItems(mazeMapTrf, slowPotion, 9, 5);
-		//putItems(mazeMapTrf, trap, 10, 5);
-		//putItems(mazeMapTrf, golem, 11, 2);
-		//putItems(mazeMapTrf, dog, 12, 5);
-		//putItems(mazeMapTrf, ghost, 13, 2);
-		//putItems(mazeMapTrf, door, 14, 5);
-		//ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
-		//ItemWorld.SpawnItemWorld(new Vector3(10, 11), new Item { itemType = Item.ItemType.coins, amount = 1 });
-		//ItemWorld.SpawnItemWorld(new Vector3(10, 12), new Item { itemType = Item.ItemType.keys, amount = 1 });
+        //putItems(mazeMapTrf, key, 2, 5);
+        //putItems(mazeMapTrf, coin, 3, 10);
+        //putItems(mazeMapTrf, boot, 4, 5);
+        //putItems(mazeMapTrf, pot, 5, 1);
+        //putItems(mazeMapTrf, mole, 6, 2);
+        //putItems(mazeMapTrf, npc, 7, 2);
+        //putItems(mazeMapTrf, hpPotion, 8, 5);
+        //putItems(mazeMapTrf, slowPotion, 9, 5);
+        //putItems(mazeMapTrf, trap, 10, 5);
+        //putItems(mazeMapTrf, golem, 11, 5);
+        //putItems(mazeMapTrf, dog, 12, 5);
+        //putItems(mazeMapTrf, ghost, 13, 2);
+        //putItems(mazeMapTrf, door, 14, 5);
+        //ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
+        //ItemWorld.SpawnItemWorld(new Vector3(10, 11), new Item { itemType = Item.ItemType.coins, amount = 1 });
+        //ItemWorld.SpawnItemWorld(new Vector3(10, 12), new Item { itemType = Item.ItemType.keys, amount = 1 });
 
 
-		//putItems(mazeMapTrf, mole, MOLE, 2);
-		putItems(mazeMapTrf, npc, NPC, 12);
-        //putItems(mazeMapTrf, golem, GOLEM, 2);
+        //putItems(mazeMapTrf, mole, MOLE, 2);
+        putItems(mazeMapTrf, npc, NPC, 12);
+        //putItems(mazeMapTrf, golem, GOLEM, 5);
         //putItems(mazeMapTrf, redevil, RED, 5);
         //putItems(mazeMapTrf, mage, MAGE, 5);
         //putItems(mazeMapTrf, dog, DOG, 5);
-        //putItems(mazeMapTrf, ghost, GHOST, 1);
+        //putItems(mazeMapTrf, ghost, GHOST, 5);
         //putItems(mazeMapTrf, mage, MAGE, 3);
         //putItems(mazeMapTrf, magef, MAGEF, 3);
         //putItems(mazeMapTrf, magei, MAGEI, 10);
         //putItems(mazeMapTrf, slime_lava, SLIMELAVA, 5);
+        //putItems(mazeMapTrf, slime_ice, SLIMEICE, 5);
 
         putItems(mazeMapTrf, trigger, TRIGGER, 5);
 
 		putItems(mazeMapTrf, pot, POT, 13);
-		putItems(mazeMapTrf, chest, CHEST, 10);
+		putItems(mazeMapTrf, chest, CHEST, 25);
 		putItems(mazeMapTrf, trap, TRAP, 5);
 
 
@@ -816,7 +828,7 @@ public class Maze : MonoBehaviour
 				mazeMapTrf[i, j] = mark;
 				mazeMap[i, -j + mazeMapY - 1] = mark;
 				Vector3 position = new Vector3(i, -j + offsetY, 0f);
-				if (mark == MOLE || mark == GOLEM || mark == DOG || mark == GHOST || mark == RED || mark == MAGE || mark == MAGEF || mark == MAGEI || mark == SLIMELAVA)
+				if (mark == MOLE || mark == GOLEM || mark == DOG || mark == GHOST || mark == RED || mark == MAGE || mark == MAGEF || mark == MAGEI || mark == SLIMELAVA || mark == SLIMEICE)
 				{
 					//GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
 					//OBJ.transform.SetParent(grid.transform);
@@ -890,6 +902,31 @@ public class Maze : MonoBehaviour
 					{
 						OBJ.GetComponent<chest>().item = coldDrink;
 						coldDrinkNum--;
+					}
+					else if(fireswordNum > 0)
+                    {
+						OBJ.GetComponent<chest>().item = firesword;
+						fireswordNum--;
+					}
+					else if (iceswordNum > 0)
+					{
+						OBJ.GetComponent<chest>().item = icesword;
+						iceswordNum--;
+					}
+					else if (holyswordNum > 0)
+					{
+						OBJ.GetComponent<chest>().item = holysword;
+						holyswordNum--;
+					}
+					else if (magicswordNum > 0)
+					{
+						OBJ.GetComponent<chest>().item = magicsword;
+						magicswordNum--;
+					}
+					else if (reaperNum > 0)
+					{
+						OBJ.GetComponent<chest>().item = reaper;
+						reaperNum--;
 					}
 				}
 

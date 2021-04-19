@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8405137196835090466}
   - component: {fileID: 8405137196835090469}
   - component: {fileID: 8936644831972665768}
+  - component: {fileID: 3754410961561444843}
   m_Layer: 0
   m_Name: trigger
   m_TagString: trigger
@@ -195,3 +196,29 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!114 &3754410961561444843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8405137196835090467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 0000000059034926
+  m_ShapePath:
+  - {x: -0.44616985, y: -0.4605248, z: 0}
+  - {x: 0.44975853, y: -0.4677019, z: 0}
+  - {x: 0.44975948, y: 0.37798572, z: 0}
+  - {x: -0.43540478, y: 0.3851633, z: 0}
+  m_ShapePathHash: 756263157
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -1152756

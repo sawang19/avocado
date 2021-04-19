@@ -154,7 +154,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.7264151, g: 0.70928264, b: 0.70928264, a: 1}
-  m_Intensity: 2
+  m_Intensity: 0
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 0000000059034926
   m_LightCookieSprite: {fileID: 0}
@@ -2296,6 +2296,8 @@ MonoBehaviour:
   magei: {fileID: 3665186213010889020, guid: 51a754e37a24a44458e1e618f37c0bd8, type: 3}
   slime_lava: {fileID: 1893180445508793850, guid: 1f74b83b91eda094b923cfd22fbc03d5,
     type: 3}
+  slime_ice: {fileID: 4662947556514241303, guid: 8e59c93328bcff34e96e5054c76ca599,
+    type: 3}
   pot: {fileID: 3591587325866508970, guid: 7f4661c0540ff49b6a850419dcca4031, type: 3}
   chest: {fileID: 8595929995438891262, guid: aba9839ac36ad4eadac77e3ed0f07da0, type: 3}
   key: {fileID: 1218484463065539397, guid: 58c194d3d2eab44f3b69da4feb9341bd, type: 3}
@@ -2313,6 +2315,15 @@ MonoBehaviour:
     type: 3}
   coldDrink: {fileID: 5582523673972277331, guid: 8786d6ae0cbc74310bab640727ac2590,
     type: 3}
+  firesword: {fileID: 3782180655519252630, guid: 4b965d1abcb5941e884ded0d83ddfa3e,
+    type: 3}
+  icesword: {fileID: 4362742348081973255, guid: b7cd3f94a3c3b4921aa3dd160e3abf74,
+    type: 3}
+  holysword: {fileID: 9033400366949863904, guid: 79d9810cc90244fc2ae4e6a36f7aad2c,
+    type: 3}
+  magicsword: {fileID: 5916552211027888481, guid: 4800f7da0d85044eab34eea25f2e7a82,
+    type: 3}
+  reaper: {fileID: 5298843849206561583, guid: c2f82d755fd7e481eab2be55f3a36ebf, type: 3}
   spikePrefabs: []
   trigger: {fileID: 8405137196835090467, guid: 55ed9554b06d9424da89c366931ff11c, type: 3}
   triggerList: []
@@ -2324,8 +2335,13 @@ MonoBehaviour:
   swordNum: 0
   shieldNum: 0
   rocketNum: 0
-  warmDrinkNum: 5
-  coldDrinkNum: 5
+  warmDrinkNum: 0
+  coldDrinkNum: 0
+  fireswordNum: 5
+  iceswordNum: 5
+  holyswordNum: 5
+  magicswordNum: 5
+  reaperNum: 5
   navMeshSurfaces:
   - {fileID: 1077585668}
 --- !u!4 &276668898
@@ -5811,6 +5827,36 @@ MonoBehaviour:
     type: 3}
   buttonContainer: {fileID: 240757941}
   playerMovement: {fileID: 0}
+--- !u!1 &810021726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 810021727}
+  m_Layer: 10
+  m_Name: playerbullet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &810021727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810021726}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1899823004}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &838036371
 GameObject:
   m_ObjectHideFlags: 0
@@ -7572,14 +7618,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066083351}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.3112, y: 1.3112, z: 1.3112}
   m_Children:
   - {fileID: 1558093176}
   m_Father: {fileID: 513109623}
   m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 730, y: -17}
@@ -7658,7 +7704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: a59d6029d282ea148bf57966b0c2401e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8935,6 +8981,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1205422756}
   m_CullTransparentMesh: 0
+--- !u!1 &1213261547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1213261548}
+  m_Layer: 10
+  m_Name: playersword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1213261548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213261547}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1899823004}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &1216701823
 GameObject:
   m_ObjectHideFlags: 0
@@ -11329,6 +11405,17 @@ MonoBehaviour:
   rocket: {fileID: 21300000, guid: 740d16e36dc7d4072ad299039e1b4ce6, type: 3}
   warmDrink: {fileID: 21300000, guid: ddf8838d0a06d8d4c9dec9e3bed69260, type: 3}
   coldDrink: {fileID: 21300008, guid: ddf8838d0a06d8d4c9dec9e3bed69260, type: 3}
+  generalsword: {fileID: 1359064148154399791, guid: 656558d5e514427458752351e7adc563,
+    type: 3}
+  firesword: {fileID: -7573694343354198120, guid: 656558d5e514427458752351e7adc563,
+    type: 3}
+  icesword: {fileID: -7502302234203853145, guid: 656558d5e514427458752351e7adc563,
+    type: 3}
+  holysword: {fileID: -3753825769889500098, guid: 656558d5e514427458752351e7adc563,
+    type: 3}
+  magicsword: {fileID: -3113763368734956792, guid: 656558d5e514427458752351e7adc563,
+    type: 3}
+  reaper: {fileID: 776136188158623729, guid: 656558d5e514427458752351e7adc563, type: 3}
 --- !u!4 &1540047703
 Transform:
   m_ObjectHideFlags: 0
@@ -11434,7 +11521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1558093176
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13066,7 +13153,7 @@ RectTransform:
   m_GameObject: {fileID: 1815477669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4646, y: 1.4646, z: 1.4646}
+  m_LocalScale: {x: 1.3112, y: 1.3112, z: 1.3112}
   m_Children: []
   m_Father: {fileID: 513109623}
   m_RootOrder: 13
@@ -13589,12 +13676,26 @@ MonoBehaviour:
   protectedUntil: -1
   protectedFromIceUntil: -1
   protectedFromFireUntil: -1
+  openDoor: {fileID: 21300000, guid: 71c2aae20a433fc498da71248e974a9c, type: 3}
+  switchTrigger: {fileID: 21300000, guid: 93af7b787a2d66e468add73213a37970, type: 3}
+  talkToNPC: {fileID: 21300000, guid: c8e927090ec80f74599f34a1441516d2, type: 3}
   SL: {fileID: 0}
   FL: {fileID: 0}
   SD: {fileID: 0}
   fl: {fileID: 0}
   sl: {fileID: 0}
   sd: {fileID: 0}
+  BL: {fileID: 0}
+  bl: {fileID: 0}
+  firepoint: {fileID: 810021727}
+  swordpoint: {fileID: 1213261548}
+  bullet: {fileID: 97724808856448981, guid: 6dc712251f1f0684db77cbee29d866e2, type: 3}
+  bullet2: {fileID: 4993784825081177133, guid: 80cd496828d3ea543b5336d2ab3218df, type: 3}
+  bullet3: {fileID: 8639072834067801708, guid: 2e0b4a9170fbf1a4e8b93e461bf014b7, type: 3}
+  bullet4: {fileID: 4777303849116824121, guid: 54c12d8949ef82a43b6e21a2b13491d3, type: 3}
+  bullet5: {fileID: 1193462068692888015, guid: 430dd242e5712924fb2cbb36d7aaf684, type: 3}
+  theplayer: {fileID: 0}
+  swordtype: 0
   maze: {fileID: 276668897}
 --- !u!50 &1899823002
 Rigidbody2D:
@@ -13686,6 +13787,8 @@ Transform:
   - {fileID: 1941548510}
   - {fileID: 1698338860}
   - {fileID: 1143154673}
+  - {fileID: 810021727}
+  - {fileID: 1213261548}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13843,7 +13946,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.4627451, b: 0, a: 1}
   m_Intensity: 2
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
@@ -13855,8 +13958,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.6
-  m_PointLightOuterRadius: 2
+  m_PointLightInnerRadius: 1.2
+  m_PointLightOuterRadius: 4
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5

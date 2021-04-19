@@ -1,29 +1,21 @@
 ﻿<Properties StartupConfiguration="{203E294F-6A57-B963-05D6-83EB30201135}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SliderControl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerMovement.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="312" Column="30" IsPinned="True" />
-      <File FileName="Assets/Scripts/InventoryBar/ItemAssets.cs" Line="23" Column="29" IsPinned="True" />
-      <File FileName="Assets/Scripts/LevelLoader.cs" />
-      <File FileName="Assets/Scripts/bullet_fire.cs" />
-      <File FileName="Assets/Scripts/CameraFollow.cs" />
-      <File FileName="Assets/Scripts/HelpMenu.cs" />
-      <File FileName="Assets/Scripts/InventoryBar/Inventory.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/dialog.cs" />
-      <File FileName="Assets/Scripts/GameWin.cs" />
-      <File FileName="Assets/Scripts/LevelSelect.cs" Line="30" Column="64" />
-      <File FileName="Assets/Scripts/DialogBoxScript.cs" />
-      <File FileName="Assets/Scripts/InventoryBar/UI_Inventory.cs" Line="45" Column="88" />
-      <File FileName="Assets/Scripts/LevelLoader3.cs" />
-      <File FileName="Assets/Scripts/LevelLoader2.cs" />
-      <File FileName="Assets/Scripts/Wait.cs" />
-      <File FileName="Assets/Scripts/Knockback.cs" />
+      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="425" Column="34" IsPinned="True" />
+      <File FileName="Assets/Scripts/InventoryBar/ItemAssets.cs" Line="24" Column="32" IsPinned="True" />
+      <File FileName="Assets/Scripts/Maze.cs" Line="898" Column="14" />
+      <File FileName="Assets/Scripts/Knockback.cs" Line="228" Column="1" />
       <File FileName="Assets/Scripts/pot.cs" />
-      <File FileName="Assets/Scripts/Maze.cs" Line="430" Column="35" />
-      <File FileName="Assets/Scripts/golem.cs" Line="171" Column="29" />
-      <File FileName="Assets/Scripts/chest.cs" Line="87" Column="10" />
-      <File FileName="Assets/Scripts/InventoryBar/Item.cs" Line="69" Column="37" />
-      <File FileName="Assets/Scripts/Menu.cs" Line="17" Column="60" />
-      <File FileName="Assets/Scripts/SliderControl.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/chest.cs" Line="90" Column="119" />
+      <File FileName="Assets/Scripts/InventoryBar/Item.cs" Line="78" Column="40" />
+      <File FileName="Assets/Scripts/Menu.cs" />
+      <File FileName="Assets/Scripts/SliderControl.cs" />
+      <File FileName="Assets/Scripts/iceandfire.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/slime_ice.cs" Line="453" Column="97" />
+      <File FileName="Assets/Scripts/ghost.cs" Line="363" Column="6" />
+      <File FileName="Assets/Scripts/InventoryBar/Inventory.cs" Line="67" Column="25" />
+      <File FileName="Assets/Scripts/ItemWorld.cs" Line="34" Column="46" />
+      <File FileName="Assets/Scripts/InventoryBar/UI_Inventory.cs" Line="76" Column="52" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -35,7 +27,7 @@
               </Node>
               <Node name="Scripts" expanded="True">
                 <Node name="InventoryBar" expanded="True" />
-                <Node name="SliderControl.cs" selected="True" />
+                <Node name="PlayerMovement.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -45,7 +37,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="b4cf9f08-d1b3-4f5b-843d-47bd8eb8ae8e" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="453c40bb-8a48-4abe-843e-9038e5e55566" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

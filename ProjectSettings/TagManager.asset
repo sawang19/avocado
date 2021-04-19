@@ -30,6 +30,21 @@ TagManager:
   - fire
   - trigger
   - chest
+  - warmDrink
+  - coldDrink
+  - EnemyTag_SlimeIce
+  - bullet_p1
+  - firesword
+  - icesword
+  - EnemyTag_SlimeLava
+  - reaper
+  - auto
+  - basic_sword
+  - item_firesword
+  - item_icesword
+  - item_holysword
+  - item_magicsword
+  - item_reaper
   layers:
   - Default
   - TransparentFX

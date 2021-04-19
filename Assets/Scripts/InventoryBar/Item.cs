@@ -14,7 +14,13 @@ public class Item
         shield,
         rocket,
         warmDrink,
-        coldDrink
+        coldDrink,
+        generalsword,
+        firesword,
+        icesword,
+        magicsword,
+        holysword,
+        reaper
     }
 
     public ItemType itemType;
@@ -34,6 +40,13 @@ public class Item
             case ItemType.rocket: return ItemAssets.Instance.rocket;
             case ItemType.warmDrink: return ItemAssets.Instance.warmDrink;
             case ItemType.coldDrink: return ItemAssets.Instance.coldDrink;
+            case ItemType.firesword: return ItemAssets.Instance.firesword;
+            case ItemType.generalsword: return ItemAssets.Instance.generalsword;
+            case ItemType.icesword: return ItemAssets.Instance.icesword;
+            case ItemType.holysword: return ItemAssets.Instance.holysword;
+            case ItemType.magicsword: return ItemAssets.Instance.magicsword;
+            case ItemType.reaper: return ItemAssets.Instance.reaper;
+
         }
     }
 
@@ -52,6 +65,13 @@ public class Item
             case ItemType.warmDrink:
             case ItemType.coldDrink:
                 return true;
+            case ItemType.firesword:
+            case ItemType.icesword:
+            case ItemType.holysword:
+            case ItemType.magicsword:
+            case ItemType.reaper:
+            case ItemType.generalsword:
+                return false;
         }
     }
 
@@ -67,6 +87,12 @@ public class Item
             case ItemType.rocket:
             case ItemType.warmDrink:
             case ItemType.coldDrink:
+            case ItemType.firesword:
+            case ItemType.icesword:
+            case ItemType.holysword:
+            case ItemType.magicsword:
+            case ItemType.reaper:
+            case ItemType.generalsword:
                 return true;
             case ItemType.coins:
             case ItemType.keys:

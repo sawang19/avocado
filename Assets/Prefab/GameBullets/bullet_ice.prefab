@@ -158,7 +158,7 @@ MonoBehaviour:
   mageitself: {fileID: 0}
   speed: 1
   rb: {fileID: 562954376470984906}
-  impactEffect: {fileID: 8581414683056128904, guid: 4f73a11daf65a9e44b0f5926fb594bb6,
+  impactEffect: {fileID: 8428349169051372717, guid: b043a8a531917a946a48b69518358e39,
     type: 3}
   level3_mage_count: 0
   level3_mage_ballnum: 10

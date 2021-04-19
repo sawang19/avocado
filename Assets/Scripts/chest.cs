@@ -85,6 +85,26 @@ public class chest : MonoBehaviour
         {
             ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.coldDrink, amount = 1 });
         }
+        else if (item.CompareTag("item_firesword"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.firesword, amount = 1 });
+        }
+        else if (item.CompareTag("item_icesword"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.icesword, amount = 1 });
+        }
+        else if (item.CompareTag("item_holysword"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.holysword, amount = 1 });
+        }
+        else if (item.CompareTag("item_magicsword"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.magicsword, amount = 1 });
+        }
+        else if (item.CompareTag("item_reaper"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.reaper, amount = 1 });
+        }
 
     }
 }

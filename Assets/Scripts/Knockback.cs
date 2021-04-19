@@ -15,23 +15,23 @@ public class Knockback : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("breakable") && this.gameObject.CompareTag("Player"))
         {
-
+            Debug.Log("smash pot");
             collision.GetComponent<pot>().Smash();
 
 
@@ -45,56 +45,94 @@ public class Knockback : MonoBehaviour
 
         }
 
-        //if (this.gameObject.CompareTag("Enemies") && collision.gameObject.CompareTag("Enemies"))
-        //{
-        //    Debug.Log("enemies hit");
-        //}
 
-        if (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("EnemyTag_Ghost"))
+
+        /*if (collision.gameObject.CompareTag("bullet_p1"))
         {
             Rigidbody2D hit = collision.GetComponent<Rigidbody2D>();
             if(hit != null)
             {
-                if (!(this.gameObject.CompareTag("Enemies") && (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("EnemyTag_Ghost"))))
+                float boost = Component.FindObjectOfType<PlayerMovement>().attackBoost;
+                hit.GetComponent<Enemy>().currentState = EnemyState.stagger;
+                collision.GetComponent<Enemy>().Knock(hit, knockTime, damage * boost);
+            }
+            
+        }*/
+
+        if (this.gameObject.CompareTag("reaper") && collision.gameObject.CompareTag("Player"))
+        {
+
+            return;
+        }
+
+        if (this.gameObject.CompareTag("firesword") && collision.gameObject.CompareTag("Player"))
+        {
+
+            return;
+        }
+        if (this.gameObject.CompareTag("icesword") && collision.gameObject.CompareTag("Player"))
+        {
+
+            return;
+        }
+
+
+
+
+
+        if (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("EnemyTag_Ghost") || collision.gameObject.CompareTag("EnemyTag_SlimeLava"))
+        {
+
+            Rigidbody2D hit = collision.GetComponent<Rigidbody2D>();
+            if (hit != null)
+            {
+                if (!(this.gameObject.CompareTag("Enemies") && (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("EnemyTag_Ghost") || collision.gameObject.CompareTag("EnemyTag_SlimeLava"))))
                 {
-                    
+
                     Vector2 difference = hit.transform.position - transform.position;
                     difference = difference.normalized * thrust;
                     hit.AddForce(difference, ForceMode2D.Impulse);
 
-                    
 
-                    if ((collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("EnemyTag_Ghost")) && collision.isTrigger)
+
+                    if ((collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("EnemyTag_Ghost") || collision.gameObject.CompareTag("EnemyTag_SlimeLava")) && collision.isTrigger)
                     {
+                        Debug.Log("You want kill me?");
                         if (collision.GetComponent<Enemy>().currentState != EnemyState.stagger)
                         {
                             float boost = Component.FindObjectOfType<PlayerMovement>().attackBoost;
-                            if(collision.gameObject.CompareTag("EnemyTag_Ghost")) {
+                            if (collision.gameObject.CompareTag("EnemyTag_Ghost"))
+                            {
                                 hit.GetComponent<Enemy>().currentState = EnemyState.stagger;
                                 collision.GetComponent<Enemy>().Knock(hit, knockTime, 0);
-                            } else
+                            }
+                            else
                             {
                                 hit.GetComponent<Enemy>().currentState = EnemyState.stagger;
                                 collision.GetComponent<Enemy>().Knock(hit, knockTime, damage * boost);
                             }
-                            
+
                         }
-                            
+
                     }
                     if (collision.gameObject.CompareTag("Player"))
                     {
-
-                        if (collision.GetComponent<PlayerMovement>().currentState != PlayerState.stagger)
+                        if (!(this.gameObject.CompareTag("bullet_p1")))
                         {
-                            hit.GetComponent<PlayerMovement>().currentState = PlayerState.stagger;
-                            collision.GetComponent<PlayerMovement>().Knock(hit, knockTime, damage);
+                            Debug.Log("You want die?");
+                            if (collision.GetComponent<PlayerMovement>().currentState != PlayerState.stagger)
+                            {
+                                hit.GetComponent<PlayerMovement>().currentState = PlayerState.stagger;
+                                collision.GetComponent<PlayerMovement>().Knock(hit, knockTime, damage);
+                            }
                         }
+
                     }
                 }
-                    
 
-                
-               
+
+
+
             }
         }
     }
@@ -140,8 +178,26 @@ public class Knockback : MonoBehaviour
             return;
         }
 
+        if (this.gameObject.CompareTag("reaper") && collision.gameObject.CompareTag("Player"))
+        {
+
+            return;
+        }
+
+        if (this.gameObject.CompareTag("firesword") && collision.gameObject.CompareTag("Player"))
+        {
+
+            return;
+        }
+        if (this.gameObject.CompareTag("icesword") && collision.gameObject.CompareTag("Player"))
+        {
+
+            return;
+        }
+
         if (collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Hold your fire");
             Rigidbody2D hit = collision.GetComponent<Rigidbody2D>();
             if (hit != null)
             {
@@ -149,19 +205,19 @@ public class Knockback : MonoBehaviour
                 difference = difference.normalized * thrust;
                 hit.AddForce(difference, ForceMode2D.Impulse);
 
-                //if (collision.gameObject.CompareTag("Enemies") && collision.isTrigger)
-                //{
-                //    hit.GetComponent<Enemy>().currentState = EnemyState.stagger;
-                //    collision.GetComponent<Enemy>().Knock(hit, knockTime, damage);
-                //}
+
                 if (collision.gameObject.CompareTag("Player"))
                 {
-
-                    if (collision.GetComponent<PlayerMovement>().currentState != PlayerState.stagger)
+                    if (!(this.gameObject.CompareTag("bullet_p1")))
                     {
-                        hit.GetComponent<PlayerMovement>().currentState = PlayerState.stagger;
-                        collision.GetComponent<PlayerMovement>().Knock(hit, knockTime, damage);
+                        if (collision.GetComponent<PlayerMovement>().currentState != PlayerState.stagger)
+                        {
+                            hit.GetComponent<PlayerMovement>().currentState = PlayerState.stagger;
+                            collision.GetComponent<PlayerMovement>().Knock(hit, knockTime, damage);
+                        }
                     }
+
+
                 }
 
             }

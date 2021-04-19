@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Timer
     public GameObject textDisplay;
-    public int secondsLeft = 80;
+    public int secondsLeft = 180;
     public bool takingAway = false;
 
     public Text keyNum;
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     Vector3 movement;
     public Animator animator;
-    
+
     public static int keys = 0;
     public static int coins = 100;
     public static int boots = 0;
@@ -94,6 +94,10 @@ public class PlayerMovement : MonoBehaviour
     private Color32 playerColor;
     private bool rocketWorking;
 
+    public Sprite openDoor;
+    public Sprite switchTrigger;
+    public Sprite talkToNPC;
+
     /// <new>
     /// /////////
     /// </new>
@@ -116,6 +120,25 @@ public class PlayerMovement : MonoBehaviour
     public GameObject sl;
     public GameObject sd;
 
+    public UnityEngine.Experimental.Rendering.Universal.Light2D BL;
+    public GameObject bl;
+    //longrange attack
+    public Transform firepoint;
+    public Transform swordpoint;
+    //Holic
+    public GameObject bullet;
+    //flame
+    public GameObject bullet2;
+    //ice
+    public GameObject bullet3;
+    //soul reaper
+    public GameObject bullet4;
+    //auto
+    public GameObject bullet5;
+    public GameObject theplayer;
+    private float shootTime;
+    public int swordtype;
+
     //trigger
     public Maze maze;
 
@@ -123,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
     {
         inventory = new Inventory(UseItem);
         uiInventory.SetInventory(inventory);
-        
+
     }
     private void Start()
     {
@@ -140,13 +163,20 @@ public class PlayerMovement : MonoBehaviour
         mazeMap = Maze.mazeMap;
         playerColor = Color.white;
         rocketWorking = false;
-        if(PlayerPrefs.GetInt("levels") == 2)
+        if (PlayerPrefs.GetInt("levels") == 2)
         {
             Debug.Log("text display");
             textDisplay.SetActive(true);
-            textDisplay.GetComponent<Text>().text = "0" + secondsLeft / 60 + ":" + secondsLeft % 60;
+            if(secondsLeft % 60 >= 10)
+            {
+                textDisplay.GetComponent<Text>().text = "0" + secondsLeft / 60 + ":" + secondsLeft % 60;
+            } else
+            {
+                textDisplay.GetComponent<Text>().text = "0" + secondsLeft / 60 + ":0" + secondsLeft % 60;
+            }
+            
         }
-        
+
 
         //light control
         fl = GameObject.Find("flashlight");
@@ -156,8 +186,15 @@ public class PlayerMovement : MonoBehaviour
         SL = sl.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         SD = sd.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         fl.SetActive(false);
-        sl.SetActive(false);
+        if (PlayerPrefs.GetInt("levels") == 1 || PlayerPrefs.GetInt("levels") == 2)
+        {
+            sl.SetActive(false);
+        }
+        //sl.SetActive(false);
         sd.SetActive(false);
+        bl = GameObject.Find("backgroundlight");
+        BL = bl.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
+        swordtype = 0;
 
         Debug.Log("player prefs level = " + PlayerPrefs.GetInt("levels"));
 
@@ -168,18 +205,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!endgame)
+        if (!endgame)
         {
-            
+
             movement = Vector3.zero;
             //movement.x = Input.GetAxisRaw("Horizontal");
             //movement.y = Input.GetAxisRaw("Vertical");
-            if(!rocketWorking)
+            if (!rocketWorking)
             {
                 movement.x = SimpleInput.GetAxisRaw("Horizontal");
                 movement.y = SimpleInput.GetAxisRaw("Vertical");
             }
-            
+
 
             if (currentState != PlayerState.stagger)
             {
@@ -198,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(TimerTake());
             }
 
-            if(PlayerPrefs.GetInt("levels") == 2 && secondsLeft <= 0)
+            if (PlayerPrefs.GetInt("levels") == 2 && secondsLeft <= 0)
             {
                 GameOverAPI();
             }
@@ -246,14 +283,14 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("isProtected is false");
                 //sd.SetActive(false);
             }
-            if(Time.time > protectedFromFireUntil && Time.time > protectedFromIceUntil && Time.time > protectedUntil)
+            if (Time.time > protectedFromFireUntil && Time.time > protectedFromIceUntil && Time.time > protectedUntil)
             {
                 sd.SetActive(false);
             }
 
         }
 
-        
+
     }
 
     public void npcanddoor()
@@ -293,7 +330,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if(playerInRangeForTrigger)
+        if (playerInRangeForTrigger)
         {
             Debug.Log("trigger");
             foreach (GameObject triggerPrefab in maze.triggerList)
@@ -304,7 +341,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 spikePrefab.GetComponent<Animator>().SetBool("trigger", true);
             }
-            
+
         }
 
         if (playerInRangeForDoor && keys >= 2)
@@ -328,7 +365,7 @@ public class PlayerMovement : MonoBehaviour
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.boots, amount = 1 });
 
             }
-            if(item.itemType == Item.ItemType.hpPotion)
+            if (item.itemType == Item.ItemType.hpPotion)
             {
                 FindObjectOfType<AudioManager>().Play("hpPotion");
                 if (currentHealth.runtimeValue != currentHealth.initialValue)
@@ -340,12 +377,13 @@ public class PlayerMovement : MonoBehaviour
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.hpPotion, amount = 1 });
 
             }
-            if(item.itemType == Item.ItemType.randomPotion)
+            if (item.itemType == Item.ItemType.randomPotion)
             {
                 FindObjectOfType<AudioManager>().Play("randomPotion");
                 changeSpeedUntil = Time.time + 5;
                 speedFactor = Random.Range(0.5f, 3.0f);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.randomPotion, amount = 1 });
+                
             }
             if (item.itemType == Item.ItemType.shield)
             {
@@ -390,6 +428,54 @@ public class PlayerMovement : MonoBehaviour
                 rb.position = new Vector3(i, j, 0f);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.rocket, amount = 1 });
                 StartCoroutine(RocketCo());
+            }
+            if (item.itemType == Item.ItemType.generalsword)
+            {
+                if (swordtype != 0)
+                {
+                    inventory.RemoveItem(new Item { itemType = Item.ItemType.generalsword, amount = 1 });
+                    SwitchWeapon(0);
+                }
+            }
+            if (item.itemType == Item.ItemType.firesword)
+            {
+                if(swordtype != 2)
+                {
+                    inventory.RemoveItem(new Item { itemType = Item.ItemType.firesword, amount = 1 });
+                    SwitchWeapon(2);
+                }
+            }
+            if (item.itemType == Item.ItemType.icesword)
+            {
+                if (swordtype != 3)
+                {
+                    inventory.RemoveItem(new Item { itemType = Item.ItemType.icesword, amount = 1 });
+                    SwitchWeapon(3);
+                }
+            }
+            if (item.itemType == Item.ItemType.holysword)
+            {
+                if (swordtype != 1)
+                {
+                    inventory.RemoveItem(new Item { itemType = Item.ItemType.holysword, amount = 1 });
+                    SwitchWeapon(1);
+                }
+            }
+            if (item.itemType == Item.ItemType.magicsword)
+            {
+                if (swordtype != 5)
+                {
+                    inventory.RemoveItem(new Item { itemType = Item.ItemType.magicsword, amount = 1 });
+                    SwitchWeapon(5);
+                }
+            }
+            if (item.itemType == Item.ItemType.reaper)
+            {
+                if (swordtype != 4)
+                {
+                    inventory.RemoveItem(new Item { itemType = Item.ItemType.reaper, amount = 1 });
+                    SwitchWeapon(4);
+                }
             }
         }
     }
@@ -456,8 +542,46 @@ public class PlayerMovement : MonoBehaviour
 
     void BuildMesh()
     {
-        
+
         navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
+
+    }
+
+    public void SwitchWeapon(int newSword)
+    {
+
+        if (swordtype == 0)
+        {
+            swordtype = newSword;
+            inventory.AddItem(new Item { itemType = Item.ItemType.generalsword, amount = 1 });
+
+        }
+        else if(swordtype == 2)
+        {
+            swordtype = newSword;
+            inventory.AddItem(new Item { itemType = Item.ItemType.firesword, amount = 1 });
+        }
+        else if (swordtype == 3)
+        {
+            swordtype = newSword;
+            inventory.AddItem(new Item { itemType = Item.ItemType.icesword, amount = 1 });
+        }
+        else if (swordtype == 1)
+        {
+            swordtype = newSword;
+            inventory.AddItem(new Item { itemType = Item.ItemType.holysword, amount = 1 });
+        }
+        else if (swordtype == 5)
+        {
+            swordtype = newSword;
+            inventory.AddItem(new Item { itemType = Item.ItemType.magicsword, amount = 1 });
+        }
+        else if (swordtype == 4)
+        {
+            swordtype = newSword;
+            inventory.AddItem(new Item { itemType = Item.ItemType.reaper, amount = 1 });
+        }
+
 
     }
 
@@ -466,24 +590,46 @@ public class PlayerMovement : MonoBehaviour
         takingAway = true;
         yield return new WaitForSeconds(1);
         secondsLeft -= 1;
-        if(secondsLeft % 60 < 10)
+        if (secondsLeft % 60 < 10)
         {
             textDisplay.GetComponent<Text>().text = "0" + secondsLeft / 60 + ":0" + secondsLeft % 60;
-        }else
+        }
+        else
         {
             textDisplay.GetComponent<Text>().text = "0" + secondsLeft / 60 + ":" + secondsLeft % 60;
         }
-        
+
         takingAway = false;
     }
 
     private IEnumerator AttackCo()
     {
-        
+
         animator.SetBool("Attacking", true);
-        
+
         currentState = PlayerState.Attacking;
-        
+        if (swordtype == 1)
+        {
+            shoot1();
+        }
+        else if (swordtype == 2)
+        {
+            shoot2();
+        }
+        else if (swordtype == 3)
+        {
+            shoot3();
+        }
+
+        else if (swordtype == 4)
+        {
+            shoot4();
+        }
+        else if (swordtype == 5)
+        {
+            shoot5();
+        }
+
         yield return null;
         animator.SetBool("Attacking", false);
         yield return new WaitForSeconds(0.5f);
@@ -536,7 +682,8 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
             animator.SetBool("moving", true);
-        } else
+        }
+        else
         {
             animator.SetBool("moving", false);
         }
@@ -587,8 +734,11 @@ public class PlayerMovement : MonoBehaviour
 
 
             StartCoroutine(KnockCo(rb, knockTime));
+            if (transform.GetComponent<SpriteRenderer>().color == playerColor)
+            {
+                StartCoroutine(ChangeColorCo());
+            }
 
-            StartCoroutine(ChangeColorCo());
         }
         else
         {
@@ -607,7 +757,7 @@ public class PlayerMovement : MonoBehaviour
         if (rb != null)
         {
             yield return new WaitForSeconds(knockTime);
-            transform.GetComponent<Renderer>().material.color = playerColor;
+            transform.GetComponent<SpriteRenderer>().color = playerColor;
             rb.velocity = Vector2.zero;
             currentState = PlayerState.idle;
         }
@@ -646,21 +796,23 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Items")
         {
             ItemWorld itemWorld = collision.gameObject.GetComponent<ItemWorld>();
-            if(itemWorld.GetItem().itemType == Item.ItemType.keys)
+            if (itemWorld.GetItem().itemType == Item.ItemType.keys)
             {
                 keys++;
                 keyNum.text = "x " + keys;
-                
-            } else if(itemWorld.GetItem().itemType == Item.ItemType.coins)
+
+            }
+            else if (itemWorld.GetItem().itemType == Item.ItemType.coins)
             {
                 coins++;
                 coinNum.text = "x " + coins;
-                
-            } else if (itemWorld != null)
+
+            }
+            else if (itemWorld != null)
             {
                 inventory.AddItem(itemWorld.GetItem());
-                
-                
+
+
             }
             itemWorld.DestroySelf();
             FindObjectOfType<AudioManager>().Play("coin");
@@ -670,24 +822,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+
         if (other.CompareTag("npc"))
         {
             playerInRange = true;
             helpButton.SetActive(true);
+            helpButton.GetComponent<Image>().sprite = talkToNPC;
             //Debug.Log("Player in Range");
         }
         if (other.CompareTag("Door"))
         {
             playerInRangeForDoor = true;
             helpButton.SetActive(true);
+            helpButton.GetComponent<Image>().sprite = openDoor;
             //Debug.Log("Player in Range");
         }
-        if(other.CompareTag("trigger"))
+        if (other.CompareTag("trigger"))
         {
-            Debug.Log("hello there");
+            
             playerInRangeForTrigger = true;
             helpButton.SetActive(true);
+            helpButton.GetComponent<Image>().sprite = switchTrigger;
         }
 
         if (other.CompareTag("Spike"))
@@ -890,15 +1045,15 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (other.CompareTag("bigice"))
+        if (other.CompareTag("bigice") || other.CompareTag("EnemyTag_SlimeIce"))
         {
             if (!isProtected && !isProtectedFromFire)
             {
                 sd.SetActive(false);
                 transform.GetComponent<SpriteRenderer>().color = Color.cyan;
-                changeSpeedUntil = Time.time + 3;
+                changeSpeedUntil = Time.time + 2;
                 speedFactor = 0f;
-                StartCoroutine(ChangeColorCoIce(3f));
+                StartCoroutine(ChangeColorCoIce(2f));
             }
 
         }
@@ -909,6 +1064,10 @@ public class PlayerMovement : MonoBehaviour
             speedFactor = 0.6f;
             //StartCoroutine(speedTime());
             FindObjectOfType<AudioManager>().Play("ghost");
+            if (BL.intensity > 0.0f)
+            {
+                BL.intensity -= 0.5f;
+            }
             //Destroy(collision.gameObject);
         }
 
@@ -916,7 +1075,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        
+
         if (other.CompareTag("npc"))
         {
             playerInRange = true;
@@ -946,7 +1105,7 @@ public class PlayerMovement : MonoBehaviour
             //dialogBoxForDoor.SetActive(false);
             //Debug.Log("Player out Range");
         }
-        if(other.CompareTag("trigger"))
+        if (other.CompareTag("trigger"))
         {
             playerInRangeForTrigger = false;
             helpButton.SetActive(false);
@@ -985,26 +1144,93 @@ public class PlayerMovement : MonoBehaviour
         {
             if (movement.x < 0)
             {
+                //left
+                //firepoint.transform.Rotate(180, 0, 0);
                 forward_direction = Quaternion.Euler(0, 0, 135) * transform.right * viewradius;
+                firepoint.transform.localPosition = new Vector3(-1, 0, 0);
+                if (dir_flag == 1)
+                {
+                    firepoint.transform.Rotate(0, 0, -270);
+                }
+                else if (dir_flag == 2)
+                {
+                    firepoint.transform.Rotate(0, 0, -90);
+                }
+                else if (dir_flag == 4)
+                {
+                    firepoint.transform.Rotate(0, 0, -180);
+                }
                 dir_flag = 3;
+
             }
             else if (movement.x > 0)
             {
+                //right
                 forward_direction = Quaternion.Euler(0, 0, -45) * transform.right * viewradius;
+                firepoint.transform.localPosition = new Vector3(1, 0, 0);
+                print("Dir: " + firepoint.transform.right);
+
+                if (dir_flag == 1)
+                {
+                    firepoint.transform.Rotate(0, 0, -90);
+                }
+                else if (dir_flag == 2)
+                {
+                    firepoint.transform.Rotate(0, 0, -270);
+                }
+                else if (dir_flag == 3)
+                {
+                    firepoint.transform.Rotate(0, 0, -180);
+                }
                 dir_flag = 4;
+
             }
         }
         else if (Mathf.Abs(movement.x) < Mathf.Abs(movement.y))
         {
             if (movement.y < 0)
             {
+                //down
                 forward_direction = Quaternion.Euler(0, 0, 135) * transform.up * viewradius;
+                firepoint.transform.localPosition = new Vector3(0, -1, 0);
+                print("Dir: " + firepoint.transform.right);
+                if (dir_flag == 1)
+                {
+                    firepoint.transform.Rotate(0, 0, -180);
+                }
+                else if (dir_flag == 3)
+                {
+                    firepoint.transform.Rotate(0, 0, -270);
+                }
+                else if (dir_flag == 4)
+                {
+                    firepoint.transform.Rotate(0, 0, -90);
+                }
+
                 dir_flag = 2;
+
             }
             else if (movement.y > 0)
             {
+                //up
                 forward_direction = Quaternion.Euler(0, 0, -45) * transform.up * viewradius;
+                firepoint.transform.localPosition = new Vector3(0, 1, 0);
+                print("Dir: " + firepoint.transform.right);
+
+                if (dir_flag == 2)
+                {
+                    firepoint.transform.Rotate(0, 0, -180);
+                }
+                else if (dir_flag == 3)
+                {
+                    firepoint.transform.Rotate(0, 0, -90);
+                }
+                else if (dir_flag == 4)
+                {
+                    firepoint.transform.Rotate(0, 0, -270);
+                }
                 dir_flag = 1;
+
 
             }
 
@@ -1040,26 +1266,26 @@ public class PlayerMovement : MonoBehaviour
             Ray ray = new Ray(mole_pos_v2, v_2);
 
             RaycastHit2D hitt = new RaycastHit2D();
-            int mask = LayerMask.GetMask("Enemy_dog", "Enemy_ghost", "Wall");
+            int mask = LayerMask.GetMask("Enemy", "Enemy_ghost", "Wall");
 
             hitt = Physics2D.Raycast(ray.origin, ray.direction, viewradius, mask);
 
             Vector2 pos = mole_pos_v2 + v_2;
             if (hitt.collider != null && hitt.transform.gameObject.layer == LayerMask.NameToLayer("Enemy_ghost"))
             {
-                //Debug.Log("I see the ghost");
+
                 pos = hitt.point;
-                //Debug.Log("Hit point: " + pos);
+
                 seetheghost = true;
                 OnEnemySpottedghost(hitt.transform.gameObject);
 
 
             }
-            if (hitt.collider != null && hitt.transform.gameObject.layer == LayerMask.NameToLayer("Enemy_dog"))
+            if (hitt.collider != null && hitt.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                //Debug.Log("I see the dog");
+
                 pos = hitt.point;
-                //Debug.Log("Hit point: " + pos);
+
                 //OnEnemySpotteddog(hitt.transform.gameObject);
 
 
@@ -1086,5 +1312,165 @@ public class PlayerMovement : MonoBehaviour
         enemy.GetComponent<ghost>().spottedFrame = Time.frameCount;
     }
 
-    
+    public void shoot5()
+    {
+        if (Time.time > shootTime)
+        {
+            shootTime = Time.time + 3000 / 1000;
+            if (dir_flag == 4)
+            {
+                Instantiate(bullet5, firepoint.position, firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(0.0f, -1.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(0.0f, 1.0f, 0.0f), firepoint.rotation);
+                //Instantiate(bullet5, firepoint.position + new Vector3(-1.0f, -1.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(1.0f, 0.0f, 0.0f), firepoint.rotation);
+            }
+            else if (dir_flag == 3)
+            {
+                Instantiate(bullet5, firepoint.position, firepoint.rotation);
+
+                Instantiate(bullet5, firepoint.position + new Vector3(0.0f, -1.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(0.0f, 1.0f, 0.0f), firepoint.rotation);
+                //Instantiate(bullet5, firepoint.position + new Vector3(-1.0f, -1.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(-1.0f, 0.0f, 0.0f), firepoint.rotation);
+            }
+            else if (dir_flag == 2)
+            {
+                Instantiate(bullet5, firepoint.position, firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(0.0f, -1.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(1.0f, 0.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(-1.0f, 0.0f, 0.0f), firepoint.rotation);
+                //Instantiate(bullet5, firepoint.position + new Vector3(0.0f, 1.0f, 0.0f), firepoint.rotation);
+            }
+            else if (dir_flag == 1)
+            {
+                Instantiate(bullet5, firepoint.position, firepoint.rotation);
+                //Instantiate(bullet5, firepoint.position + new Vector3(0.0f, -1.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(1.0f, 0.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(-1.0f, 0.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet5, firepoint.position + new Vector3(0.0f, 1.0f, 0.0f), firepoint.rotation);
+
+
+            }
+        }
+    }
+
+    public void shoot4()
+    {
+        if (Time.time > shootTime)
+        {
+            shootTime = Time.time + 3000 / 1000;
+            if (dir_flag == 4)
+            {
+                Instantiate(bullet4, firepoint.position, firepoint.rotation);
+            }
+            else if (dir_flag == 3)
+            {
+                Instantiate(bullet4, firepoint.position, firepoint.rotation);
+            }
+            else if (dir_flag == 2)
+            {
+                Instantiate(bullet4, firepoint.position, firepoint.rotation);
+            }
+            else if (dir_flag == 1)
+            {
+                Instantiate(bullet4, firepoint.position, firepoint.rotation);
+            }
+
+        }
+
+    }
+
+    public void shoot3()
+    {
+        if (Time.time > shootTime)
+        {
+            shootTime = Time.time + 1000 / 1000;
+            if (dir_flag == 4)
+            {
+                Instantiate(bullet3, swordpoint.position, Quaternion.Euler(0, 0, 90));
+            }
+            else if (dir_flag == 3)
+            {
+                Instantiate(bullet3, swordpoint.position, Quaternion.Euler(0, 0, -90));
+            }
+            else if (dir_flag == 2)
+            {
+                Instantiate(bullet3, swordpoint.position, swordpoint.rotation);
+            }
+            else if (dir_flag == 1)
+            {
+                Instantiate(bullet3, swordpoint.position, Quaternion.Euler(0, 0, 180));
+            }
+
+        }
+
+    }
+
+    public void shoot2()
+    {
+        if (Time.time > shootTime)
+        {
+            shootTime = Time.time + 1000 / 1000;
+            if (dir_flag == 4)
+            {
+                Instantiate(bullet2, swordpoint.position, Quaternion.Euler(0, 0, 90));
+            }
+            else if (dir_flag == 3)
+            {
+                Instantiate(bullet2, swordpoint.position, Quaternion.Euler(0, 0, -90));
+            }
+            else if (dir_flag == 2)
+            {
+                Instantiate(bullet2, swordpoint.position, swordpoint.rotation);
+            }
+            else if (dir_flag == 1)
+            {
+                Instantiate(bullet2, swordpoint.position, Quaternion.Euler(0, 0, 180));
+            }
+
+        }
+
+    }
+
+    public void shoot1()
+    {
+        if (Time.time > shootTime)
+        {
+            shootTime = Time.time + 3000 / 1000;
+            if (dir_flag == 4)
+            {
+                Instantiate(bullet, firepoint.position + new Vector3(0.0f, 0.4f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(0.0f, -0.4f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(0.2f, 0.2f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(0.2f, -0.2f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(0.4f, 0.0f, 0.0f), firepoint.rotation);
+            }
+            else if (dir_flag == 3)
+            {
+                Instantiate(bullet, firepoint.position + new Vector3(0.0f, 0.4f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(0.0f, -0.4f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(-0.2f, 0.2f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(-0.2f, -0.2f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(-0.4f, 0.0f, 0.0f), firepoint.rotation);
+            }
+            else if (dir_flag == 2)
+            {
+                Instantiate(bullet, firepoint.position + new Vector3(0.4f, 0.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(-0.4f, 0.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(-0.2f, -0.2f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(0.2f, -0.2f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(0.0f, -0.4f, 0.0f), firepoint.rotation);
+            }
+            else if (dir_flag == 1)
+            {
+                Instantiate(bullet, firepoint.position + new Vector3(0.4f, 0.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(-0.4f, 0.0f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(-0.2f, 0.2f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(0.2f, 0.2f, 0.0f), firepoint.rotation);
+                Instantiate(bullet, firepoint.position + new Vector3(0.0f, 0.4f, 0.0f), firepoint.rotation);
+            }
+        }
+        
+    }
 }

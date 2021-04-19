@@ -64,7 +64,20 @@ public class Inventory
         }
         else
         {
-            itemList.Remove(item);
+            //itemList.Remove(item);
+            Item itemInInventory = null;
+            foreach (Item inventoryItem in itemList)
+            {
+                if (inventoryItem.itemType == item.itemType)
+                {
+                    inventoryItem.amount -= item.amount;
+                    itemInInventory = inventoryItem;
+                }
+            }
+            if (itemInInventory != null && itemInInventory.amount <= 0)
+            {
+                itemList.Remove(itemInInventory);
+            }
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }

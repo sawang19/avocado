@@ -348,4 +348,17 @@ public class ghost : Enemy
             currentState = newState;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D hitInfo)
+    {
+
+        if (hitInfo.CompareTag("reaper"))
+        {
+
+
+            Destroy(gameObject);
+
+
+        }
+    }
 }
