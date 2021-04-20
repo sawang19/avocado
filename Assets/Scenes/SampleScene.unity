@@ -2281,8 +2281,8 @@ MonoBehaviour:
   shieldNum: 0
   rocketNum: 0
   warmDrinkNum: 0
-  coldDrinkNum: 20
-  torchNum: 0
+  coldDrinkNum: 0
+  torchNum: 20
   sunNum: 0
   avocadoNum: 0
   fireswordNum: 0
@@ -11725,9 +11725,9 @@ MonoBehaviour:
   rocket: {fileID: 21300000, guid: 740d16e36dc7d4072ad299039e1b4ce6, type: 3}
   warmDrink: {fileID: 21300000, guid: ddf8838d0a06d8d4c9dec9e3bed69260, type: 3}
   coldDrink: {fileID: 21300008, guid: ddf8838d0a06d8d4c9dec9e3bed69260, type: 3}
-  torch: {fileID: 21300000, guid: 21be645e2d60344edbf552bd537276fd, type: 3}
+  torch: {fileID: 21300000, guid: f1b6aa05fd1b53e41b0a5aade5546210, type: 3}
   sun: {fileID: 21300000, guid: 18e30e68a3dd040ab9015af365801332, type: 3}
-  avocado: {fileID: 21300000, guid: d39659b7f637a48d8934d816fd005a5d, type: 3}
+  avocado: {fileID: 5362735838549604449, guid: c02f241b1b14d46ed8532beed37c451c, type: 3}
   generalsword: {fileID: 1359064148154399791, guid: 656558d5e514427458752351e7adc563,
     type: 3}
   firesword: {fileID: -7573694343354198120, guid: 656558d5e514427458752351e7adc563,
