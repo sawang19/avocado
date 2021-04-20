@@ -21,6 +21,9 @@ public class ItemAssets : MonoBehaviour
     public Sprite rocket;
     public Sprite warmDrink;
     public Sprite coldDrink;
+    public Sprite torch;
+    public Sprite sun;
+    public Sprite avocado;
     public Sprite generalsword;
     public Sprite firesword;
     public Sprite icesword;

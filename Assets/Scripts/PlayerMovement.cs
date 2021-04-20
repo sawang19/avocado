@@ -88,6 +88,8 @@ public class PlayerMovement : MonoBehaviour
     public float protectedUntil = -1;
     public float protectedFromIceUntil = -1;
     public float protectedFromFireUntil = -1;
+    public bool isGlobalLighted = false;
+    public bool isLocalLighted = false;
     //public bool isProtected = false;
     //public float protectedUntil = -1;
 
@@ -264,16 +266,51 @@ public class PlayerMovement : MonoBehaviour
             //    moveSpeed.runtimeValue = baseSpeed;
             //    speedFactor = 1f;
             //}
-            if (Time.time > protectedFromIceUntil)
+
+            //if (Time.time > protectedFromIceUntil)
+            //{
+            //    isProtectedFromIce = false;
+            //    //transform.GetComponent<SpriteRenderer>().color = playerColor;
+            //    //sd.SetActive(false);
+
+            //}
+            //if (Time.time > protectedFromFireUntil)
+            //{
+            //    isProtectedFromFire = false;
+
+            //    //sd.SetActive(false);
+            //}
+            //if (Time.time > protectedUntil)
+            //{
+            //    isProtected = false;
+            //    Debug.Log("isProtected is false");
+            //    //sd.SetActive(false);
+            //}
+            //if (Time.time > protectedFromFireUntil && Time.time > protectedFromIceUntil && Time.time > protectedUntil)
+            //{
+            //    sd.SetActive(false);
+            //}
+            if (Time.time > protectedFromIceUntil && isProtectedFromIce)
             {
                 isProtectedFromIce = false;
-                //transform.GetComponent<SpriteRenderer>().color = playerColor;
+                //if (transform.GetComponent<SpriteRenderer>().color.Equals(new Color(1f, 0.3146f, 0f)))
+                //{
+                transform.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+                playerColor = transform.GetComponent<SpriteRenderer>().color;
+                //}
+
                 //sd.SetActive(false);
 
             }
-            if (Time.time > protectedFromFireUntil)
+            if (Time.time > protectedFromFireUntil && isProtectedFromFire)
             {
                 isProtectedFromFire = false;
+                //if (transform.GetComponent<SpriteRenderer>().color.Equals(new Color(0f, 0.6168f, 1f)))
+                //{
+                Debug.Log("change color");
+                transform.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+                playerColor = transform.GetComponent<SpriteRenderer>().color;
+                //}
 
                 //sd.SetActive(false);
             }
@@ -398,9 +435,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 FindObjectOfType<AudioManager>().Play("randomPotion");
                 //sd.SetActive(true);
-                transform.GetComponent<SpriteRenderer>().color = Color.red;
+                transform.GetComponent<SpriteRenderer>().color = new Color(1f, 0.3146f, 0f);
+                isProtectedFromFire = false;
                 isProtectedFromIce = true;
                 protectedFromIceUntil = Time.time + 5;
+                if (speedFactor < 0.5)
+                {
+                    speedFactor = 1;
+                }
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.warmDrink, amount = 1 });
 
             }
@@ -408,6 +450,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 FindObjectOfType<AudioManager>().Play("randomPotion");
                 //sd.SetActive(true);
+                transform.GetComponent<SpriteRenderer>().color = new Color(0f, 0.6168f, 1f);
+                isProtectedFromIce = false;
                 isProtectedFromFire = true;
                 protectedFromFireUntil = Time.time + 5;
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.coldDrink, amount = 1 });
@@ -429,6 +473,34 @@ public class PlayerMovement : MonoBehaviour
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.rocket, amount = 1 });
                 StartCoroutine(RocketCo());
             }
+
+            if (item.itemType == Item.ItemType.avocado)
+            {
+                FindObjectOfType<AudioManager>().Play("randomPotion");
+                sd.SetActive(true);
+                isProtected = true;
+                protectedUntil = float.MaxValue;
+                speedFactor = 2f;
+                changeSpeedUntil = float.MaxValue;
+                isGlobalLighted = true;
+                Debug.Log("protected = " + protectedUntil);
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.avocado, amount = 1 });
+            }
+            if (item.itemType == Item.ItemType.torch)
+            {
+                FindObjectOfType<AudioManager>().Play("randomPotion");
+                isLocalLighted = true;
+                Debug.Log("isLocalLighted = " + isLocalLighted);
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.torch, amount = 1 });
+            }
+            if (item.itemType == Item.ItemType.sun)
+            {
+                FindObjectOfType<AudioManager>().Play("randomPotion");
+                isGlobalLighted = true;
+                Debug.Log("isGlobalLighted = " + isGlobalLighted);
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.sun, amount = 1 });
+            }
+
             if (item.itemType == Item.ItemType.generalsword)
             {
                 if (swordtype != 0)
@@ -703,6 +775,18 @@ public class PlayerMovement : MonoBehaviour
         {
             sd.SetActive(false);
             FindObjectOfType<AudioManager>().Play("hurt");
+            if (isProtectedFromFire)
+            {
+                playerColor = new Color(0f, 0.6168f, 1f);
+            }
+            else if (isProtectedFromIce)
+            {
+                playerColor = new Color(1f, 0.3146f, 0f);
+            }
+            else
+            {
+                playerColor = new Color(1f, 1f, 1f);
+            }
             transform.GetComponent<SpriteRenderer>().color = Color.red;
             currentHealth.runtimeValue -= damage;
             playerHealthSignal.Raise();
@@ -734,10 +818,11 @@ public class PlayerMovement : MonoBehaviour
 
 
             StartCoroutine(KnockCo(rb, knockTime));
-            if (transform.GetComponent<SpriteRenderer>().color == playerColor)
-            {
-                StartCoroutine(ChangeColorCo());
-            }
+            //playerColor = transform.GetComponent<SpriteRenderer>().color;
+            //if (transform.GetComponent<SpriteRenderer>().color == playerColor)
+            //{
+            StartCoroutine(ChangeColorCo());
+            //}
 
         }
         else
@@ -854,6 +939,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 sd.SetActive(false);
                 FindObjectOfType<AudioManager>().Play("hurt");
+                //playerColor = transform.GetComponent<SpriteRenderer>().color;
+                if(isProtectedFromFire)
+                {
+                    playerColor = new Color(0f, 0.6168f, 1f);
+                } else if(isProtectedFromIce)
+                {
+                    playerColor = new Color(1f, 0.3146f, 0f);
+                } else
+                {
+                    playerColor = new Color(1f, 1f, 1f);
+                }
                 transform.GetComponent<SpriteRenderer>().color = Color.red;
                 currentHealth.runtimeValue -= 1f;
                 playerHealthSignal.Raise();
@@ -907,6 +1003,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 //sd.SetActive(false);
                 FindObjectOfType<AudioManager>().Play("hurt");
+                if (isProtectedFromFire)
+                {
+                    playerColor = new Color(0f, 0.6168f, 1f);
+                }
+                else if (isProtectedFromIce)
+                {
+                    playerColor = new Color(1f, 0.3146f, 0f);
+                }
                 transform.GetComponent<SpriteRenderer>().color = Color.red;
                 currentHealth.runtimeValue -= 1f;
                 playerHealthSignal.Raise();
@@ -955,12 +1059,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 //sd.SetActive(false);
                 FindObjectOfType<AudioManager>().Play("hurt");
+                
+                if (isProtectedFromIce)
+                {
+                    playerColor = new Color(1f, 0.3146f, 0f);
+                }
                 transform.GetComponent<SpriteRenderer>().color = Color.red;
                 currentHealth.runtimeValue -= 1f;
                 playerHealthSignal.Raise();
                 StartCoroutine(ChangeColorCo());
             }
-            else
+            else if(isProtected)
             {
 
 
@@ -1002,6 +1111,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 //sd.SetActive(false);
                 FindObjectOfType<AudioManager>().Play("hurt");
+                if (isProtectedFromFire)
+                {
+                    playerColor = new Color(0f, 0.6168f, 1f);
+                }
+                
                 transform.GetComponent<SpriteRenderer>().color = Color.cyan;
 
                 currentHealth.runtimeValue -= 1f;
@@ -1010,7 +1124,7 @@ public class PlayerMovement : MonoBehaviour
                 speedFactor = 0.0f;
                 StartCoroutine(ChangeColorCoIce(1.5f));
             }
-            else
+            else if(isProtected)
             {
 
 
@@ -1047,9 +1161,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.CompareTag("bigice") || other.CompareTag("EnemyTag_SlimeIce"))
         {
-            if (!isProtected && !isProtectedFromFire)
+            if (!isProtected && !isProtectedFromIce)
             {
                 sd.SetActive(false);
+                if (isProtectedFromFire)
+                {
+                    playerColor = new Color(0f, 0.6168f, 1f);
+                }
+                
                 transform.GetComponent<SpriteRenderer>().color = Color.cyan;
                 changeSpeedUntil = Time.time + 2;
                 speedFactor = 0f;

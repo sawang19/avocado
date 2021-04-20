@@ -15,6 +15,9 @@ public class Item
         rocket,
         warmDrink,
         coldDrink,
+        torch,
+        sun,
+        avocado,
         generalsword,
         firesword,
         icesword,
@@ -40,6 +43,9 @@ public class Item
             case ItemType.rocket: return ItemAssets.Instance.rocket;
             case ItemType.warmDrink: return ItemAssets.Instance.warmDrink;
             case ItemType.coldDrink: return ItemAssets.Instance.coldDrink;
+            case ItemType.torch: return ItemAssets.Instance.torch;
+            case ItemType.sun: return ItemAssets.Instance.sun;
+            case ItemType.avocado: return ItemAssets.Instance.avocado;
             case ItemType.firesword: return ItemAssets.Instance.firesword;
             case ItemType.generalsword: return ItemAssets.Instance.generalsword;
             case ItemType.icesword: return ItemAssets.Instance.icesword;
@@ -64,6 +70,9 @@ public class Item
             case ItemType.rocket:
             case ItemType.warmDrink:
             case ItemType.coldDrink:
+            case ItemType.torch:
+            case ItemType.sun:
+            case ItemType.avocado:
                 return true;
             case ItemType.firesword:
             case ItemType.icesword:
@@ -87,6 +96,9 @@ public class Item
             case ItemType.rocket:
             case ItemType.warmDrink:
             case ItemType.coldDrink:
+            case ItemType.torch:
+            case ItemType.sun:
+            case ItemType.avocado:
             case ItemType.firesword:
             case ItemType.icesword:
             case ItemType.holysword:

@@ -2257,6 +2257,9 @@ MonoBehaviour:
     type: 3}
   coldDrink: {fileID: 5582523673972277331, guid: 8786d6ae0cbc74310bab640727ac2590,
     type: 3}
+  torch: {fileID: 6160548061187412175, guid: e73b81027c46541e8880a94ca859c74c, type: 3}
+  sun: {fileID: 1640337086680105030, guid: 2375a8ff16d354dc4b39a4f0d1f053c3, type: 3}
+  avocado: {fileID: 6163876136636651604, guid: fd78161231d0f4ded86aa07b92913d13, type: 3}
   firesword: {fileID: 3782180655519252630, guid: 4b965d1abcb5941e884ded0d83ddfa3e,
     type: 3}
   icesword: {fileID: 4362742348081973255, guid: b7cd3f94a3c3b4921aa3dd160e3abf74,
@@ -2278,12 +2281,15 @@ MonoBehaviour:
   shieldNum: 0
   rocketNum: 0
   warmDrinkNum: 0
-  coldDrinkNum: 0
-  fireswordNum: 5
-  iceswordNum: 5
-  holyswordNum: 5
-  magicswordNum: 5
-  reaperNum: 5
+  coldDrinkNum: 20
+  torchNum: 0
+  sunNum: 0
+  avocadoNum: 0
+  fireswordNum: 0
+  iceswordNum: 0
+  holyswordNum: 0
+  magicswordNum: 0
+  reaperNum: 0
   navMeshSurfaces:
   - {fileID: 1077585668}
 --- !u!4 &276668898
@@ -11719,6 +11725,9 @@ MonoBehaviour:
   rocket: {fileID: 21300000, guid: 740d16e36dc7d4072ad299039e1b4ce6, type: 3}
   warmDrink: {fileID: 21300000, guid: ddf8838d0a06d8d4c9dec9e3bed69260, type: 3}
   coldDrink: {fileID: 21300008, guid: ddf8838d0a06d8d4c9dec9e3bed69260, type: 3}
+  torch: {fileID: 21300000, guid: 21be645e2d60344edbf552bd537276fd, type: 3}
+  sun: {fileID: 21300000, guid: 18e30e68a3dd040ab9015af365801332, type: 3}
+  avocado: {fileID: 21300000, guid: d39659b7f637a48d8934d816fd005a5d, type: 3}
   generalsword: {fileID: 1359064148154399791, guid: 656558d5e514427458752351e7adc563,
     type: 3}
   firesword: {fileID: -7573694343354198120, guid: 656558d5e514427458752351e7adc563,
@@ -13856,6 +13865,8 @@ MonoBehaviour:
   protectedUntil: -1
   protectedFromIceUntil: -1
   protectedFromFireUntil: -1
+  isGlobalLighted: 0
+  isLocalLighted: 0
   openDoor: {fileID: 21300000, guid: 71c2aae20a433fc498da71248e974a9c, type: 3}
   switchTrigger: {fileID: 21300000, guid: 93af7b787a2d66e468add73213a37970, type: 3}
   talkToNPC: {fileID: 21300000, guid: c8e927090ec80f74599f34a1441516d2, type: 3}

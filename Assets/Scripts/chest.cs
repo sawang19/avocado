@@ -85,6 +85,18 @@ public class chest : MonoBehaviour
         {
             ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.coldDrink, amount = 1 });
         }
+        else if (item.CompareTag("torch"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.torch, amount = 1 });
+        }
+        else if (item.CompareTag("sun"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.sun, amount = 1 });
+        }
+        else if (item.CompareTag("avocado"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.avocado, amount = 1 });
+        }
         else if (item.CompareTag("item_firesword"))
         {
             ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.firesword, amount = 1 });

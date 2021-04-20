@@ -89,6 +89,9 @@ public class Maze : MonoBehaviour
 	public GameObject rocket;
 	public GameObject warmDrink;
 	public GameObject coldDrink;
+	public GameObject torch;
+	public GameObject sun;
+	public GameObject avocado;
 	public GameObject firesword;
 	public GameObject icesword;
 	public GameObject holysword;
@@ -110,6 +113,9 @@ public class Maze : MonoBehaviour
 	public int rocketNum = 0;
 	public int warmDrinkNum = 0;
 	public int coldDrinkNum = 0;
+	public int torchNum = 0;
+	public int sunNum = 0;
+	public int avocadoNum = 0;
 	public int fireswordNum = 0;
 	public int iceswordNum = 0;
 	public int holyswordNum = 0;
@@ -447,8 +453,8 @@ public class Maze : MonoBehaviour
         //putItems(mazeMapTrf, mage, MAGE, 3);
         //putItems(mazeMapTrf, magef, MAGEF, 3);
         //putItems(mazeMapTrf, magei, MAGEI, 10);
-        //putItems(mazeMapTrf, slime_lava, SLIMELAVA, 5);
-        //putItems(mazeMapTrf, slime_ice, SLIMEICE, 5);
+        putItems(mazeMapTrf, slime_lava, SLIMELAVA, 10);
+        //putItems(mazeMapTrf, slime_ice, SLIMEICE, 10);
 
         putItems(mazeMapTrf, trigger, TRIGGER, 5);
 
@@ -902,6 +908,21 @@ public class Maze : MonoBehaviour
 					{
 						OBJ.GetComponent<chest>().item = coldDrink;
 						coldDrinkNum--;
+					}
+					else if (torchNum > 0)
+					{
+						OBJ.GetComponent<chest>().item = torch;
+						torchNum--;
+					}
+					else if (sunNum > 0)
+					{
+						OBJ.GetComponent<chest>().item = sun;
+						sunNum--;
+					}
+					else if (avocadoNum > 0)
+					{
+						OBJ.GetComponent<chest>().item = avocado;
+						avocadoNum--;
 					}
 					else if(fireswordNum > 0)
                     {

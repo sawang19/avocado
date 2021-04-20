@@ -97,7 +97,7 @@ public class Knockback : MonoBehaviour
 
                     if ((collision.gameObject.CompareTag("Enemies") || collision.gameObject.CompareTag("EnemyTag_Ghost") || collision.gameObject.CompareTag("EnemyTag_SlimeLava")) && collision.isTrigger)
                     {
-                        Debug.Log("You want kill me?");
+                        
                         if (collision.GetComponent<Enemy>().currentState != EnemyState.stagger)
                         {
                             float boost = Component.FindObjectOfType<PlayerMovement>().attackBoost;
