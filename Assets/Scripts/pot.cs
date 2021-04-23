@@ -77,6 +77,10 @@ public class pot : MonoBehaviour
         {
             ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.rocket, amount = 1 });
         }
-        
+        else if (item.CompareTag("torch"))
+        {
+            ItemWorld.SpawnItemWorld(transform.position, new Item { itemType = Item.ItemType.torch, amount = 1 });
+        }
+
     }
 }

@@ -48,6 +48,11 @@ public class GameWin : MonoBehaviour
             PlayerPrefs.SetInt("levels", 3);
             SceneManager.LoadScene("Loading3");
         }
-        
+        else if (PlayerPrefs.GetInt("levels") == 3)
+        {
+            PlayerPrefs.SetInt("levels", 3);
+            SceneManager.LoadScene("credits");
+        }
+
     }
 }

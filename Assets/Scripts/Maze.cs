@@ -425,26 +425,70 @@ public class Maze : MonoBehaviour
 		// Draw door
 		drawDoors(mazeMapTrf, mazeMapX, mazeMapY, renderWalls, offsetY);
 
-        //putItems(mazeMapTrf, key, 2, 5);
-        //putItems(mazeMapTrf, coin, 3, 10);
-        //putItems(mazeMapTrf, boot, 4, 5);
-        //putItems(mazeMapTrf, pot, 5, 1);
-        //putItems(mazeMapTrf, mole, 6, 2);
-        //putItems(mazeMapTrf, npc, 7, 2);
-        //putItems(mazeMapTrf, hpPotion, 8, 5);
-        //putItems(mazeMapTrf, slowPotion, 9, 5);
-        //putItems(mazeMapTrf, trap, 10, 5);
-        //putItems(mazeMapTrf, golem, 11, 5);
-        //putItems(mazeMapTrf, dog, 12, 5);
-        //putItems(mazeMapTrf, ghost, 13, 2);
-        //putItems(mazeMapTrf, door, 14, 5);
-        //ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
-        //ItemWorld.SpawnItemWorld(new Vector3(10, 11), new Item { itemType = Item.ItemType.coins, amount = 1 });
-        //ItemWorld.SpawnItemWorld(new Vector3(10, 12), new Item { itemType = Item.ItemType.keys, amount = 1 });
+		if(PlayerPrefs.GetInt("levels") == 1)
+        {
+			putItems(mazeMapTrf, trigger, TRIGGER, 2);
+			putItems(mazeMapTrf, pot, POT, 30);
+			putItems(mazeMapTrf, chest, CHEST, 20);
+			putItems(mazeMapTrf, trap, TRAP, 10);
+
+			putItems(mazeMapTrf, dog, 12, 5);
+			putItems(mazeMapTrf, golem, 11, 3);
+			putItems(mazeMapTrf, mage, MAGE, 3);
+			putItems(mazeMapTrf, magef, MAGEF, 3);
+			putItems(mazeMapTrf, slime_lava, SLIMELAVA, 5);
+		}
+
+		else if (PlayerPrefs.GetInt("levels") == 2)
+		{
+			putItems(mazeMapTrf, trigger, TRIGGER, 2);
+			putItems(mazeMapTrf, pot, POT, 30);
+			putItems(mazeMapTrf, chest, CHEST, 20);
+			putItems(mazeMapTrf, trap, TRAP, 10);
+
+            putItems(mazeMapTrf, golem, 11, 3);
+            putItems(mazeMapTrf, magei, MAGEI, 3);
+            putItems(mazeMapTrf, slime_ice, SLIMEICE, 10);
+            putItems(mazeMapTrf, ghost, GHOST, 3);
+        }
+
+		else if (PlayerPrefs.GetInt("levels") == 3)
+		{
+			putItems(mazeMapTrf, trigger, TRIGGER, 2);
+			putItems(mazeMapTrf, pot, POT, 30);
+			putItems(mazeMapTrf, chest, CHEST, 20);
+			putItems(mazeMapTrf, trap, TRAP, 10);
+
+			putItems(mazeMapTrf, golem, 11, 2);
+			putItems(mazeMapTrf, redevil, RED, 3);
+			putItems(mazeMapTrf, magei, MAGEI, 3);
+            putItems(mazeMapTrf, mage, MAGE, 3);
+            putItems(mazeMapTrf, magef, MAGEF, 3);
+            putItems(mazeMapTrf, slime_ice, SLIMEICE, 4);
+			putItems(mazeMapTrf, slime_lava, SLIMELAVA, 4);
+			putItems(mazeMapTrf, ghost, GHOST, 2);
+		}
+
+		//putItems(mazeMapTrf, key, 2, 5);
+		//putItems(mazeMapTrf, coin, 3, 10);
+		//putItems(mazeMapTrf, boot, 4, 5);
+		//putItems(mazeMapTrf, pot, 5, 1);
+		//putItems(mazeMapTrf, mole, 6, 2);
+		//putItems(mazeMapTrf, npc, 7, 2);
+		//putItems(mazeMapTrf, hpPotion, 8, 5);
+		//putItems(mazeMapTrf, slowPotion, 9, 5);
+		//putItems(mazeMapTrf, trap, 10, 5);
+		//putItems(mazeMapTrf, golem, 11, 5);
+		//putItems(mazeMapTrf, dog, 12, 5);
+		//putItems(mazeMapTrf, ghost, 13, 5);
+		//putItems(mazeMapTrf, door, 14, 5);
+		//ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
+		//ItemWorld.SpawnItemWorld(new Vector3(10, 11), new Item { itemType = Item.ItemType.coins, amount = 1 });
+		//ItemWorld.SpawnItemWorld(new Vector3(10, 12), new Item { itemType = Item.ItemType.keys, amount = 1 });
 
 
-        //putItems(mazeMapTrf, mole, MOLE, 2);
-        putItems(mazeMapTrf, npc, NPC, 12);
+		//putItems(mazeMapTrf, mole, MOLE, 2);
+		putItems(mazeMapTrf, npc, NPC, 2);
         //putItems(mazeMapTrf, golem, GOLEM, 5);
         //putItems(mazeMapTrf, redevil, RED, 5);
         //putItems(mazeMapTrf, mage, MAGE, 5);
@@ -453,14 +497,14 @@ public class Maze : MonoBehaviour
         //putItems(mazeMapTrf, mage, MAGE, 3);
         //putItems(mazeMapTrf, magef, MAGEF, 3);
         //putItems(mazeMapTrf, magei, MAGEI, 10);
-        putItems(mazeMapTrf, slime_lava, SLIMELAVA, 10);
+        //putItems(mazeMapTrf, slime_lava, SLIMELAVA, 10);
         //putItems(mazeMapTrf, slime_ice, SLIMEICE, 10);
 
-        putItems(mazeMapTrf, trigger, TRIGGER, 5);
+  //      putItems(mazeMapTrf, trigger, TRIGGER, 2);
 
-		putItems(mazeMapTrf, pot, POT, 13);
-		putItems(mazeMapTrf, chest, CHEST, 25);
-		putItems(mazeMapTrf, trap, TRAP, 5);
+		//putItems(mazeMapTrf, pot, POT, 30);
+		//putItems(mazeMapTrf, chest, CHEST, 15);
+		//putItems(mazeMapTrf, trap, TRAP, 10);
 
 
 
@@ -872,18 +916,23 @@ public class Maze : MonoBehaviour
 						OBJ.GetComponent<pot>().item = randomPotion;
 						randomPotionNum--;
 					}
+					else if (hpPotionNum > 0)
+					{
+						OBJ.GetComponent<pot>().item = hpPotion;
+						hpPotionNum--;
+					}
+					else if (torchNum > 0)
+					{
+						OBJ.GetComponent<pot>().item = torch;
+						torchNum--;
+					}
 
 				}
 				else if (mark == CHEST)
 				{
 					GameObject OBJ = Instantiate(obj, position, Quaternion.identity);
 					OBJ.transform.SetParent(grid.transform);
-					if (hpPotionNum > 0)
-					{
-						OBJ.GetComponent<chest>().item = hpPotion;
-						hpPotionNum--;
-					}
-					else if (swordNum > 0)
+					if (swordNum > 0)
 					{
 						OBJ.GetComponent<chest>().item = sword;
 						swordNum--;
@@ -909,11 +958,7 @@ public class Maze : MonoBehaviour
 						OBJ.GetComponent<chest>().item = coldDrink;
 						coldDrinkNum--;
 					}
-					else if (torchNum > 0)
-					{
-						OBJ.GetComponent<chest>().item = torch;
-						torchNum--;
-					}
+					
 					else if (sunNum > 0)
 					{
 						OBJ.GetComponent<chest>().item = sun;

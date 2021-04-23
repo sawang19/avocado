@@ -36,7 +36,7 @@ public class ghost : Enemy
     public int spottedFrame = -100;
     public int showurself = 250;
     public float slowspeedfactor = 0.2f;
-    public float ghostspeed = 10.0f;
+    public float ghostspeed = 1f;
     public bool sawbyplayer;
     //public UnityEngine.Experimental.Rendering.Universal.Light2D fieldofview;
     void Start()
@@ -50,7 +50,7 @@ public class ghost : Enemy
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        agent.speed = 3.0f;
+        agent.speed = 1f;
         startwaitTime = 3f;
         mole_maze = Maze.mazeMap;
         waitTime = startwaitTime;

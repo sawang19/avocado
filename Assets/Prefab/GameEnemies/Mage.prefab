@@ -277,7 +277,7 @@ MonoBehaviour:
   target: {fileID: 0}
   agent: {fileID: 0}
   enemyHealth: {fileID: 11400000, guid: 94193b09fe6ba4b0e9263282f9013c8a, type: 2}
-  viewradius: 10
+  viewradius: 8
   step: 15
   viewangle: 90
   findplayer: 0

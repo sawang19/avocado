@@ -330,7 +330,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.011103809, y: -0.21218824}
+  m_Offset: {x: 0.011103809, y: -0.19496435}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.4842396, y: 0.4684792}
@@ -341,7 +341,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3704971, y: 1.1986737}
+  m_Size: {x: 1.3704971, y: 1.2331215}
   m_EdgeRadius: 0
 --- !u!114 &5857719942830880535
 MonoBehaviour:
@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  maxHealth: {fileID: 11400000, guid: d8e8b0a0853d948718076d7e150fc9db, type: 2}
+  maxHealth: {fileID: 11400000, guid: 458f7f7543f9a49db9a84d8e5b4a7794, type: 2}
   health: 0
   enemyName: 
   baseAttack: 1
@@ -407,7 +407,7 @@ MonoBehaviour:
   animator: {fileID: 5857719942830880556}
   target: {fileID: 0}
   agent: {fileID: 0}
-  enemyHealth: {fileID: 11400000, guid: d8e8b0a0853d948718076d7e150fc9db, type: 2}
+  enemyHealth: {fileID: 11400000, guid: 458f7f7543f9a49db9a84d8e5b4a7794, type: 2}
   viewradius: 10
   step: 15
   findplayer: 0

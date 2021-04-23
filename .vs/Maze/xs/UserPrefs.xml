@@ -1,21 +1,26 @@
 ﻿<Properties StartupConfiguration="{203E294F-6A57-B963-05D6-83EB30201135}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Dog.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="425" Column="34" IsPinned="True" />
-      <File FileName="Assets/Scripts/InventoryBar/ItemAssets.cs" Line="24" Column="32" IsPinned="True" />
-      <File FileName="Assets/Scripts/Maze.cs" Line="898" Column="14" />
-      <File FileName="Assets/Scripts/Knockback.cs" Line="228" Column="1" />
+      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="789" Column="14" IsPinned="True" />
+      <File FileName="Assets/Scripts/InventoryBar/ItemAssets.cs" Line="32" Column="26" IsPinned="True" />
+      <File FileName="Assets/Scripts/Maze.cs" Line="459" Column="51" />
+      <File FileName="Assets/Scripts/Knockback.cs" Line="100" Column="25" />
       <File FileName="Assets/Scripts/pot.cs" />
-      <File FileName="Assets/Scripts/chest.cs" Line="90" Column="119" />
-      <File FileName="Assets/Scripts/InventoryBar/Item.cs" Line="78" Column="40" />
+      <File FileName="Assets/Scripts/chest.cs" Line="99" Column="10" />
+      <File FileName="Assets/Scripts/InventoryBar/Item.cs" Line="101" Column="35" />
       <File FileName="Assets/Scripts/Menu.cs" />
       <File FileName="Assets/Scripts/SliderControl.cs" />
       <File FileName="Assets/Scripts/iceandfire.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/slime_ice.cs" Line="453" Column="97" />
       <File FileName="Assets/Scripts/ghost.cs" Line="363" Column="6" />
-      <File FileName="Assets/Scripts/InventoryBar/Inventory.cs" Line="67" Column="25" />
-      <File FileName="Assets/Scripts/ItemWorld.cs" Line="34" Column="46" />
-      <File FileName="Assets/Scripts/InventoryBar/UI_Inventory.cs" Line="76" Column="52" />
+      <File FileName="Assets/Scripts/InventoryBar/Inventory.cs" Line="80" Column="14" />
+      <File FileName="Assets/Scripts/ItemWorld.cs" Line="38" Column="36" />
+      <File FileName="Assets/Scripts/InventoryBar/UI_Inventory.cs" Line="80" Column="58" />
+      <File FileName="Assets/Scripts/ending.cs" Line="4" Column="35" />
+      <File FileName="Assets/Scripts/GameWin.cs" Line="54" Column="47" />
+      <File FileName="Assets/Scripts/teamLogo.cs" Line="107" Column="6" />
+      <File FileName="Assets/Scripts/credits.cs" Line="6" Column="21" />
+      <File FileName="Assets/Scripts/Dog.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,7 +32,7 @@
               </Node>
               <Node name="Scripts" expanded="True">
                 <Node name="InventoryBar" expanded="True" />
-                <Node name="PlayerMovement.cs" selected="True" />
+                <Node name="Dog.cs" selected="True" />
               </Node>
             </Node>
           </Node>

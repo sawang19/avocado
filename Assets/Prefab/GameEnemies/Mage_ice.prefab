@@ -240,14 +240,14 @@ MonoBehaviour:
   moveSpeed: 3
   deathEffect: {fileID: 17066326864366759, guid: 2d1cc06cb61704faaab7799a22d5c466,
     type: 3}
-  chaseRadius: 10
+  chaseRadius: 8
   attackRadius: 6
   homePosition: {fileID: 0}
   animator: {fileID: 3665186213010888994}
   target: {fileID: 0}
   agent: {fileID: 0}
   enemyHealth: {fileID: 11400000, guid: 94193b09fe6ba4b0e9263282f9013c8a, type: 2}
-  viewradius: 10
+  viewradius: 8
   step: 15
   viewangle: 90
   findplayer: 0

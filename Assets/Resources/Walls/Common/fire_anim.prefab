@@ -54,7 +54,7 @@ MonoBehaviour:
   m_UseNormalMap: 1
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0.5
+  m_ShadowIntensity: 0
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
@@ -187,3 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a451848e547a49d7a2c83d9d3597550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TL: {fileID: 0}
+  tl: {fileID: 0}
+  BL: {fileID: 0}
+  bl: {fileID: 0}

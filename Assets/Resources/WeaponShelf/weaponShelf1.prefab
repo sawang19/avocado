@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5559590420885930551}
   - component: {fileID: 5344186192324703210}
   - component: {fileID: -8474240822553257615}
-  - component: {fileID: 4294327462803483371}
+  - component: {fileID: 6385089148865566566}
   m_Layer: 0
   m_Name: weaponShelf1
   m_TagString: Untagged
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!114 &4294327462803483371
+--- !u!114 &6385089148865566566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,10 +167,10 @@ MonoBehaviour:
   m_SelfShadows: 0
   m_ApplyToSortingLayers: 0000000059034926
   m_ShapePath:
-  - {x: -0.96437836, y: -0.95725393, z: 0}
-  - {x: 0.96437824, y: -0.96437824, z: 0}
-  - {x: 0.97150254, y: 0.22344643, z: 0}
-  - {x: -0.9643782, y: 0.230571, z: 0}
-  m_ShapePathHash: -1447474278
+  - {x: -0.96651, y: -0.96651, z: 0}
+  - {x: 0.9553464, y: -1, z: 0}
+  - {x: 0.96650964, y: 0.24089251, z: 0}
+  - {x: -0.95534676, y: 0.252056, z: 0}
+  m_ShapePathHash: -39725423
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1155552
+  m_InstanceId: -584904

@@ -42,6 +42,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene_useless.unity
     guid: e84500233258d4b16b72bfe846247359
   - enabled: 1
+    path: Assets/Scenes/credits.unity
+    guid: 7f0e53c1e4693465485768cc73687ce9
+  - enabled: 1
     path: Assets/Scenes/Levels.unity
     guid: ef9cc20bcd76e4ffd8a0e79513886c97
   m_configObjects: {}

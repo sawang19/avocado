@@ -49,7 +49,7 @@ public class Dog : Enemy
         spriteRenderer = GetComponent<SpriteRenderer>();
         viewradius = 8.0f;
         FOV = 30;
-        dog_speed = 8.0f;
+        dog_speed = 3f;
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;

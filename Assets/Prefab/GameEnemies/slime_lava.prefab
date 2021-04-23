@@ -208,7 +208,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.1
-  m_Speed: 2
+  m_Speed: 1
   m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0.5
+  m_ShadowIntensity: 0
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
@@ -281,14 +281,14 @@ MonoBehaviour:
   moveSpeed: 0
   deathEffect: {fileID: 17066326864366759, guid: 2d1cc06cb61704faaab7799a22d5c466,
     type: 3}
-  chaseRadius: 8
+  chaseRadius: 6
   attackRadius: 0
   homePosition: {fileID: 0}
   animator: {fileID: 1893180445508793849}
   target: {fileID: 0}
   agent: {fileID: 0}
   enemyHealth: {fileID: 11400000, guid: 827ed151b17e94cdcbd3bc3882030393, type: 2}
-  viewradius: 10
+  viewradius: 6
   step: 15
   findplayer: 0
   startwaitTime: 0

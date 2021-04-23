@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2272,24 +2272,24 @@ MonoBehaviour:
   spikePrefabs: []
   trigger: {fileID: 8405137196835090467, guid: 55ed9554b06d9424da89c366931ff11c, type: 3}
   triggerList: []
-  keyNum: 13
-  coinNum: 0
-  bootNum: 3
-  hpPotionNum: 0
-  randomPotionNum: 0
-  swordNum: 0
-  shieldNum: 0
-  rocketNum: 0
+  keyNum: 3
+  coinNum: 12
+  bootNum: 5
+  hpPotionNum: 5
+  randomPotionNum: 5
+  swordNum: 1
+  shieldNum: 3
+  rocketNum: 3
   warmDrinkNum: 0
-  coldDrinkNum: 0
-  torchNum: 20
+  coldDrinkNum: 4
+  torchNum: 0
   sunNum: 0
-  avocadoNum: 0
-  fireswordNum: 0
-  iceswordNum: 0
-  holyswordNum: 0
-  magicswordNum: 0
-  reaperNum: 0
+  avocadoNum: 1
+  fireswordNum: 1
+  iceswordNum: 1
+  holyswordNum: 1
+  magicswordNum: 1
+  reaperNum: 1
   navMeshSurfaces:
   - {fileID: 1077585668}
 --- !u!4 &276668898
@@ -13830,6 +13830,7 @@ MonoBehaviour:
   speedFactor: 1
   attackBoost: 1
   changeSpeedUntil: -1
+  changeLightUntil: -1
   rb: {fileID: 1899823002}
   animator: {fileID: 1899823006}
   youwin: {fileID: 740874195}
@@ -115446,7 +115447,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: x 100
+  m_Text: x 30
 --- !u!1 &2094016954
 GameObject:
   m_ObjectHideFlags: 0

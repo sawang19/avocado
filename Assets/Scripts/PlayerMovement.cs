@@ -33,13 +33,14 @@ public class PlayerMovement : MonoBehaviour
     public float speedFactor = 1f;
     public float attackBoost = 1f;
     public float changeSpeedUntil = -1f;
+    public float changeLightUntil = -1f;
 
     public Rigidbody2D rb;
     Vector3 movement;
     public Animator animator;
 
     public static int keys = 0;
-    public static int coins = 100;
+    public static int coins = 30;
     public static int boots = 0;
 
     public Text youwin;
@@ -325,6 +326,20 @@ public class PlayerMovement : MonoBehaviour
                 sd.SetActive(false);
             }
 
+            if(BL.intensity < 1)
+            {
+                sl.SetActive(true);
+            } else
+            {
+                sl.SetActive(false);
+            }
+
+            if(Time.time > changeLightUntil)
+            {
+                SL.pointLightInnerRadius = 1.2f;
+                SL.pointLightOuterRadius = 3f;
+            }
+
         }
 
 
@@ -407,7 +422,7 @@ public class PlayerMovement : MonoBehaviour
                 FindObjectOfType<AudioManager>().Play("hpPotion");
                 if (currentHealth.runtimeValue != currentHealth.initialValue)
                 {
-                    currentHealth.runtimeValue += 1;
+                    currentHealth.runtimeValue += 4;
                 }
 
                 playerHealthSignal.Raise();
@@ -490,6 +505,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 FindObjectOfType<AudioManager>().Play("randomPotion");
                 isLocalLighted = true;
+                changeLightUntil = Time.time + 20;
+                if(PlayerPrefs.GetInt("levels") == 2)
+                {
+                    SL.pointLightInnerRadius = 2f;
+                    SL.pointLightOuterRadius = 5f;
+                } else if(PlayerPrefs.GetInt("levels") == 3)
+                {
+                    SL.pointLightInnerRadius = 2f;
+                    SL.pointLightOuterRadius = 6f;
+                }
+                
                 Debug.Log("isLocalLighted = " + isLocalLighted);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.torch, amount = 1 });
             }
@@ -497,6 +523,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 FindObjectOfType<AudioManager>().Play("randomPotion");
                 isGlobalLighted = true;
+                BL.intensity = 2f;
                 Debug.Log("isGlobalLighted = " + isGlobalLighted);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.sun, amount = 1 });
             }

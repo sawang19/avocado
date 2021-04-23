@@ -142,6 +142,8 @@
     <Compile Include="Assets\Scripts\bullet_p4.cs" />
     <Compile Include="Assets\Scripts\bullet_p5.cs" />
     <Compile Include="Assets\Scripts\chest.cs" />
+    <Compile Include="Assets\Scripts\credits.cs" />
+    <Compile Include="Assets\Scripts\ending.cs" />
     <Compile Include="Assets\Scripts\ghost.cs" />
     <Compile Include="Assets\Scripts\golem.cs" />
     <Compile Include="Assets\Scripts\iceandfire.cs" />

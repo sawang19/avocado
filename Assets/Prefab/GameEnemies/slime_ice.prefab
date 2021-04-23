@@ -208,7 +208,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.1
-  m_Speed: 2
+  m_Speed: 1
   m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0.5
+  m_ShadowIntensity: 0
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
@@ -288,7 +288,7 @@ MonoBehaviour:
   target: {fileID: 0}
   agent: {fileID: 0}
   enemyHealth: {fileID: 11400000, guid: 827ed151b17e94cdcbd3bc3882030393, type: 2}
-  viewradius: 8
+  viewradius: 6
   step: 15
   findplayer: 0
   startwaitTime: 0

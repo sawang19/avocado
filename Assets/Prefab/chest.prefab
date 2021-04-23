@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3816892003826890574}
   - component: {fileID: 1385134883532991662}
   - component: {fileID: 7423408262916940454}
-  - component: {fileID: 6741997127326077071}
+  - component: {fileID: 7484635554429213494}
   m_Layer: 0
   m_Name: chest
   m_TagString: chest
@@ -183,7 +183,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6741997127326077071
+--- !u!114 &7484635554429213494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,4 +208,4 @@ MonoBehaviour:
   - {x: -0.5, y: 0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1154864
+  m_InstanceId: -584274
