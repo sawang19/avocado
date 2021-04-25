@@ -74,14 +74,14 @@ public class bullet_ice : MonoBehaviour
 
         }
         GameObject effect = Instantiate(impactEffect, transform.position, transform.rotation);
-        int x = Random.Range(0, 3);
+        int x = Random.Range(0, 10);
         Destroy(gameObject);
 
-        if(x == 0)
+        if(x == 1)
         {
             GameObject ieffect = Instantiate(iceEffect, transform.position, transform.rotation);
-            Destroy(effect, 3f);
-            Destroy(ieffect, 5f);
+            Destroy(effect, 1.5f);
+            Destroy(ieffect, 1.5f);
         }
         
 

@@ -97,7 +97,7 @@ public class ghost : Enemy
         if (spriteRenderer.enabled == true)
         {
             sawbyplayer = GameObject.Find("Player").GetComponent<PlayerMovement>().seetheghost;
-            Debug.Log("chekc it: " + sawbyplayer);
+            //Debug.Log("chekc it: " + sawbyplayer);
 
             if (sawbyplayer)
             {
@@ -149,7 +149,7 @@ public class ghost : Enemy
                     ChangeAnim();
                     ChangeState(EnemyState.walk);
                     animator.SetBool("Walking", true);
-                    Debug.Log("Change!");
+                    //Debug.Log("Change!");
                 }
                 else
                 {
@@ -158,7 +158,7 @@ public class ghost : Enemy
                     ChangeAnim();
                     agent.speed = 1f;
                     waitTime -= Time.deltaTime;
-                    Debug.Log("Wait time: " + waitTime);
+                    //Debug.Log("Wait time: " + waitTime);
                 }
 
             }
@@ -178,7 +178,7 @@ public class ghost : Enemy
 
             //fieldofview.enabled = false;
             sawbyplayer = GameObject.Find("Player").GetComponent<PlayerMovement>().seetheghost;
-            Debug.Log("chekc it: " + sawbyplayer);
+            //Debug.Log("chekc it: " + sawbyplayer);
             //Debug.Log("Player x: " + target.position.x);
             //Debug.Log("Player y: " + target.position.y);
             

@@ -453,7 +453,7 @@ public class slime_ice : Enemy
             GameObject ieffect = Instantiate(iceEffect, transform.position, transform.rotation);
             
             Destroy(gameObject);
-            Destroy(ieffect, 10f);
+            Destroy(ieffect, 3f);
         }
     }
 }

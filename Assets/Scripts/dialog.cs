@@ -21,6 +21,15 @@ namespace Subtegral.DialogueSystem.Runtime
         private int SHIELD = 3;
         private int ROCKET = 4;
         private int BOOTS = 5;
+        private int COLD_DRINK = 6;
+        private int WARM_DRINK = 7;
+        private int SUN = 8;
+        private int TORCH = 9;
+        private int FIRE_SWORD = 10;
+        private int ICE_SWORD = 11;
+        private int REAPER = 12;
+        private int MAGIC_SWORD = 13;
+        private int SACRE_SWORD = 14;
 
         public PlayerMovement playerMovement;
 
@@ -75,8 +84,42 @@ namespace Subtegral.DialogueSystem.Runtime
                 }else if (isItem == BOOTS)
                 {
                     button.onClick.AddListener(() => ProceedToTrading(BOOTS));
+                }else if (isItem == COLD_DRINK)
+                {
+                    button.onClick.AddListener(() => ProceedToTrading(COLD_DRINK));
                 }
-                
+                else if (isItem == WARM_DRINK)
+                {
+                    button.onClick.AddListener(() => ProceedToTrading(WARM_DRINK));
+                }
+                else if (isItem == SUN)
+                {
+                    button.onClick.AddListener(() => ProceedToTrading(SUN));
+                }
+                else if (isItem == TORCH)
+                {
+                    button.onClick.AddListener(() => ProceedToTrading(TORCH));
+                }
+                else if (isItem == FIRE_SWORD)
+                {
+                    button.onClick.AddListener(() => ProceedToTrading(FIRE_SWORD));
+                }
+                else if (isItem == ICE_SWORD)
+                {
+                    button.onClick.AddListener(() => ProceedToTrading(ICE_SWORD));
+                }
+                else if (isItem == REAPER)
+                {
+                    button.onClick.AddListener(() => ProceedToTrading(REAPER));
+                }
+                else if (isItem == MAGIC_SWORD)
+                {
+                    button.onClick.AddListener(() => ProceedToTrading(MAGIC_SWORD));
+                }
+                else if (isItem == SACRE_SWORD)
+                {
+                    button.onClick.AddListener(() => ProceedToTrading(SACRE_SWORD));
+                }
 
             }
 
@@ -126,6 +169,43 @@ namespace Subtegral.DialogueSystem.Runtime
             {
                 return BOOTS;
             }
+            else if (title == "Do you wanna buy cold drink?")
+            {
+                return COLD_DRINK;
+            }
+            else if (title == "Do you wanna buy warm drink?")
+            {
+                return WARM_DRINK;
+            }
+            else if (title == "Do you wanna buy sun?")
+            {
+                return SUN;
+            }
+            else if (title == "Do you wanna buy torch?")
+            {
+                return TORCH;
+            }
+            else if (title == "Do you wanna buy fire sword?")
+            {
+                return FIRE_SWORD;
+            }
+            else if (title == "Do you wanna buy ice sword?")
+            {
+                return ICE_SWORD;
+            }
+            else if (title == "Do you wanna buy reaper?")
+            {
+                return REAPER;
+            }
+            else if (title == "Do you wanna buy magic sword?")
+            {
+                return MAGIC_SWORD;
+            }
+            else if (title == "Do you wanna buy sacre sword?")
+            {
+                return SACRE_SWORD;
+            }
+
             return 0;
         }
 

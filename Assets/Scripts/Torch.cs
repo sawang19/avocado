@@ -12,13 +12,19 @@ public class Torch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tl = GameObject.Find("torchlight");
-        TL = tl.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
+        //tl = GameObject.Find("torchlight");
+        //TL = tl.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         bl = GameObject.Find("backgroundlight");
         BL = bl.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
-        if (BL.intensity >= 2f)
+        if (BL.intensity == 2f)
         {
-            tl.SetActive(false);
+            TL.intensity = 0f;
+            //tl2.SetActive(false);
+        }
+        else if (BL.intensity == 0f)
+        {
+            TL.intensity = 3f;
+            //tl2.SetActive(true);
         }
 
     }
@@ -28,11 +34,13 @@ public class Torch : MonoBehaviour
     {
         if (BL.intensity >= 2f)
         {
-            tl.SetActive(false);
+            //tl.SetActive(false);
+            TL.intensity = 0f;
         }
         else if (BL.intensity < 1f)
         {
-            tl.SetActive(true);
+            //tl.SetActive(true);
+            TL.intensity = 3f;
         }
     }
 }

@@ -468,7 +468,7 @@ public class golem : Enemy
         }
         else if (Mathf.Abs(agent.velocity.x) == 0 && Mathf.Abs(agent.velocity.y) == 0)
         {
-            Debug.Log(originaldir);
+            //Debug.Log(originaldir);
             if (Mathf.Abs(target.position.x - transform.position.x) < Mathf.Abs(target.position.y - transform.position.y))
             {
                 if(target.position.y > transform.position.y)

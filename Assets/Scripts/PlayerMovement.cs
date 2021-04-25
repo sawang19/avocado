@@ -68,7 +68,10 @@ public class PlayerMovement : MonoBehaviour
     public bool playerInRangeForTrigger;
 
     public FloatValue currentHealth;
-    public FloatValue enemyHealth;
+    public FloatValue enemyHealth_1;
+    public FloatValue enemyHealth_2;
+    public FloatValue enemyHealth_4;
+    public FloatValue enemyHealth_10;
     public FloatValue moveSpeed;
     public InventoryItem mykeys;
     public InventoryItem myboots;
@@ -105,15 +108,33 @@ public class PlayerMovement : MonoBehaviour
     /// /////////
     /// </new>
     private int POTION_HP = 1;
-    private int POTION_HP_COST = 30;
+    private int POTION_HP_COST = 1;
     private int POTION_RANDOM = 2;
-    private int POTION_RANDOM_COST = 2;
+    private int POTION_RANDOM_COST = 1;
     private int SHIELD = 3;
-    private int SHIELD_COST = 3;
+    private int SHIELD_COST = 5;
     private int ROCKET = 4;
-    private int ROCKET_COST = 4;
+    private int ROCKET_COST = 2;
     private int BOOTS = 5;
-    private int BOOTS_COST = 5;
+    private int BOOTS_COST = 2;
+    private int COLD_DRINK = 6;
+    private int COLD_DRINK_COST = 2;
+    private int WARM_DRINK = 7;
+    private int WARM_DRINK_COST = 2;
+    private int SUN = 8;
+    private int SUN_COST = 5;
+    private int TORCH = 9;
+    private int TORCH_COST = 2;
+    private int FIRE_SWORD = 10;
+    private int FIRE_SWORD_COST = 10;
+    private int ICE_SWORD = 11;
+    private int ICE_SWORD_COST = 10;
+    private int REAPER = 12;
+    private int REAPER_COST = 10;
+    private int MAGIC_SWORD = 13;
+    private int MAGIC_SWORD_COST = 15;
+    private int SACRE_SWORD = 14;
+    private int SACRE_SWORD_COST = 15;
 
     //light control
     public UnityEngine.Experimental.Rendering.Universal.Light2D SL;
@@ -154,6 +175,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         currentState = PlayerState.idle;
+        currentHealth.runtimeValue = currentHealth.initialValue;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         InvokeRepeating("BuildMesh", 1.0f, 0.5f);
@@ -168,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
         rocketWorking = false;
         if (PlayerPrefs.GetInt("levels") == 2)
         {
-            Debug.Log("text display");
+            //Debug.Log("text display");
             textDisplay.SetActive(true);
             if(secondsLeft % 60 >= 10)
             {
@@ -199,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
         BL = bl.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         swordtype = 0;
 
-        Debug.Log("player prefs level = " + PlayerPrefs.GetInt("levels"));
+        //Debug.Log("player prefs level = " + PlayerPrefs.GetInt("levels"));
 
         //ItemWorld.SpawnItemWorld(new Vector3(10, 10), new Item { itemType = Item.ItemType.boots, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(10, 13), new Item { itemType = Item.ItemType.coins, amount = 1 });
@@ -240,6 +262,14 @@ public class PlayerMovement : MonoBehaviour
 
             if (PlayerPrefs.GetInt("levels") == 2 && secondsLeft <= 0)
             {
+                currentHealth.runtimeValue = currentHealth.initialValue;
+                enemyHealth_1.runtimeValue = enemyHealth_1.initialValue;
+                enemyHealth_2.runtimeValue = enemyHealth_2.initialValue;
+                enemyHealth_4.runtimeValue = enemyHealth_4.initialValue;
+                enemyHealth_10.runtimeValue = enemyHealth_10.initialValue;
+                //this.gameObject.SetActive(false);
+                animator.SetBool("moving", false);
+                FindObjectOfType<AudioManager>().Play("gameover");
                 GameOverAPI();
             }
 
@@ -308,7 +338,7 @@ public class PlayerMovement : MonoBehaviour
                 isProtectedFromFire = false;
                 //if (transform.GetComponent<SpriteRenderer>().color.Equals(new Color(0f, 0.6168f, 1f)))
                 //{
-                Debug.Log("change color");
+                //Debug.Log("change color");
                 transform.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
                 playerColor = transform.GetComponent<SpriteRenderer>().color;
                 //}
@@ -318,7 +348,7 @@ public class PlayerMovement : MonoBehaviour
             if (Time.time > protectedUntil)
             {
                 isProtected = false;
-                Debug.Log("isProtected is false");
+                //Debug.Log("isProtected is false");
                 //sd.SetActive(false);
             }
             if (Time.time > protectedFromFireUntil && Time.time > protectedFromIceUntil && Time.time > protectedUntil)
@@ -384,7 +414,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerInRangeForTrigger)
         {
-            Debug.Log("trigger");
+            //Debug.Log("trigger");
             foreach (GameObject triggerPrefab in maze.triggerList)
             {
                 triggerPrefab.GetComponent<Animator>().SetBool("switch", true);
@@ -443,7 +473,7 @@ public class PlayerMovement : MonoBehaviour
                 sd.SetActive(true);
                 isProtected = true;
                 protectedUntil = Time.time + 5;
-                Debug.Log("protected = " + protectedUntil);
+                //Debug.Log("protected = " + protectedUntil);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.shield, amount = 1 });
             }
             if (item.itemType == Item.ItemType.warmDrink)
@@ -498,7 +528,7 @@ public class PlayerMovement : MonoBehaviour
                 speedFactor = 2f;
                 changeSpeedUntil = float.MaxValue;
                 isGlobalLighted = true;
-                Debug.Log("protected = " + protectedUntil);
+                //Debug.Log("protected = " + protectedUntil);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.avocado, amount = 1 });
             }
             if (item.itemType == Item.ItemType.torch)
@@ -516,7 +546,7 @@ public class PlayerMovement : MonoBehaviour
                     SL.pointLightOuterRadius = 6f;
                 }
                 
-                Debug.Log("isLocalLighted = " + isLocalLighted);
+                //Debug.Log("isLocalLighted = " + isLocalLighted);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.torch, amount = 1 });
             }
             if (item.itemType == Item.ItemType.sun)
@@ -524,7 +554,7 @@ public class PlayerMovement : MonoBehaviour
                 FindObjectOfType<AudioManager>().Play("randomPotion");
                 isGlobalLighted = true;
                 BL.intensity = 2f;
-                Debug.Log("isGlobalLighted = " + isGlobalLighted);
+                //Debug.Log("isGlobalLighted = " + isGlobalLighted);
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.sun, amount = 1 });
             }
 
@@ -581,7 +611,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool BuyItem(int item)
     {
-        Debug.Log("suc");
         if (item == POTION_HP)
         {
             if (POTION_HP_COST > coins)
@@ -634,6 +663,97 @@ public class PlayerMovement : MonoBehaviour
             coins -= ROCKET_COST;
             coinNum.text = "x " + coins;
             inventory.AddItem(new Item { itemType = Item.ItemType.rocket, amount = 1 });
+        }
+        else if (item == COLD_DRINK)
+        {
+            if (COLD_DRINK_COST > coins)
+            {
+                return false;
+            }
+            coins -= COLD_DRINK_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.coldDrink, amount = 1 });
+        }
+        else if (item == WARM_DRINK)
+        {
+            if (WARM_DRINK_COST > coins)
+            {
+                return false;
+            }
+            coins -= WARM_DRINK_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.warmDrink, amount = 1 });
+        }
+        else if (item == SUN)
+        {
+            if (SUN_COST > coins)
+            {
+                return false;
+            }
+            coins -= SUN_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.sun, amount = 1 });
+        }
+        else if (item == TORCH)
+        {
+            if (TORCH_COST > coins)
+            {
+                return false;
+            }
+            coins -= TORCH_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.torch, amount = 1 });
+        }
+        else if (item == FIRE_SWORD)
+        {
+            if (FIRE_SWORD_COST > coins)
+            {
+                return false;
+            }
+            coins -= FIRE_SWORD_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.firesword, amount = 1 });
+        }
+        else if (item == ICE_SWORD)
+        {
+            if (ICE_SWORD_COST > coins)
+            {
+                return false;
+            }
+            coins -= ICE_SWORD_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.icesword, amount = 1 });
+        }
+        else if (item == REAPER)
+        {
+            if (REAPER_COST > coins)
+            {
+                return false;
+            }
+            coins -= REAPER_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.reaper, amount = 1 });
+        }
+        else if (item == MAGIC_SWORD)
+        {
+            if (MAGIC_SWORD_COST > coins)
+            {
+                return false;
+            }
+            coins -= MAGIC_SWORD_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.magicsword, amount = 1 });
+
+        }
+        else if (item == SACRE_SWORD)
+        {
+            if (SACRE_SWORD_COST > coins)
+            {
+                return false;
+            }
+            coins -= SACRE_SWORD_COST;
+            coinNum.text = "x " + coins;
+            inventory.AddItem(new Item { itemType = Item.ItemType.generalsword, amount = 1 });
         }
 
         return true;
@@ -856,7 +976,10 @@ public class PlayerMovement : MonoBehaviour
         {
 
             currentHealth.runtimeValue = currentHealth.initialValue;
-            enemyHealth.runtimeValue = enemyHealth.initialValue;
+            enemyHealth_1.runtimeValue = enemyHealth_1.initialValue;
+            enemyHealth_2.runtimeValue = enemyHealth_2.initialValue;
+            enemyHealth_4.runtimeValue = enemyHealth_4.initialValue;
+            enemyHealth_10.runtimeValue = enemyHealth_10.initialValue;
             //this.gameObject.SetActive(false);
             animator.SetBool("moving", false);
             FindObjectOfType<AudioManager>().Play("gameover");
@@ -890,7 +1013,10 @@ public class PlayerMovement : MonoBehaviour
             {
 
                 currentHealth.runtimeValue = currentHealth.initialValue;
-                enemyHealth.runtimeValue = enemyHealth.initialValue;
+                enemyHealth_1.runtimeValue = enemyHealth_1.initialValue;
+                enemyHealth_2.runtimeValue = enemyHealth_2.initialValue;
+                enemyHealth_4.runtimeValue = enemyHealth_4.initialValue;
+                enemyHealth_10.runtimeValue = enemyHealth_10.initialValue;
                 animator.SetBool("moving", false);
                 FindObjectOfType<AudioManager>().Play("gameover");
                 GameOverAPI();
@@ -960,7 +1086,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Spike"))
         {
 
-            Debug.Log("spike: " + protectedUntil);
+            //Debug.Log("spike: " + protectedUntil);
 
             if (!isProtected)
             {
@@ -1014,7 +1140,10 @@ public class PlayerMovement : MonoBehaviour
             {
 
                 currentHealth.runtimeValue = currentHealth.initialValue;
-                enemyHealth.runtimeValue = enemyHealth.initialValue;
+                enemyHealth_1.runtimeValue = enemyHealth_1.initialValue;
+                enemyHealth_2.runtimeValue = enemyHealth_2.initialValue;
+                enemyHealth_4.runtimeValue = enemyHealth_4.initialValue;
+                enemyHealth_10.runtimeValue = enemyHealth_10.initialValue;
                 animator.SetBool("moving", false);
                 FindObjectOfType<AudioManager>().Play("gameover");
                 GameOverAPI();
@@ -1070,7 +1199,10 @@ public class PlayerMovement : MonoBehaviour
             {
 
                 currentHealth.runtimeValue = currentHealth.initialValue;
-                enemyHealth.runtimeValue = enemyHealth.initialValue;
+                enemyHealth_1.runtimeValue = enemyHealth_1.initialValue;
+                enemyHealth_2.runtimeValue = enemyHealth_2.initialValue;
+                enemyHealth_4.runtimeValue = enemyHealth_4.initialValue;
+                enemyHealth_10.runtimeValue = enemyHealth_10.initialValue;
                 animator.SetBool("moving", false);
                 FindObjectOfType<AudioManager>().Play("gameover");
                 GameOverAPI();
@@ -1122,7 +1254,10 @@ public class PlayerMovement : MonoBehaviour
             {
 
                 currentHealth.runtimeValue = currentHealth.initialValue;
-                enemyHealth.runtimeValue = enemyHealth.initialValue;
+                enemyHealth_1.runtimeValue = enemyHealth_1.initialValue;
+                enemyHealth_2.runtimeValue = enemyHealth_2.initialValue;
+                enemyHealth_4.runtimeValue = enemyHealth_4.initialValue;
+                enemyHealth_10.runtimeValue = enemyHealth_10.initialValue;
                 animator.SetBool("moving", false);
                 FindObjectOfType<AudioManager>().Play("gameover");
                 GameOverAPI();
@@ -1178,7 +1313,10 @@ public class PlayerMovement : MonoBehaviour
             {
 
                 currentHealth.runtimeValue = currentHealth.initialValue;
-                enemyHealth.runtimeValue = enemyHealth.initialValue;
+                enemyHealth_1.runtimeValue = enemyHealth_1.initialValue;
+                enemyHealth_2.runtimeValue = enemyHealth_2.initialValue;
+                enemyHealth_4.runtimeValue = enemyHealth_4.initialValue;
+                enemyHealth_10.runtimeValue = enemyHealth_10.initialValue;
                 animator.SetBool("moving", false);
                 FindObjectOfType<AudioManager>().Play("gameover");
                 GameOverAPI();

@@ -432,12 +432,12 @@ public class Maze : MonoBehaviour
 			putItems(mazeMapTrf, chest, CHEST, 20);
 			putItems(mazeMapTrf, trap, TRAP, 10);
 
-			putItems(mazeMapTrf, dog, 12, 5);
-			putItems(mazeMapTrf, golem, 11, 3);
-			putItems(mazeMapTrf, mage, MAGE, 3);
-			putItems(mazeMapTrf, magef, MAGEF, 3);
-			putItems(mazeMapTrf, slime_lava, SLIMELAVA, 5);
-		}
+            putItems(mazeMapTrf, dog, 12, 5);
+            putItems(mazeMapTrf, golem, 11, 3);
+            putItems(mazeMapTrf, mage, MAGE, 3);
+            putItems(mazeMapTrf, magef, MAGEF, 3);
+            putItems(mazeMapTrf, slime_lava, SLIMELAVA, 5);
+        }
 
 		else if (PlayerPrefs.GetInt("levels") == 2)
 		{

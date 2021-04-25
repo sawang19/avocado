@@ -28,4 +28,10 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MenuScene");
     }
 
+    public void SetVolume(float volume)
+    {
+        PlayerPrefs.SetFloat("Volume", volume);
+        AudioListener.volume = PlayerPrefs.GetFloat("Volume");
+    }
+
 }

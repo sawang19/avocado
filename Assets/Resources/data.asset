@@ -52,12 +52,6 @@ MonoBehaviour:
   - BaseNodeGUID: f29c46e9-eec4-44a1-ac3a-581d4fe96501
     PortName: no
     TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
-  - BaseNodeGUID: 96ef141c-3004-487c-9fc2-4f4edd5ecf0a
-    PortName: yes
-    TargetNodeGUID: b81b2256-0074-4c71-8c82-41bf07c47bf1
-  - BaseNodeGUID: 96ef141c-3004-487c-9fc2-4f4edd5ecf0a
-    PortName: no
-    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
   - BaseNodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
     PortName: yes
     TargetNodeGUID: 3f2d0fab-5bdb-4c0b-ac4a-79ff22d5618f
@@ -70,6 +64,93 @@ MonoBehaviour:
   - BaseNodeGUID: bb37bcb3-a05c-4d51-a895-815807931410
     PortName: no
     TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: 96ef141c-3004-487c-9fc2-4f4edd5ecf0a
+    PortName: yes
+    TargetNodeGUID: b81b2256-0074-4c71-8c82-41bf07c47bf1
+  - BaseNodeGUID: 96ef141c-3004-487c-9fc2-4f4edd5ecf0a
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: 6f64be36-0321-432f-8f82-de09bff4aaff
+    PortName: yes
+    TargetNodeGUID: 287c7cb1-a301-4ecb-a73b-74186c55d95f
+  - BaseNodeGUID: 6f64be36-0321-432f-8f82-de09bff4aaff
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: ' cold drink'
+    TargetNodeGUID: 6f64be36-0321-432f-8f82-de09bff4aaff
+  - BaseNodeGUID: 423a2de3-0db9-49b2-8ba0-0007a3292de7
+    PortName: yes
+    TargetNodeGUID: 68206124-3f3b-49ee-b457-4e4b81de61ed
+  - BaseNodeGUID: 423a2de3-0db9-49b2-8ba0-0007a3292de7
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: warm drink
+    TargetNodeGUID: 423a2de3-0db9-49b2-8ba0-0007a3292de7
+  - BaseNodeGUID: bb61a754-7e0a-4322-8b44-d43764c46372
+    PortName: yes
+    TargetNodeGUID: 9dbf8158-b0eb-4363-811f-51233ebe2e57
+  - BaseNodeGUID: bb61a754-7e0a-4322-8b44-d43764c46372
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: sun
+    TargetNodeGUID: bb61a754-7e0a-4322-8b44-d43764c46372
+  - BaseNodeGUID: 3da33033-dd2a-46fb-9e0d-2a99cf5c0f20
+    PortName: yes
+    TargetNodeGUID: a80aaf4b-2b90-4642-9f35-030a733afeb5
+  - BaseNodeGUID: 3da33033-dd2a-46fb-9e0d-2a99cf5c0f20
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: torch
+    TargetNodeGUID: 3da33033-dd2a-46fb-9e0d-2a99cf5c0f20
+  - BaseNodeGUID: 83629ee1-72cf-4494-af56-42d89239a15f
+    PortName: yes
+    TargetNodeGUID: 498abb49-3347-4609-a327-1992482d216a
+  - BaseNodeGUID: 83629ee1-72cf-4494-af56-42d89239a15f
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: fire swrod
+    TargetNodeGUID: 83629ee1-72cf-4494-af56-42d89239a15f
+  - BaseNodeGUID: 3bfa672d-d7c5-4908-978f-423650d19690
+    PortName: yes
+    TargetNodeGUID: 1e55cd39-8e66-4c8d-bdaf-8878a8287559
+  - BaseNodeGUID: 3bfa672d-d7c5-4908-978f-423650d19690
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: ice sword
+    TargetNodeGUID: 3bfa672d-d7c5-4908-978f-423650d19690
+  - BaseNodeGUID: 1e76f62f-30b7-49aa-9499-b0010565b12a
+    PortName: yes
+    TargetNodeGUID: 1cc7cf2d-fece-4303-8028-1a7a6c5c07e8
+  - BaseNodeGUID: 1e76f62f-30b7-49aa-9499-b0010565b12a
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: reaper
+    TargetNodeGUID: 1e76f62f-30b7-49aa-9499-b0010565b12a
+  - BaseNodeGUID: b1bbefa1-7ed2-4902-bc11-e76ee502f434
+    PortName: yes
+    TargetNodeGUID: e7cc28e5-4888-4f46-9238-6407f72ad45b
+  - BaseNodeGUID: b1bbefa1-7ed2-4902-bc11-e76ee502f434
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: magic sword
+    TargetNodeGUID: b1bbefa1-7ed2-4902-bc11-e76ee502f434
+  - BaseNodeGUID: 182b6125-2631-47b6-97c0-a19d705e000b
+    PortName: yes
+    TargetNodeGUID: 8c1e4c05-a990-4aed-a843-fc252df06f4b
+  - BaseNodeGUID: 182b6125-2631-47b6-97c0-a19d705e000b
+    PortName: no
+    TargetNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+  - BaseNodeGUID: f8466c32-0955-43ab-b03a-ca96176a236e
+    PortName: sacre sword
+    TargetNodeGUID: 182b6125-2631-47b6-97c0-a19d705e000b
   DialogueNodeData:
   - NodeGUID: 9b8aff7e-294d-4369-88c1-916a9454dc84
     DialogueText: How's going, buddy?
@@ -89,9 +170,6 @@ MonoBehaviour:
   - NodeGUID: aea1f634-9de7-475b-b0de-09d2c82d568f
     DialogueText: Do you wanna buy HP Potion?
     Position: {x: 954, y: 115}
-  - NodeGUID: bb37bcb3-a05c-4d51-a895-815807931410
-    DialogueText: Do you wanna buy Boots?
-    Position: {x: 963, y: 831}
   - NodeGUID: 3f2d0fab-5bdb-4c0b-ac4a-79ff22d5618f
     DialogueText: 
     Position: {x: 1380, y: 110}
@@ -101,14 +179,71 @@ MonoBehaviour:
   - NodeGUID: 89bf671b-b651-4055-8dee-854b61a78f4f
     DialogueText: 
     Position: {x: 1376, y: 348}
-  - NodeGUID: b81b2256-0074-4c71-8c82-41bf07c47bf1
-    DialogueText: 
-    Position: {x: 1390, y: 622}
-  - NodeGUID: 5acc647b-ea39-42de-8630-8f0f1f63922f
-    DialogueText: 
-    Position: {x: 1384, y: 804}
   - NodeGUID: 96ef141c-3004-487c-9fc2-4f4edd5ecf0a
     DialogueText: Do you wanna buy Rocket?
-    Position: {x: 956, y: 622}
+    Position: {x: 946, y: 477}
+  - NodeGUID: b81b2256-0074-4c71-8c82-41bf07c47bf1
+    DialogueText: 
+    Position: {x: 1382, y: 489}
+  - NodeGUID: 5acc647b-ea39-42de-8630-8f0f1f63922f
+    DialogueText: 
+    Position: {x: 1372, y: 623}
+  - NodeGUID: bb37bcb3-a05c-4d51-a895-815807931410
+    DialogueText: Do you wanna buy Boots?
+    Position: {x: 955, y: 606}
+  - NodeGUID: 6f64be36-0321-432f-8f82-de09bff4aaff
+    DialogueText: Do you wanna buy cold drink?
+    Position: {x: 953, y: 753}
+  - NodeGUID: 287c7cb1-a301-4ecb-a73b-74186c55d95f
+    DialogueText: 
+    Position: {x: 1368, y: 761}
+  - NodeGUID: 68206124-3f3b-49ee-b457-4e4b81de61ed
+    DialogueText: 
+    Position: {x: 1372, y: 902}
+  - NodeGUID: 423a2de3-0db9-49b2-8ba0-0007a3292de7
+    DialogueText: Do you wanna buy warm drink?
+    Position: {x: 960, y: 901}
+  - NodeGUID: bb61a754-7e0a-4322-8b44-d43764c46372
+    DialogueText: Do you wanna buy sun?
+    Position: {x: 136, y: 788}
+  - NodeGUID: 3da33033-dd2a-46fb-9e0d-2a99cf5c0f20
+    DialogueText: Do you wanna buy torch?
+    Position: {x: 139, y: 943}
+  - NodeGUID: 9dbf8158-b0eb-4363-811f-51233ebe2e57
+    DialogueText: 
+    Position: {x: 545, y: 807}
+  - NodeGUID: a80aaf4b-2b90-4642-9f35-030a733afeb5
+    DialogueText: 
+    Position: {x: 531, y: 948}
+  - NodeGUID: 498abb49-3347-4609-a327-1992482d216a
+    DialogueText: 
+    Position: {x: 529, y: 1097}
+  - NodeGUID: 83629ee1-72cf-4494-af56-42d89239a15f
+    DialogueText: Do you wanna buy fire sword?
+    Position: {x: 141, y: 1098}
+  - NodeGUID: 3bfa672d-d7c5-4908-978f-423650d19690
+    DialogueText: Do you wanna buy ice sword?
+    Position: {x: 783, y: 1085}
+  - NodeGUID: 1e55cd39-8e66-4c8d-bdaf-8878a8287559
+    DialogueText: 
+    Position: {x: 1166, y: 1090}
+  - NodeGUID: 1cc7cf2d-fece-4303-8028-1a7a6c5c07e8
+    DialogueText: 
+    Position: {x: 131, y: 408}
+  - NodeGUID: 1e76f62f-30b7-49aa-9499-b0010565b12a
+    DialogueText: Do you wanna buy reaper?
+    Position: {x: -187, y: 377}
+  - NodeGUID: e7cc28e5-4888-4f46-9238-6407f72ad45b
+    DialogueText: 
+    Position: {x: 132, y: 514}
+  - NodeGUID: b1bbefa1-7ed2-4902-bc11-e76ee502f434
+    DialogueText: Do you wanna buy magic sword?
+    Position: {x: -207, y: 518}
+  - NodeGUID: 8c1e4c05-a990-4aed-a843-fc252df06f4b
+    DialogueText: 
+    Position: {x: 139, y: 676}
+  - NodeGUID: 182b6125-2631-47b6-97c0-a19d705e000b
+    DialogueText: Do you wanna buy sacre sword?
+    Position: {x: -228, y: 652}
   ExposedProperties: []
   CommentBlockData: []
