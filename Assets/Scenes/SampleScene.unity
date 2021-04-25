@@ -13611,6 +13611,7 @@ MonoBehaviour:
   PauseUI: {fileID: 1806657858}
   Pausemenu: {fileID: 0}
   PauseButton: {fileID: 2034382207}
+  mSlider: {fileID: 715098543}
 --- !u!114 &1806657860
 MonoBehaviour:
   m_ObjectHideFlags: 0
